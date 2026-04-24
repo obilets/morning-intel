@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spark Morning Edition — April 24, 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --font-display: 'Fraunces', Georgia, serif;
+    --font-body: 'Inter', system-ui, sans-serif;
+  }
+
+  html { font-size: 18px; scroll-behavior: smooth; }
+  body { font-family: var(--font-body); color: #1a1a1a; background: #f5f0eb; }
+
+  /* ── NAV ── */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(245,240,235,0.92); backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    padding: 1rem 2rem;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .nav-logo { font-family: var(--font-display); font-weight: 900; font-size: 1.1rem; letter-spacing: -0.02em; }
+  .nav-date { font-size: 0.85rem; color: #888; font-weight: 500; }
+
+  /* ── SPREAD BASE ── */
+  .spread {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 6rem 3rem 4rem;
+    position: relative; overflow: hidden;
+  }
+  .spread-inner { max-width: 900px; margin: 0 auto; width: 100%; }
+
+  .story-num {
+    font-family: var(--font-display); font-weight: 900;
+    opacity: 0.08; position: absolute; line-height: 1;
+    pointer-events: none; user-select: none;
+  }
+
+  .impact-badge {
+    display: inline-block; padding: 0.3rem 0.9rem; border-radius: 100px;
+    font-size: 0.8rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.08em; margin-bottom: 1.5rem;
+  }
+
+  .story-headline {
+    font-family: var(--font-display); line-height: 1.1;
+    letter-spacing: -0.03em; margin-bottom: 1.2rem;
+  }
+
+  .story-date {
+    font-size: 0.9rem; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.1em; margin-bottom: 1rem;
+  }
+
+  .story-body { font-size: 1.15rem; line-height: 1.7; max-width: 680px; }
+  .story-body p { margin-bottom: 1rem; }
+
+  .spark-impact {
+    margin-top: 1.5rem; padding: 1.2rem 1.5rem;
+    border-radius: 12px; font-size: 1.05rem; line-height: 1.6;
+  }
+  .spark-impact strong { font-weight: 700; }
+
+  .story-link {
+    display: inline-block; margin-top: 1.5rem;
+    font-weight: 600; font-size: 1rem;
+    text-decoration: none; border-bottom: 2px solid;
+    padding-bottom: 2px; transition: opacity 0.2s;
+  }
+  .story-link:hover { opacity: 0.7; }
+
+  /* ══════════════════════════════════════
+     SPREAD 0 — COVER
+     ══════════════════════════════════════ */
+  .spread-cover {
+    background: #0a0a0a; color: #fff;
+    text-align: center; min-height: 100vh;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+  }
+  .cover-edition {
+    font-size: 0.85rem; font-weight: 600; letter-spacing: 0.2em;
+    text-transform: uppercase; color: #888; margin-bottom: 2rem;
+  }
+  .cover-title {
+    font-family: var(--font-display); font-size: 5.5rem; font-weight: 900;
+    letter-spacing: -0.04em; line-height: 1.05; margin-bottom: 1.5rem;
+  }
+  .cover-subtitle {
+    font-size: 1.3rem; color: #aaa; max-width: 550px; line-height: 1.5;
+  }
+  .cover-date {
+    margin-top: 3rem; font-size: 1rem; color: #555;
+    font-weight: 500; letter-spacing: 0.05em;
+  }
+  .cover-toc {
+    margin-top: 3rem; display: flex; gap: 1rem; flex-wrap: wrap;
+    justify-content: center;
+  }
+  .cover-toc-item {
+    padding: 0.4rem 1rem; border: 1px solid #333; border-radius: 100px;
+    font-size: 0.8rem; color: #999; font-weight: 500;
+  }
+
+  /* ══════════════════════════════════════
+     SPREAD 1 — HERO (warm cream)
+     ══════════════════════════════════════ */
+  .spread-hero { background: #faf6f0; color: #1a1a1a; }
+  .spread-hero .story-num { font-size: 28rem; top: -4rem; right: -2rem; color: #e8dfd4; opacity: 0.5; }
+  .spread-hero .impact-badge { background: #dc2626; color: #fff; }
+  .spread-hero .story-headline { font-size: 3.8rem; font-weight: 900; }
+  .spread-hero .story-date { color: #b8860b; }
+  .spread-hero .spark-impact { background: #fef3c7; border-left: 4px solid #f59e0b; }
+  .spread-hero .story-link { color: #dc2626; border-color: #dc2626; }
+
+  /* ══════════════════════════════════════
+     SPREAD 2 — DARK / MIDNIGHT
+     ══════════════════════════════════════ */
+  .spread-dark { background: #0f172a; color: #e2e8f0; }
+  .spread-dark .story-num { font-size: 32rem; bottom: -6rem; left: -3rem; color: #1e293b; opacity: 0.7; }
+  .spread-dark .impact-badge { background: #dc2626; color: #fff; }
+  .spread-dark .story-headline { font-size: 3.4rem; font-weight: 700; color: #f8fafc; }
+  .spread-dark .story-date { color: #60a5fa; }
+  .spread-dark .story-body { color: #cbd5e1; }
+  .spread-dark .spark-impact { background: rgba(59,130,246,0.12); border-left: 4px solid #3b82f6; color: #93c5fd; }
+  .spread-dark .spark-impact strong { color: #60a5fa; }
+  .spread-dark .story-link { color: #60a5fa; border-color: #60a5fa; }
+
+  /* ══════════════════════════════════════
+     SPREAD 3 — ROSE / ALERT STAMP
+     ══════════════════════════════════════ */
+  .spread-rose { background: #fff1f2; color: #1a1a1a; }
+  .spread-rose .story-num { font-size: 26rem; top: 50%; right: -1rem; transform: translateY(-50%) rotate(-12deg); color: #fecdd3; opacity: 0.6; }
+  .spread-rose .impact-badge { background: #dc2626; color: #fff; }
+  .spread-rose .story-headline { font-size: 3.2rem; font-weight: 900; color: #9f1239; }
+  .spread-rose .story-date { color: #e11d48; }
+  .spread-rose .spark-impact { background: #ffe4e6; border-left: 4px solid #f43f5e; }
+  .spread-rose .story-link { color: #e11d48; border-color: #e11d48; }
+
+  /* ══════════════════════════════════════
+     SPREAD 4 — CLEAN / MINIMAL
+     ══════════════════════════════════════ */
+  .spread-clean { background: #ffffff; color: #1a1a1a; }
+  .spread-clean .story-num { font-size: 20rem; top: 2rem; left: 2rem; color: #f3f4f6; opacity: 0.8; }
+  .spread-clean .impact-badge { background: #f97316; color: #fff; }
+  .spread-clean .story-headline { font-size: 3rem; font-weight: 700; }
+  .spread-clean .story-date { color: #f97316; }
+  .spread-clean .spark-impact { background: #fff7ed; border-left: 4px solid #f97316; }
+  .spread-clean .story-link { color: #ea580c; border-color: #ea580c; }
+
+  /* ══════════════════════════════════════
+     SPREAD 5 — TERMINAL / GREEN-ON-BLACK
+     ══════════════════════════════════════ */
+  .spread-terminal { background: #0a0a0a; color: #4ade80; font-family: 'Courier New', monospace; }
+  .spread-terminal .story-num { font-size: 30rem; bottom: -5rem; right: -2rem; color: #166534; opacity: 0.3; font-family: var(--font-display); }
+  .spread-terminal .impact-badge { background: #16a34a; color: #000; font-family: var(--font-body); }
+  .spread-terminal .story-headline { font-size: 2.8rem; font-weight: 700; color: #22c55e; font-family: var(--font-display); }
+  .spread-terminal .story-date { color: #166534; }
+  .spread-terminal .story-body { color: #86efac; font-family: var(--font-body); font-size: 1.1rem; }
+  .spread-terminal .spark-impact { background: rgba(22,163,74,0.1); border-left: 4px solid #22c55e; color: #86efac; }
+  .spread-terminal .spark-impact strong { color: #4ade80; }
+  .spread-terminal .story-link { color: #4ade80; border-color: #4ade80; }
+
+  /* ══════════════════════════════════════
+     SPREAD 6 — ACADEMIC / DROP-CAP
+     ══════════════════════════════════════ */
+  .spread-academic { background: #fefce8; color: #1c1917; }
+  .spread-academic .story-num { font-size: 24rem; top: -2rem; left: -1rem; color: #fef08a; opacity: 0.6; }
+  .spread-academic .impact-badge { background: #ca8a04; color: #fff; }
+  .spread-academic .story-headline { font-size: 2.8rem; font-weight: 700; font-style: italic; }
+  .spread-academic .story-date { color: #a16207; }
+  .spread-academic .story-body .dropcap { font-family: var(--font-display); font-size: 4.5rem; float: left; line-height: 0.8; margin-right: 0.5rem; margin-top: 0.15rem; font-weight: 900; color: #92400e; }
+  .spread-academic .spark-impact { background: #fef9c3; border-left: 4px solid #eab308; }
+  .spread-academic .story-link { color: #a16207; border-color: #a16207; }
+
+  /* ══════════════════════════════════════
+     SPREAD 7 — OCEAN / DEEP TEAL
+     ══════════════════════════════════════ */
+  .spread-ocean { background: #0d3b4f; color: #ccfbf1; }
+  .spread-ocean .story-num { font-size: 28rem; top: -3rem; right: -2rem; color: #134e5e; opacity: 0.5; }
+  .spread-ocean .impact-badge { background: #14b8a6; color: #000; }
+  .spread-ocean .story-headline { font-size: 3rem; font-weight: 900; color: #f0fdfa; }
+  .spread-ocean .story-date { color: #5eead4; }
+  .spread-ocean .story-body { color: #99f6e4; }
+  .spread-ocean .spark-impact { background: rgba(20,184,166,0.12); border-left: 4px solid #14b8a6; color: #99f6e4; }
+  .spread-ocean .spark-impact strong { color: #5eead4; }
+  .spread-ocean .story-link { color: #5eead4; border-color: #5eead4; }
+
+  /* ══════════════════════════════════════
+     SPREAD 8 — SLATE / EDITORIAL
+     ══════════════════════════════════════ */
+  .spread-slate { background: #f8fafc; color: #0f172a; border-top: 8px solid #0f172a; }
+  .spread-slate .story-num { font-size: 22rem; bottom: -3rem; right: 0; color: #e2e8f0; opacity: 0.7; }
+  .spread-slate .impact-badge { background: #475569; color: #fff; }
+  .spread-slate .story-headline { font-size: 2.6rem; font-weight: 700; }
+  .spread-slate .story-date { color: #64748b; }
+  .spread-slate .spark-impact { background: #f1f5f9; border-left: 4px solid #475569; }
+  .spread-slate .story-link { color: #334155; border-color: #334155; }
+
+  /* ══════════════════════════════════════
+     SPREAD 9 — BIG STAT / PURPLE
+     ══════════════════════════════════════ */
+  .spread-stat { background: #2e1065; color: #e9d5ff; text-align: center; }
+  .spread-stat .spread-inner { display: flex; flex-direction: column; align-items: center; }
+  .spread-stat .story-num { font-size: 34rem; top: 50%; left: 50%; transform: translate(-50%,-50%); color: #3b0764; opacity: 0.5; }
+  .spread-stat .impact-badge { background: #a855f7; color: #fff; }
+  .spread-stat .big-number { font-family: var(--font-display); font-size: 10rem; font-weight: 900; color: #c084fc; line-height: 1; margin-bottom: 0.5rem; }
+  .spread-stat .big-unit { font-size: 1.4rem; font-weight: 600; color: #a78bfa; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 2rem; }
+  .spread-stat .story-headline { font-size: 2.4rem; font-weight: 700; color: #f5f3ff; }
+  .spread-stat .story-date { color: #a78bfa; }
+  .spread-stat .story-body { color: #d8b4fe; text-align: center; }
+  .spread-stat .spark-impact { background: rgba(168,85,247,0.15); border-left: none; border-top: 4px solid #a855f7; text-align: left; }
+  .spread-stat .spark-impact strong { color: #c084fc; }
+  .spread-stat .story-link { color: #c084fc; border-color: #c084fc; }
+
+  /* ══════════════════════════════════════
+     SPREAD 10 — QUICK HITS / GRID
+     ══════════════════════════════════════ */
+  .spread-grid { background: #18181b; color: #fafafa; }
+  .spread-grid .story-num { font-size: 26rem; bottom: -4rem; left: -2rem; color: #27272a; opacity: 0.6; }
+  .spread-grid .section-title { font-family: var(--font-display); font-size: 3rem; font-weight: 900; margin-bottom: 2.5rem; }
+  .hits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .hit-card {
+    background: #27272a; border-radius: 16px; padding: 2rem;
+    border-left: 4px solid; transition: transform 0.2s;
+  }
+  .hit-card:hover { transform: translateY(-2px); }
+  .hit-card h3 { font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; margin-bottom: 0.75rem; line-height: 1.3; }
+  .hit-card p { font-size: 1rem; color: #a1a1aa; line-height: 1.6; }
+  .hit-card:nth-child(1) { border-color: #f97316; }
+  .hit-card:nth-child(2) { border-color: #ef4444; }
+  .hit-card:nth-child(3) { border-color: #a855f7; }
+  .hit-card:nth-child(4) { border-color: #06b6d4; }
+  .hit-card:nth-child(5) { border-color: #22c55e; }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: #0a0a0a; color: #555; text-align: center;
+    padding: 3rem 2rem; font-size: 0.9rem;
+  }
+  .footer a { color: #888; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .spread { padding: 5rem 1.5rem 3rem; }
+    .cover-title { font-size: 3rem; }
+    .story-headline { font-size: 2.2rem !important; }
+    .story-num { font-size: 14rem !important; }
+    .hits-grid { grid-template-columns: 1fr; }
+    .spread-stat .big-number { font-size: 6rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo">Spark ✦ Morning Edition</div>
+  <div class="nav-date">April 24, 2026</div>
+</nav>
+
+<!-- ═══ COVER ═══ -->
+<section class="spread spread-cover">
+  <div class="cover-edition">Spark Competitor Intelligence</div>
+  <h1 class="cover-title">Morning<br>Edition</h1>
+  <p class="cover-subtitle">Your daily briefing on email, calendar, meetings & AI — curated for the Spark Mail team.</p>
+  <div class="cover-date">Thursday, April 24, 2026</div>
+  <div class="cover-toc">
+    <span class="cover-toc-item">🔴 3 High Impact</span>
+    <span class="cover-toc-item">🟠 3 Medium Impact</span>
+    <span class="cover-toc-item">🟡 1 Low Impact</span>
+    <span class="cover-toc-item">⚡ 5 Quick Hits</span>
+  </div>
+</section>
+
+<!-- ═══ STORY 1 — HERO ═══ -->
+<section class="spread spread-hero">
+  <div class="story-num">01</div>
+  <div class="spread-inner">
+    <div class="impact-badge">🔴 High Impact</div>
+    <div class="story-date">April 23, 2026</div>
+    <h2 class="story-headline">OpenAI Ships GPT-5.5 "Spud" — The First Model Built as an Agent Runtime</h2>
+    <div class="story-body">
+      <p>OpenAI released GPT-5.5, codenamed "Spud," and it's not just another chat model — it's the first flagship positioned primarily as an agent runtime. It can natively navigate desktop applications, click buttons, type text, and execute multi-step workflows autonomously with less user input than any prior model.</p>
+      <p>Co-founder Greg Brockman called it a "big advancement towards more agentic and intuitive computing" and a step toward OpenAI's "super app." Available now to Plus, Pro, Business, and Enterprise users.</p>
+    </div>
+    <div class="spark-impact">
+      <strong>→ Spark Impact:</strong> OpenAI is building toward a universal agent that could handle email, calendar, and meeting flows entirely inside ChatGPT — directly competing with the value proposition of dedicated email clients like Spark.
+    </div>
+    <a href="https://techcrunch.com/2026/04/23/openai-chatgpt-gpt-5-5-ai-model-superapp/" class="story-link" target="_blank">Read more at TechCrunch →</a>
+  </div>
+</section>
+
+<!-- ═══ STORY 2 — DARK / MIDNIGHT ═══ -->
+<section class="spread spread-dark">
+  <div class="story-num">02</div>
+  <div class="spread-inner">
+    <div class="impact-badge">🔴 High Impact</div>
+    <div class="story-date">April 22, 2026</div>
+    <h2 class="story-headline">Google Launches Workspace Intelligence + AI Inbox in Gmail</h2>
+    <div class="story-body">
+      <p>At Cloud Next '26, Google unveiled Workspace Intelligence — a Gemini 3-powered semantic layer that reads across Gmail, Docs, Sheets, Calendar, and Chat to power agentic work. The Gmail features are the headline act: <strong>AI Inbox</strong> creates a personalized briefing that highlights to-dos and filters clutter; <strong>AI Overviews</strong> lets you ask natural-language questions and get summarized answers without opening emails.</p>
+      <p>They also launched <strong>Workspace Studio</strong>, a no-code platform for building custom agents, and a <strong>Workspace MCP Server</strong> so any external AI agent can plug into Gmail natively. Rolling out to admins now, wide access by May 7.</p>
+    </div>
+    <div class="spark-impact">
+      <strong>→ Spark Impact:</strong> Google is turning Gmail into an AI-first experience with proactive briefings — the exact value prop Spark offers. The MCP server also opens the door for third-party agents to deeply integrate with Gmail, potentially commoditizing email client features.
+    </div>
+    <a href="https://techcrunch.com/2026/04/22/ai-overviews-are-coming-to-your-gmail-at-work/" class="story-link" target="_blank">Read more at TechCrunch →</a>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 — ROSE / ALERT STAMP ═══ -->
+<section class="spread spread-rose">
+  <div class="story-num">03</div>
+  <div class="spread-inner">
+    <div class="impact-badge">🔴 High Impact</div>
+    <div class="story-date">April 23, 2026</div>
+    <h2 class="story-headline">Anthropic Opens Persistent Memory for Managed Agents</h2>
+    <div class="story-body">
+      <p>Anthropic announced that persistent memory for Claude Managed Agents is now in public beta. Agents can learn from past sessions, share what they've learned with other agents, and store memories as files on a filesystem — giving developers full control over what agents retain.</p>
+      <p>The architecture mounts memory directly onto a filesystem so Claude can use its existing bash and code execution capabilities. Compaction lets agents save context summaries that persist beyond any single session.</p>
+    </div>
+    <div class="spark-impact">
+      <strong>→ Spark Impact:</strong> This makes it dramatically easier for any company — competitors or Spark itself — to build persistent AI assistants that remember user preferences, learn email patterns, and improve at calendar management over time.
+    </div>
+    <a href="https://sdtimes.com/anthropic/anthropic-adds-memory-to-claude-managed-agents/" class="story-link" target="_blank">Read more at SD Times →</a>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 — CLEAN / MINIMAL ═══ -->
+<section class="spread spread-clean">
+  <div class="story-num">04</div>
+  <div class="spread-inner">
+    <div class="impact-badge">🟠 Medium Impact</div>
+    <div class="story-date">April 18, 2026</div>
+    <h2 class="story-headline">Microsoft 365 Copilot Adds Claude as a Model Option</h2>
+    <div class="story-body">
+      <p>Microsoft is expanding model choice in Copilot Chat by adding Anthropic's Claude Sonnet 4.5 for general queries and Opus 4.5 for deep reasoning alongside OpenAI models. Users with a Copilot license can pick their preferred model from a selector.</p>
+      <p>In a related update, Copilot meeting summaries now include narrated video highlight reels — short visual recaps alongside the written summary. Available in commercial tenancies (not EU/EFTA/UK).</p>
+    </div>
+    <div class="spark-impact">
+      <strong>→ Spark Impact:</strong> Outlook + Copilot becomes multi-model and significantly smarter. The meeting highlight reels raise the bar for what users expect from meeting notes features — an area where Spark competes directly.
+    </div>
+    <a href="https://www.microsoft.com/en-us/microsoft-copilot/blog/copilot-studio/anthropic-joins-the-multi-model-lineup-in-microsoft-copilot-studio/" class="story-link" target="_blank">Read more at Microsoft →</a>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 — TERMINAL ═══ -->
+<section class="spread spread-terminal">
+  <div class="story-num">05</div>
+  <div class="spread-inner">
+    <div class="impact-badge">🟠 Medium Impact</div>
+    <div class="story-date">April 2026</div>
+    <h2 class="story-headline">New Outlook Rolling Out to Enterprise Users</h2>
+    <div class="story-body">
+      <p>Microsoft's transition to the new Outlook for Windows reaches Enterprise users this month, following Business Standard and Premium users who started migrating in January 2025. Classic Outlook will be supported until at least 2029, but the new client — with Copilot deeply integrated — is the strategic direction.</p>
+      <p>Microsoft is also ending support for the last versions of Outlook that use Word rendering in October 2026, pushing the entire ecosystem toward the modern client.</p>
+    </div>
+    <div class="spark-impact">
+      <strong>→ Spark Impact:</strong> Enterprise users forced to re-evaluate their email setup during migration = a window of opportunity. When habits break, users explore alternatives — and Spark should be visible during this transition.
+    </div>
+    <a href="https://www.flotek.io/blog/microsoft-365-copilot-updates-april-2026" class="story-link" target="_blank">Read more at Flotek →</a>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 — ACADEMIC / DROP-CAP ═══ -->
+<section class="spread spread-academic">
+  <div class="story-num">06</div>
+  <div class="spread-inner">
+    <div class="impact-badge">🟠 Medium Impact</div>
+    <div class="story-date">April 20, 2026</div>
+    <h2 class="story-headline">Kimi K2.6 Open-Sourced with Agent Swarm Architecture</h2>
+    <div class="story-body">
+      <p><span class="dropcap">M</span>oonshot AI has open-sourced Kimi K2.6, introducing an agent swarm architecture that scales horizontally to 300 coordinated sub-agents executing across 4,000 steps simultaneously — up from K2.5's 100 agents and 1,500 steps.</p>
+      <p>The new "Claw Groups" feature lets multiple agents and humans collaborate in a shared operational space across devices, each carrying their own specialized toolkits, skills, and persistent memory. Benchmarks land on par with GPT-5.4, Claude Opus 4.6, and Gemini 3.1 Pro.</p>
+    </div>
+    <div class="spark-impact">
+      <strong>→ Spark Impact:</strong> Open-weight agent swarms dramatically lower the barrier for anyone to build multi-agent email and calendar automation without relying on closed APIs. Smaller teams can now orchestrate complex workflows that previously required enterprise-grade infrastructure.
+    </div>
+    <a href="https://venturebeat.com/orchestration/kimi-k2-6-runs-agents-for-days-and-exposes-the-limits-of-enterprise-orchestration" class="story-link" target="_blank">Read more at VentureBeat →</a>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 — OCEAN ═══ -->
+<section class="spread spread-ocean">
+  <div class="story-num">07</div>
+  <div class="spread-inner">
+    <div class="impact-badge">🟡 Low Impact</div>
+    <div class="story-date">Recent</div>
+    <h2 class="story-headline">Perplexity Email Assistant Goes Live at $200/Month</h2>
+    <div class="story-body">
+      <p>Perplexity's Email Assistant is now available for Max subscribers. It connects directly to Gmail and Outlook, auto-labels messages by priority, drafts replies matching your tone, answers natural-language questions about your inbox, and suggests meeting times based on calendar habits.</p>
+      <p>At $200/month exclusively for Max tier, the price point limits mainstream adoption — but it's a significant validation of the AI-native email assistant category from a major AI company.</p>
+    </div>
+    <div class="spark-impact">
+      <strong>→ Spark Impact:</strong> The premium pricing validates that users will pay for AI email management — good for Spark's positioning. But if Perplexity lowers the price or bundles it, this becomes a direct competitive threat.
+    </div>
+    <a href="https://venturebeat.com/ai/perplexitys-new-ai-agent-wants-to-replace-your-email-habits-for-usd200-per" class="story-link" target="_blank">Read more at VentureBeat →</a>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 — SLATE / EDITORIAL ═══ -->
+<section class="spread spread-slate">
+  <div class="story-num">08</div>
+  <div class="spread-inner">
+    <div class="impact-badge">⚡ Signal</div>
+    <div class="story-date">Q1 2026</div>
+    <h2 class="story-headline">Gmail Kills Gmailify & POP — Third-Party Email Linking Ends</h2>
+    <div class="story-body">
+      <p>Google has discontinued Gmailify (which let users manage non-Google accounts inside Gmail) and dropped POP protocol support for third-party accounts. No new users have been able to set up Gmailify since Q1 2026, and existing users will lose access later this year.</p>
+      <p>Separately, Google completed elimination of Basic Authentication for Gmail, and Microsoft's deadline for Microsoft 365 is April 30, 2026 — apps still using basic auth for IMAP/POP will break.</p>
+    </div>
+    <div class="spark-impact">
+      <strong>→ Spark Impact:</strong> Users who relied on Gmailify for multi-account management now need an alternative — Spark's unified inbox is a natural landing spot. The OAuth enforcement also affects any Spark integrations still on legacy auth.
+    </div>
+    <a href="https://www.getmailbird.com/gmail-oauth-authentication-changes-user-guide/" class="story-link" target="_blank">Read more →</a>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 — BIG STAT ═══ -->
+<section class="spread spread-stat">
+  <div class="story-num">09</div>
+  <div class="spread-inner">
+    <div class="impact-badge">⚡ Signal</div>
+    <div class="big-number">40%</div>
+    <div class="big-unit">of enterprise apps will have AI agents by end of 2026</div>
+    <h2 class="story-headline">Gartner's Prediction Is Reshaping the Market</h2>
+    <div class="story-date">2026 Forecast</div>
+    <div class="story-body">
+      <p>Gartner projects that 40% of enterprise applications will feature task-specific AI agents by year-end 2026 — up from less than 5% in 2025. McKinsey estimates the productivity impact at $4.4 trillion. The race to embed agents into every workflow is accelerating across email, calendar, project management, and collaboration tools.</p>
+    </div>
+    <div class="spark-impact">
+      <strong>→ Spark Impact:</strong> The expectation is being set: every productivity app needs an AI agent. Spark's AI features aren't a nice-to-have — they're table stakes for 2026. Speed of execution here is existential.
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 — QUICK HITS GRID ═══ -->
+<section class="spread spread-grid">
+  <div class="story-num">⚡</div>
+  <div class="spread-inner">
+    <h2 class="section-title">Quick Hits</h2>
+    <div class="hits-grid">
+      <div class="hit-card">
+        <h3>Microsoft 365 Basic Auth Ends Apr 30</h3>
+        <p>IMAP/POP apps that haven't migrated to OAuth 2.0 will stop working. Deadline is final — no more extensions.</p>
+      </div>
+      <div class="hit-card">
+        <h3>Shortwave Still Gmail-Only</h3>
+        <p>AI features require active manual prompting rather than autonomous action. No multi-provider support on the horizon.</p>
+      </div>
+      <div class="hit-card">
+        <h3>Notion Mail Gets Workspace-Aware AI</h3>
+        <p>AI can now reference your Notion pages when drafting emails — tight integration for teams already in the Notion ecosystem.</p>
+      </div>
+      <div class="hit-card">
+        <h3>Fyxer AI: $1M → $17M ARR in 8 Months</h3>
+        <p>The AI exec assistant for email + meetings is growing explosively post-Series B ($30M from Madrona). Direct competitor in prosumer/SMB.</p>
+      </div>
+      <div class="hit-card">
+        <h3>Lindy, Motion & Reclaim Gaining Traction</h3>
+        <p>AI scheduling assistants that auto-schedule tasks, habits, meetings, and breaks are building loyal user bases in the productivity space.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>Spark Morning Edition — Auto-generated competitor intelligence for the Spark Mail team</p>
+  <p style="margin-top:0.5rem">Sources verified April 24, 2026 · Powered by Claude</p>
+</footer>
+
+</body>
+</html>
