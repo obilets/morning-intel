@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Morning Edition — April 27, 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,400;1,9..144,600;1,9..144,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+}
+
+html { scroll-behavior: smooth; font-size: 16px; }
+body { font-family: var(--font-body); color: #1a1a1a; background: #faf9f6; overflow-x: hidden; }
+
+/* NAV */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1rem 2.5rem;
+  background: rgba(26, 26, 26, 0.92); backdrop-filter: blur(12px);
+  color: #fff; font-family: var(--font-body);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.nav-brand { font-weight: 600; font-size: 0.95rem; letter-spacing: 0.03em; }
+.nav-date { font-size: 0.8rem; opacity: 0.7; letter-spacing: 0.05em; text-transform: uppercase; }
+
+/* SPREAD BASE */
+.spread {
+  min-height: 100vh; position: relative; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  padding: 6rem 2rem 4rem;
+}
+.spread-inner {
+  max-width: 800px; width: 100%; position: relative; z-index: 2;
+}
+.spread .bg-num {
+  position: absolute; font-family: var(--font-display); font-weight: 900;
+  font-size: clamp(15rem, 30vw, 28rem); line-height: 1; opacity: 0.04;
+  pointer-events: none; user-select: none; z-index: 0;
+}
+.badge {
+  display: inline-block; padding: 0.3rem 0.8rem; border-radius: 3px;
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; margin-bottom: 1rem;
+}
+.badge-high { background: #e74c3c; color: #fff; }
+.badge-medium { background: #f39c12; color: #fff; }
+.badge-low { background: #f1c40f; color: #333; }
+.badge-quick { background: #8e44ad; color: #fff; }
+.spread-date {
+  font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase;
+  margin-bottom: 1.2rem; opacity: 0.6;
+}
+.spread h2 {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: clamp(1.8rem, 4vw, 2.8rem); line-height: 1.15;
+  margin-bottom: 1.5rem;
+}
+.spread p {
+  font-size: 1.05rem; line-height: 1.75; margin-bottom: 1rem;
+  font-weight: 400;
+}
+.impact-box {
+  margin-top: 1.5rem; padding: 1.2rem 1.5rem;
+  border-left: 4px solid; font-size: 0.95rem; line-height: 1.7;
+}
+.read-more {
+  display: inline-block; margin-top: 1.2rem;
+  font-size: 0.85rem; font-weight: 600; text-decoration: none;
+  letter-spacing: 0.03em;
+}
+
+/* ——— COVER ——— */
+.cover {
+  background: #1a1a1a; color: #faf9f6;
+  display: flex; align-items: center; justify-content: center;
+  text-align: center; min-height: 100vh; padding: 4rem 2rem;
+}
+.cover-inner { max-width: 700px; }
+.cover .edition-label {
+  font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase;
+  opacity: 0.5; margin-bottom: 2rem;
+}
+.cover h1 {
+  font-family: var(--font-display); font-weight: 900;
+  font-size: clamp(3rem, 8vw, 5.5rem); line-height: 1.05;
+  margin-bottom: 1.5rem;
+}
+.cover .subtitle {
+  font-size: 1.1rem; opacity: 0.6; line-height: 1.6; max-width: 500px; margin: 0 auto 2rem;
+}
+.cover .date-line {
+  font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase;
+  opacity: 0.4; border-top: 1px solid rgba(255,255,255,0.15);
+  padding-top: 1.5rem; display: inline-block;
+}
+.cover .story-count {
+  margin-top: 1rem; font-size: 0.8rem; opacity: 0.35; letter-spacing: 0.05em;
+}
+
+/* ——— 1. HERO (warm cream) ——— */
+.spread-hero { background: #faf5ee; color: #2c1810; }
+.spread-hero .bg-num { color: #d4a574; top: -5%; right: -5%; }
+.spread-hero h2 { color: #1a0f08; }
+.spread-hero .impact-box { border-color: #c97b3a; background: rgba(201,123,58,0.07); }
+.spread-hero .read-more { color: #c97b3a; }
+
+/* ——— 2. DARK/MIDNIGHT ——— */
+.spread-dark { background: #0f1628; color: #c8d0e0; }
+.spread-dark .bg-num { color: #1e2d52; top: -8%; left: -5%; }
+.spread-dark h2 { color: #e8ecf4; }
+.spread-dark .impact-box { border-color: #4a7cff; background: rgba(74,124,255,0.08); }
+.spread-dark .read-more { color: #6b9aff; }
+.spread-dark .spread-date { color: #6b9aff; opacity: 1; }
+
+/* ——— 3. ROSE/ALERT ——— */
+.spread-rose { background: #fdf0f0; color: #3d1c1c; }
+.spread-rose .bg-num { color: #f5c6c6; top: 5%; right: -8%; transform: rotate(-8deg); }
+.spread-rose h2 { color: #8b1a1a; }
+.spread-rose .impact-box { border-color: #d44; background: rgba(221,68,68,0.06); }
+.spread-rose .read-more { color: #c93030; }
+
+/* ——— 4. CLEAN/MINIMAL ——— */
+.spread-clean { background: #ffffff; color: #333; }
+.spread-clean .bg-num { color: #f0ebe3; bottom: -10%; left: -3%; }
+.spread-clean h2 { color: #1a1a1a; }
+.spread-clean .impact-box { border-color: #e67e22; background: rgba(230,126,34,0.06); }
+.spread-clean .read-more { color: #e67e22; }
+
+/* ——— 5. TERMINAL ——— */
+.spread-terminal { background: #0a0a0a; color: #b0b0b0; font-family: 'Courier New', monospace; }
+.spread-terminal .bg-num { color: #1a2a1a; top: -5%; right: -5%; font-family: 'Courier New', monospace; }
+.spread-terminal h2 { color: #00ff88; font-family: var(--font-display); }
+.spread-terminal .impact-box { border-color: #00ff88; background: rgba(0,255,136,0.05); }
+.spread-terminal .read-more { color: #00ff88; }
+.spread-terminal .badge { font-family: var(--font-body); }
+.spread-terminal .spread-date { color: #00ff88; opacity: 0.7; }
+
+/* ——— 6. ACADEMIC ——— */
+.spread-academic { background: #fdf8e8; color: #3a3520; }
+.spread-academic .bg-num { color: #e8d9a0; top: -5%; left: -5%; }
+.spread-academic h2 { font-style: italic; color: #5a4a10; }
+.spread-academic p:first-of-type::first-letter {
+  float: left; font-family: var(--font-display); font-size: 3.5rem;
+  line-height: 0.85; padding-right: 0.5rem; padding-top: 0.2rem;
+  font-weight: 800; color: #8a7a20;
+}
+.spread-academic .impact-box { border-color: #c4a820; background: rgba(196,168,32,0.07); }
+.spread-academic .read-more { color: #8a7a20; }
+
+/* ——— 7. OCEAN ——— */
+.spread-ocean { background: #0b2e36; color: #b8d8d8; }
+.spread-ocean .bg-num { color: #143e48; top: -5%; right: -8%; }
+.spread-ocean h2 { color: #e0f4f4; }
+.spread-ocean .impact-box { border-color: #2dd4a8; background: rgba(45,212,168,0.08); }
+.spread-ocean .read-more { color: #2dd4a8; }
+.spread-ocean .spread-date { color: #2dd4a8; opacity: 0.8; }
+
+/* ——— 8. SLATE ——— */
+.spread-slate { background: #f4f3f0; color: #2a2a2a; border-top: 6px solid #1a1a1a; }
+.spread-slate .bg-num { color: #ddd9d0; bottom: -8%; right: -5%; }
+.spread-slate h2 { color: #1a1a1a; }
+.spread-slate .impact-box { border-color: #555; background: rgba(0,0,0,0.03); }
+.spread-slate .read-more { color: #555; }
+
+/* ——— 9. QUICK HITS ——— */
+.spread-quickhits { background: #151520; color: #ccc; padding: 6rem 2rem 4rem; }
+.spread-quickhits .spread-inner { max-width: 1000px; }
+.spread-quickhits h2 { color: #fff; text-align: center; margin-bottom: 2rem; }
+.qh-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+.qh-card {
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px; padding: 1.5rem;
+}
+.qh-card h3 {
+  font-family: var(--font-display); font-size: 1.15rem; font-weight: 700;
+  color: #fff; margin-bottom: 0.8rem; line-height: 1.3;
+}
+.qh-card p { font-size: 0.9rem; line-height: 1.65; opacity: 0.75; }
+.qh-card .read-more { color: #a78bfa; font-size: 0.8rem; }
+
+/* FOOTER */
+.footer {
+  background: #1a1a1a; color: rgba(255,255,255,0.4);
+  text-align: center; padding: 3rem 2rem;
+  font-size: 0.8rem; line-height: 1.8;
+}
+.footer strong { color: rgba(255,255,255,0.6); }
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+  .nav { padding: 0.8rem 1.2rem; }
+  .spread { padding: 5rem 1.2rem 3rem; }
+  .spread h2 { font-size: 1.6rem; }
+  .cover h1 { font-size: 2.5rem; }
+  .qh-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand">✦ Morning Edition</div>
+  <div class="nav-date">April 27, 2026</div>
+</nav>
+
+<!-- COVER -->
+<section class="cover">
+  <div class="cover-inner">
+    <div class="edition-label">Competitor Intelligence</div>
+    <h1>Morning Edition</h1>
+    <p class="subtitle">Your daily briefing on email, calendar, meetings & AI.</p>
+    <div class="date-line">Sunday, April 27, 2026</div>
+    <div class="story-count">8 stories · 3 high-impact signals</div>
+  </div>
+</section>
+
+<!-- STORY 01 — HERO -->
+<section class="spread spread-hero" id="story-01">
+  <div class="bg-num">01</div>
+  <div class="spread-inner">
+    <span class="badge badge-high">🔴 High Impact</span>
+    <div class="spread-date">April 22, 2026</div>
+    <h2>Google Launches Workspace MCP Servers — Any AI Agent Can Now Read Your Gmail, Calendar & Drive</h2>
+    <p>At Google Cloud Next 2026, Google unveiled official Model Context Protocol servers for Gmail, Google Calendar, Google Drive, and Google Chat — all now in developer preview. This means any third-party AI agent, from Claude to custom enterprise bots, can securely read emails, search files, schedule meetings, and send chat messages through a standardized protocol.</p>
+    <p>The move is a radical shift in Google's API strategy. Rather than forcing developers to integrate with bespoke REST APIs, the MCP servers let AI agents discover and use Workspace capabilities automatically, inheriting the user's existing permissions and data governance controls. Google explicitly calls out compatibility with "Gemini CLI, Claude, or IDEs."</p>
+    <p>Alongside this, Google announced "Workspace Intelligence" — a unified semantic understanding layer that powers agentic work across Docs, Slides, Gmail, and Calendar. Combined with "Ask Gemini in Chat," users can synthesize information, schedule meetings, and create documents without leaving Google Chat.</p>
+    <div class="impact-box">
+      → <strong>Impact:</strong> This is a platform-level threat. If any AI agent can plug into Gmail/Calendar natively, the moat for third-party email clients narrows dramatically. Our product's differentiation must move beyond inbox access toward unique intelligence, workflow, and UX that MCP-connected agents can't replicate. The team should evaluate integrating with these MCP servers to offer users a best-of-both-worlds experience.
+    </div>
+    <a class="read-more" href="https://workspace.google.com/blog/product-announcements/10-more-announcements-workspace-at-next-2026" target="_blank">Read more →</a>
+  </div>
+</section>
+
+<!-- STORY 02 — DARK -->
+<section class="spread spread-dark" id="story-02">
+  <div class="bg-num">02</div>
+  <div class="spread-inner">
+    <span class="badge badge-high">🔴 High Impact</span>
+    <div class="spread-date">April 17, 2026</div>
+    <h2>Cloudflare Ships "Email for Agents" — A Full Email Stack Built for AI-First Workflows</h2>
+    <p>During Agents Week 2026, Cloudflare moved its Email Service into public beta, adding full email sending alongside years-old email routing. The product is explicitly designed for AI agents: developers can send transactional emails directly from Cloudflare Workers with a native binding — no API keys, no secrets management needed.</p>
+    <p>The launch includes an MCP server giving agents access to the entire Cloudflare API, a reference "Agentic Inbox" app with conversation threading and human-in-the-loop review before any email goes out, and R2 storage for attachments. Developers are already building customer support agents, invoice processing pipelines, and multi-agent workflows on top of email as a core interface.</p>
+    <p>Cloudflare's positioning is clear: email is becoming infrastructure for agents, not just humans. Their bet is that as AI agents proliferate, they'll need first-class email capabilities — and Cloudflare wants to be the plumbing.</p>
+    <div class="impact-box">
+      → <strong>Impact:</strong> This signals a fundamental shift in how email is consumed. If agents become primary email participants, our product needs to consider how it surfaces, manages, and differentiates agent-generated vs. human email. The "Agentic Inbox" pattern — with human-in-the-loop review — is worth studying closely as a product concept.
+    </div>
+    <a class="read-more" href="https://blog.cloudflare.com/email-for-agents/" target="_blank">Read more →</a>
+  </div>
+</section>
+
+<!-- STORY 03 — ROSE -->
+<section class="spread spread-rose" id="story-03">
+  <div class="bg-num">03</div>
+  <div class="spread-inner">
+    <span class="badge badge-high">🔴 High Impact</span>
+    <div class="spread-date">April 2026</div>
+    <h2>Microsoft Copilot Goes Agentic in Outlook — Scheduling, RSVPs & Email Coaching on Autopilot</h2>
+    <p>Microsoft is rolling out a wave of agentic Copilot features in Outlook. The headliner: "Schedule with Copilot" lets users click a single button from any email thread to have Copilot find available times, book meeting rooms, draft agendas, and send invites — all in one guided chat flow. The feature rolled out in February for new Outlook and March for classic Outlook.</p>
+    <p>Beyond scheduling, Copilot can now handle RSVPs autonomously — accepting, declining, or tentatively accepting meetings based on user-defined rules around sender, keywords, and working hours. An email coaching feature (due May 2026) provides real-time feedback on drafts and can apply suggestions directly in place.</p>
+    <p>Microsoft is also pushing the new Outlook as default for Microsoft 365 organizations starting April 2026, though they've acknowledged it "still isn't ready for everyone" — a sign of ongoing transition friction that third-party clients can exploit.</p>
+    <div class="impact-box">
+      → <strong>Impact:</strong> The "Schedule with Copilot" flow is the most direct competitive threat to our calendar and meeting scheduling features. However, Microsoft's own admission that new Outlook isn't ready creates a window of opportunity. The team should benchmark our scheduling experience against Copilot's one-click flow and identify where we can be faster or smarter.
+    </div>
+    <a class="read-more" href="https://techcommunity.microsoft.com/blog/outlook/copilot-in-outlook-new-agentic-experiences-for-email-and-calendar/4499798" target="_blank">Read more →</a>
+  </div>
+</section>
+
+<!-- STORY 04 — CLEAN -->
+<section class="spread spread-clean" id="story-04">
+  <div class="bg-num">04</div>
+  <div class="spread-inner">
+    <span class="badge badge-medium">🟠 Medium Impact</span>
+    <div class="spread-date">January – April 2026</div>
+    <h2>Gmail Enters "The Gemini Era" — AI Inbox, AI Overviews & Proactive Inbox Assistant</h2>
+    <p>Google is calling it the most dramatic interface overhaul in Gmail's twenty-two-year history. Powered by Gemini 3, Gmail now features AI Overviews that synthesize entire email threads into concise summaries, natural-language inbox search that generates answers (not just links), and a new AI Inbox view that surfaces to-dos from important emails.</p>
+    <p>AI Overview conversation summaries are rolling out for free to all users. Asking questions of your inbox via AI Overviews requires a Google AI Pro or Ultra subscription. The AI Inbox view — which gives a snapshot of priority tasks — remains limited to "trusted testers" and isn't publicly available yet.</p>
+    <p>Google is also sunsetting Gmailify (third-party account aggregation) and removing POP "Check mail from other accounts" support, effectively pushing users deeper into Google's single-account ecosystem. This creates friction for multi-account power users — exactly the audience third-party clients serve best.</p>
+    <div class="impact-box">
+      → <strong>Impact:</strong> Gmail's AI features raise the bar for what users expect from any email client. However, the sunsetting of Gmailify and POP creates a clear opening: multi-account users who relied on Gmail as a hub will need alternatives. Our product should lean into this displacement narrative in positioning and marketing.
+    </div>
+    <a class="read-more" href="https://blog.google/products-and-platforms/products/gmail/gmail-is-entering-the-gemini-era/" target="_blank">Read more →</a>
+  </div>
+</section>
+
+<!-- STORY 05 — TERMINAL -->
+<section class="spread spread-terminal" id="story-05">
+  <div class="bg-num">05</div>
+  <div class="spread-inner">
+    <span class="badge badge-medium">🟠 Medium Impact</span>
+    <div class="spread-date">April 2026</div>
+    <h2>Perplexity's $200/Month Email Agent — Premium AI Tries to Replace Your Inbox Habits</h2>
+    <p>Perplexity's Email Assistant, available exclusively to Max subscribers at $200/month, is the most expensive consumer-facing AI email product on the market. It connects to both Gmail and Outlook, drafts replies in your writing style, handles back-and-forth scheduling, adds meetings to calendars, summarizes threads, and auto-tags emails by action-required vs. informational.</p>
+    <p>The agent waits for user approval before sending any message — a deliberate human-in-the-loop design. It learns writing patterns over time and promises SOC 2 and GDPR compliance with a pledge to never train on user data. The price point clearly targets high-value business users and executives rather than the mass market.</p>
+    <p>At $2,400/year, Perplexity is testing the ceiling for what knowledge workers will pay for AI-managed email. If adoption grows, it validates the premium tier of AI email — a segment our product could address at a more accessible price point.</p>
+    <div class="impact-box">
+      → <strong>Impact:</strong> Perplexity's pricing creates a reference point. If they succeed at $200/mo, there's a massive underserved market between free Gmail AI and Perplexity's premium tier. Our product is well-positioned in that middle ground — but needs to match the "learns your style" and "auto-tag" capabilities to compete on features, not just price.
+    </div>
+    <a class="read-more" href="https://venturebeat.com/ai/perplexitys-new-ai-agent-wants-to-replace-your-email-habits-for-usd200-per" target="_blank">Read more →</a>
+  </div>
+</section>
+
+<!-- STORY 06 — ACADEMIC -->
+<section class="spread spread-academic" id="story-06">
+  <div class="bg-num">06</div>
+  <div class="spread-inner">
+    <span class="badge badge-medium">🟠 Medium Impact</span>
+    <div class="spread-date">March 23, 2026</div>
+    <h2>Apple Teases "Major AI Advancements" for WWDC 2026 — Mail Intelligence Expected to Mature</h2>
+    <p>Apple has confirmed WWDC 2026, kicking off June 8, will place a "strong focus on artificial intelligence," with previews of new AI-powered features across all software platforms. For Mail specifically, the expectation is that Apple Intelligence will mature significantly — focusing on reliability, context awareness, and consistency rather than splashy new features.</p>
+    <p>Current Apple Mail AI features include email summaries, Priority Messages (a dedicated section for time-sensitive emails), and automatic inbox categorization into Primary, Transactions, Updates, and Promotions. Writing tools may become system-wide across Messages, Mail, and Notes in the next release.</p>
+    <p>Perhaps most significant is the Apple-Google partnership announcement: the next generation of Apple Foundation Models will be based on Google's Gemini models and cloud technology. This means Apple's on-device AI for Mail could gain Gemini-class reasoning capabilities while maintaining Apple's privacy-first architecture.</p>
+    <div class="impact-box">
+      → <strong>Impact:</strong> The Apple-Gemini partnership is a sleeper threat. If Apple Mail gains Gemini-grade intelligence with Apple's privacy story, it becomes a much stronger default for iOS users. The team should monitor WWDC closely and prepare competitive positioning for the weeks after announcements drop.
+    </div>
+    <a class="read-more" href="https://www.macrumors.com/2026/03/23/wwdc-2026-ai-advancements/" target="_blank">Read more →</a>
+  </div>
+</section>
+
+<!-- STORY 07 — OCEAN -->
+<section class="spread spread-ocean" id="story-07">
+  <div class="bg-num">07</div>
+  <div class="spread-inner">
+    <span class="badge badge-medium">🟠 Medium Impact</span>
+    <div class="spread-date">May 19, 2026 (upcoming)</div>
+    <h2>Google I/O 2026 Incoming — Gemini 4, Agentic Coding & Nano 4 On-Device AI Previewed</h2>
+    <p>Google I/O kicks off May 19 with a developer keynote focused on "agentic coding" — AI tools that handle routine development tasks. Gemini 4 is expected to be previewed with wide availability later in 2026 or early 2027. Meanwhile, Gemini Nano 4 (previewed April 2) brings two variants — Fast and Full — promising 3x speed gains over prior on-device models.</p>
+    <p>The Nano 4 improvements are particularly relevant for mobile email: faster on-device AI means better real-time email summarization, smart replies, and categorization without round-trips to the cloud. Every Android app running on the platform can tap into Gemini's reasoning, vision, and language capabilities natively.</p>
+    <div class="impact-box">
+      → <strong>Impact:</strong> Gemini Nano 4's 3x speed improvement could make on-device AI email features in competing Android apps feel instant. The team should track Nano 4 integration patterns and evaluate whether our product can leverage these same on-device models to enhance performance on Android.
+    </div>
+    <a class="read-more" href="https://io.google/2026/" target="_blank">Read more →</a>
+  </div>
+</section>
+
+<!-- STORY 08 — SLATE -->
+<section class="spread spread-slate" id="story-08">
+  <div class="bg-num">08</div>
+  <div class="spread-inner">
+    <span class="badge badge-low">🟡 Low Impact</span>
+    <div class="spread-date">April 2026</div>
+    <h2>AI Email Market Projected to Hit $2.38B by 2035 — The Category Is Real</h2>
+    <p>Market Research Future projects the AI Email Assistant market will grow from $880 million in 2025 to $2.38 billion by 2035 at a 10.4% CAGR. Context windows exceeding 100K tokens now allow agents to remember entire conversation histories, while reasoning improvements in GPT-5.2 and Claude Opus 4.5 enable nuanced tone adaptation and multimodal integration with calendar, CRM, and document systems.</p>
+    <p>The competitive landscape is fragmenting across tiers: free (Gmail, Apple Mail), prosumer ($7-30/mo — Shortwave, Superhuman), premium ($200/mo — Perplexity), and enterprise (Salesforce Agentforce, Intercom Fin). Each tier is building AI email features, but no single player has unified email + calendar + meeting notes with truly agentic AI across all three.</p>
+    <div class="impact-box">
+      → <strong>Impact:</strong> The market validation is clear — AI email is a multi-billion-dollar category. Our product's unique position spanning email, calendar, and meeting notes means we don't have to compete in any single tier. The opportunity is to be the integrated platform that stitches all three together with AI, a position no competitor has yet claimed convincingly.
+    </div>
+    <a class="read-more" href="https://www.jenova.ai/en/resources/ai-email-assistant" target="_blank">Read more →</a>
+  </div>
+</section>
+
+<!-- QUICK HITS -->
+<section class="spread spread-quickhits" id="quick-hits">
+  <div class="spread-inner">
+    <h2 style="font-family: var(--font-display); font-size: 2.2rem;">⚡ Quick Hits</h2>
+    <div class="qh-grid">
+      <div class="qh-card">
+        <span class="badge badge-quick">⚡ Signal</span>
+        <h3>Gmail Kills POP & Gmailify — Multi-Account Users Left Stranded</h3>
+        <p>Google is sunsetting "Check mail from other accounts" via POP and discontinuing Gmailify for new users. Existing Gmailify users will lose access later in 2026. Multi-account power users need a new home.</p>
+        <a class="read-more" href="https://support.google.com/mail/answer/16604719?hl=en" target="_blank">Read more →</a>
+      </div>
+      <div class="qh-card">
+        <span class="badge badge-quick">⚡ Signal</span>
+        <h3>Microsoft Admits New Outlook "Still Isn't Ready for Everyone"</h3>
+        <p>Despite pushing new Outlook as default for M365 orgs in April 2026, Microsoft acknowledged gaps remain. Classic Outlook continues receiving fixes. Third-party clients have a window while users are in transition limbo.</p>
+        <a class="read-more" href="https://www.howtogeek.com/the-new-outlook-still-isnt-ready-for-everyone-says-microsoft/" target="_blank">Read more →</a>
+      </div>
+      <div class="qh-card">
+        <span class="badge badge-quick">⚡ Signal</span>
+        <h3>Email Authentication Crisis Hits Legacy Desktop Clients</h3>
+        <p>Microsoft's OAuth2 enforcement deadline is April 30, 2026. Third-party email clients using basic auth will stop working. The authentication overhaul is breaking compatibility across the ecosystem — creating both churn risk and switching opportunity.</p>
+        <a class="read-more" href="https://www.getmailbird.com/email-authentication-breaking-desktop-clients/" target="_blank">Read more →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <strong>Morning Edition</strong> — Auto-generated competitor intelligence<br>
+  Sources verified April 27, 2026 · Powered by Claude
+</footer>
+
+</body>
+</html>
