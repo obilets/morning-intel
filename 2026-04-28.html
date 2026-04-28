@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Morning Edition — April 28, 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,400;1,9..144,600;1,9..144,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --font-display: 'Fraunces', serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+html { scroll-behavior: smooth; font-size: 16px; }
+body { font-family: var(--font-body); color: #1a1a1a; background: #faf9f6; overflow-x: hidden; }
+
+/* NAV */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1rem 2.5rem;
+  background: rgba(20,20,20,0.92); backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  font-family: var(--font-body);
+}
+.nav-brand { color: #fff; font-weight: 600; font-size: 0.95rem; letter-spacing: 0.02em; }
+.nav-date { color: rgba(255,255,255,0.55); font-size: 0.8rem; letter-spacing: 0.04em; text-transform: uppercase; }
+
+/* COVER */
+.cover {
+  min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+  background: linear-gradient(145deg, #0d0d0d 0%, #1a1a2e 50%, #16213e 100%);
+  color: #fff; text-align: center; padding: 6rem 2rem 4rem;
+  position: relative; overflow: hidden;
+}
+.cover::before {
+  content: '✦'; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  font-size: 40vw; opacity: 0.03; color: #fff; pointer-events: none;
+}
+.cover-label {
+  font-family: var(--font-body); text-transform: uppercase; letter-spacing: 0.25em;
+  font-size: 0.75rem; color: rgba(255,255,255,0.45); margin-bottom: 2rem;
+  border: 1px solid rgba(255,255,255,0.15); padding: 0.5rem 1.5rem; border-radius: 2px;
+}
+.cover h1 {
+  font-family: var(--font-display); font-size: clamp(3rem, 8vw, 7rem);
+  font-weight: 800; line-height: 1.05; margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, #fff 0%, #c9d6ff 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.cover-subtitle {
+  font-size: 1.1rem; color: rgba(255,255,255,0.5); max-width: 480px;
+  line-height: 1.6; font-weight: 300;
+}
+.cover-date {
+  margin-top: 3rem; font-family: var(--font-display); font-size: 1.3rem;
+  color: rgba(255,255,255,0.7); font-weight: 300; font-style: italic;
+}
+.cover-count {
+  margin-top: 1rem; font-size: 0.8rem; color: rgba(255,255,255,0.3);
+  text-transform: uppercase; letter-spacing: 0.15em;
+}
+
+/* SPREAD BASE */
+.spread {
+  min-height: 100vh; display: flex; flex-direction: column; justify-content: center;
+  padding: 6rem 2.5rem 4rem; position: relative; overflow: hidden;
+}
+.spread-inner { max-width: 820px; width: 100%; margin: 0 auto; position: relative; z-index: 2; }
+.spread-numeral {
+  position: absolute; font-family: var(--font-display); font-weight: 900;
+  font-size: clamp(12rem, 25vw, 22rem); opacity: 0.06; pointer-events: none;
+  line-height: 1; z-index: 1;
+}
+
+/* BADGE */
+.badge {
+  display: inline-block; padding: 0.3rem 0.9rem; border-radius: 3px;
+  font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+  margin-bottom: 1.2rem;
+}
+.badge-high { background: #dc2626; color: #fff; }
+.badge-medium { background: #ea580c; color: #fff; }
+.badge-low { background: #ca8a04; color: #fff; }
+.badge-quick { background: #7c3aed; color: #fff; }
+
+.spread-date {
+  font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em;
+  margin-bottom: 0.8rem; opacity: 0.5;
+}
+.spread h2 {
+  font-family: var(--font-display); font-weight: 800; line-height: 1.12;
+  margin-bottom: 1.8rem;
+}
+.spread-body { font-size: 1.05rem; line-height: 1.75; margin-bottom: 2rem; }
+.spread-body p { margin-bottom: 1rem; }
+
+.impact-box {
+  padding: 1.5rem 1.8rem; border-radius: 6px; margin-bottom: 1.5rem;
+}
+.impact-box strong { display: block; margin-bottom: 0.4rem; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; }
+.impact-box p { font-size: 0.95rem; line-height: 1.65; }
+
+.read-more {
+  font-size: 0.85rem; font-weight: 600; text-decoration: none;
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  transition: opacity 0.2s;
+}
+.read-more:hover { opacity: 0.7; }
+
+/* === SPREAD THEMES === */
+
+/* 1 - Hero warm cream */
+.spread-hero { background: #faf5ee; color: #1a1a1a; }
+.spread-hero .spread-numeral { color: #c9a96e; right: -5%; top: 10%; }
+.spread-hero h2 { font-size: clamp(2rem, 4vw, 3.2rem); color: #1a1a1a; }
+.spread-hero .impact-box { background: rgba(201,169,110,0.12); border-left: 4px solid #c9a96e; }
+.spread-hero .impact-box strong { color: #8a6914; }
+.spread-hero .read-more { color: #8a6914; }
+
+/* 2 - Dark midnight */
+.spread-dark { background: #0f172a; color: #e2e8f0; }
+.spread-dark .spread-numeral { color: #3b82f6; left: -5%; bottom: 5%; }
+.spread-dark h2 { font-size: clamp(2rem, 4vw, 3.2rem); color: #fff; }
+.spread-dark .spread-date { color: rgba(255,255,255,0.35); }
+.spread-dark .impact-box { background: rgba(59,130,246,0.1); border-left: 4px solid #3b82f6; }
+.spread-dark .impact-box strong { color: #60a5fa; }
+.spread-dark .read-more { color: #60a5fa; }
+
+/* 3 - Rose alert */
+.spread-rose { background: #fdf2f8; color: #1a1a1a; }
+.spread-rose .spread-numeral { color: #ec4899; right: -3%; top: 5%; transform: rotate(-8deg); }
+.spread-rose h2 { font-size: clamp(2rem, 4vw, 3.2rem); color: #9d174d; }
+.spread-rose .impact-box { background: rgba(236,72,153,0.08); border-left: 4px solid #ec4899; }
+.spread-rose .impact-box strong { color: #be185d; }
+.spread-rose .read-more { color: #be185d; }
+
+/* 4 - Clean minimal */
+.spread-clean { background: #ffffff; color: #1a1a1a; }
+.spread-clean .spread-numeral { color: #f97316; left: -5%; top: 10%; }
+.spread-clean h2 { font-size: clamp(2rem, 4vw, 3.2rem); color: #1a1a1a; }
+.spread-clean .impact-box { background: #fff7ed; border-left: 4px solid #f97316; }
+.spread-clean .impact-box strong { color: #c2410c; }
+.spread-clean .read-more { color: #c2410c; }
+
+/* 5 - Terminal */
+.spread-terminal { background: #0a0a0a; color: #d4d4d4; }
+.spread-terminal .spread-numeral { color: #22c55e; right: -3%; bottom: 8%; font-family: 'Courier New', monospace; }
+.spread-terminal h2 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); color: #22c55e; font-family: var(--font-display); }
+.spread-terminal .spread-date { color: #22c55e; opacity: 0.6; font-family: monospace; }
+.spread-terminal .impact-box { background: rgba(34,197,94,0.08); border-left: 4px solid #22c55e; }
+.spread-terminal .impact-box strong { color: #22c55e; }
+.spread-terminal .read-more { color: #4ade80; }
+
+/* 6 - Academic */
+.spread-academic { background: #fefce8; color: #1a1a1a; }
+.spread-academic .spread-numeral { color: #d97706; left: -4%; top: 8%; }
+.spread-academic h2 { font-size: clamp(2rem, 4vw, 3rem); font-style: italic; color: #78350f; }
+.spread-academic .spread-body p:first-child::first-letter {
+  font-family: var(--font-display); font-size: 3.5rem; float: left;
+  line-height: 1; margin-right: 0.3rem; margin-top: 0.1rem;
+  font-weight: 800; color: #d97706;
+}
+.spread-academic .impact-box { background: rgba(217,119,6,0.08); border-left: 4px solid #d97706; }
+.spread-academic .impact-box strong { color: #92400e; }
+.spread-academic .read-more { color: #92400e; }
+
+/* 7 - Ocean */
+.spread-ocean { background: #042f2e; color: #ccfbf1; }
+.spread-ocean .spread-numeral { color: #14b8a6; right: -4%; top: 5%; }
+.spread-ocean h2 { font-size: clamp(2rem, 4vw, 3.2rem); color: #5eead4; }
+.spread-ocean .spread-date { color: rgba(94,234,212,0.4); }
+.spread-ocean .impact-box { background: rgba(20,184,166,0.1); border-left: 4px solid #14b8a6; }
+.spread-ocean .impact-box strong { color: #2dd4bf; }
+.spread-ocean .read-more { color: #2dd4bf; }
+
+/* 8 - Big stat purple */
+.spread-bigstat { background: linear-gradient(160deg, #1e1b4b 0%, #312e81 100%); color: #e0e7ff; }
+.spread-bigstat .spread-numeral { color: #818cf8; right: -3%; top: 5%; font-size: clamp(14rem, 28vw, 26rem); }
+.spread-bigstat h2 { font-size: clamp(2rem, 4vw, 3.2rem); color: #c7d2fe; }
+.spread-bigstat .spread-date { color: rgba(199,210,254,0.35); }
+.spread-bigstat .impact-box { background: rgba(129,140,248,0.1); border-left: 4px solid #818cf8; }
+.spread-bigstat .impact-box strong { color: #a5b4fc; }
+.spread-bigstat .read-more { color: #a5b4fc; }
+.spread-bigstat .big-number {
+  font-family: var(--font-display); font-size: clamp(4rem, 10vw, 8rem);
+  font-weight: 900; color: #818cf8; margin-bottom: 1rem; line-height: 1;
+}
+
+/* FOOTER */
+.footer {
+  background: #0d0d0d; color: rgba(255,255,255,0.35); text-align: center;
+  padding: 3rem 2rem; font-size: 0.8rem; line-height: 1.8;
+}
+.footer strong { color: rgba(255,255,255,0.6); }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .nav { padding: 0.8rem 1.2rem; }
+  .spread { padding: 5rem 1.5rem 3rem; }
+  .spread-numeral { font-size: clamp(8rem, 18vw, 14rem); }
+  .cover h1 { font-size: clamp(2.5rem, 10vw, 5rem); }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand">✦ Morning Edition</div>
+  <div class="nav-date">April 28, 2026</div>
+</nav>
+
+<!-- COVER -->
+<section class="cover">
+  <div class="cover-label">Competitor Intelligence</div>
+  <h1>Morning Edition</h1>
+  <p class="cover-subtitle">Your daily briefing on email, calendar, meetings &amp; AI.</p>
+  <p class="cover-date">Monday, April 28, 2026</p>
+  <p class="cover-count">7 stories · all fresh</p>
+</section>
+
+<!-- STORY 01 — Hero -->
+<section class="spread spread-hero">
+  <div class="spread-numeral">01</div>
+  <div class="spread-inner">
+    <span class="badge badge-high">🔴 High Impact</span>
+    <p class="spread-date">April 21, 2026</p>
+    <h2>"Extra" Launches — Pinterest Veterans Raise $9.5M to Reinvent Email from Scratch</h2>
+    <div class="spread-body">
+      <p>A new direct competitor just entered the ring. Extra, built by BuildForever and led by former Pinterest CPO Naveen Gavini (12 years at Pinterest) and former Executive Creative Director Albert Pereta, launched on iOS and web with $9.5 million in seed funding. The round was led by Abstract and A* (Kevin Hartz), with participation from Felicis and Elad Gil.</p>
+      <p>The investor and advisor list is a who's-who of consumer email: Pinterest co-founders Ben Silbermann and Evan Sharp, Gmail creator Paul Buchheit, and OpenAI Applications CEO Fidji Simo all backed the company. That's the person who created Gmail and the person running OpenAI's consumer products investing in a new email client.</p>
+      <p>Extra's core thesis is radical: ditch subject lines, folders, and tags entirely. Instead, organize email around your life — bringing everything important into a single, actionable overview. The app is free and will remain free, with monetization planned for later. The design-forward, consumer-centric approach draws directly from the team's Pinterest DNA.</p>
+    </div>
+    <div class="impact-box">
+      <strong>→ Impact Analysis</strong>
+      <p>This is the most significant new email client launch in months. The combination of top-tier consumer product talent, serious funding, and backing from Gmail's creator signals real ambition. Extra is going after the same "rethink email from first principles" space our product occupies. The free pricing model is aggressive. The team should study Extra's UX approach — particularly the "no folders, no subject lines" paradigm — and assess whether it resonates with the same audience segments we target.</p>
+    </div>
+    <a href="https://techcrunch.com/2026/04/21/former-pinterest-team-redesigns-email-with-extra-and-its-actually-good/" class="read-more" target="_blank">Read more →</a>
+  </div>
+</section>
+
+<!-- STORY 02 — Dark -->
+<section class="spread spread-dark">
+  <div class="spread-numeral">02</div>
+  <div class="spread-inner">
+    <span class="badge badge-high">🔴 High Impact</span>
+    <p class="spread-date">April 14–15, 2026</p>
+    <h2>Google Gemini Lands on Mac + Personal Intelligence Goes Global — AI That Knows Your Entire Work Life</h2>
+    <div class="spread-body">
+      <p>Google shipped two major updates in mid-April that together represent a significant expansion of Gemini's reach into desktop productivity. First: a native Gemini Mac app (macOS 15+) with an Option+Space keyboard shortcut for instant access. The app can see your screen — meaning you can ask Gemini about the document you're reading, the code you're debugging, or the email you're composing.</p>
+      <p>Second, and arguably more important: Personal Intelligence is now rolling out globally (excluding Europe). This feature connects Gemini to your Gmail, Calendar, Drive, Photos, YouTube, Search, Maps, and other first-party Google apps. Responses are personalized without additional prompting — Gemini just knows your context because it has access to your entire Google ecosystem.</p>
+      <p>Combined, a Mac user can now hit a keyboard shortcut, and an AI that already understands their email, calendar, and files will respond with full context. No copy-pasting, no tab-switching, no explaining background.</p>
+    </div>
+    <div class="impact-box">
+      <strong>→ Impact Analysis</strong>
+      <p>The Mac app + Personal Intelligence combination creates an ambient AI layer that sits above any email client. Users don't need to open Gmail to get AI help with their email — they just summon Gemini from anywhere. This challenges the premise that AI email features need to live inside the email client. The team should consider how our product's AI features compare when users have a system-wide AI assistant that already knows their inbox.</p>
+    </div>
+    <a href="https://9to5mac.com/2026/04/15/google-launches-gemini-mac-app-heres-what-it-offers/" class="read-more" target="_blank">Read more →</a>
+  </div>
+</section>
+
+<!-- STORY 03 — Rose -->
+<section class="spread spread-rose">
+  <div class="spread-numeral">03</div>
+  <div class="spread-inner">
+    <span class="badge badge-medium">🟠 Medium Impact</span>
+    <p class="spread-date">April 22, 2026</p>
+    <h2>Apple Confirms Gemini-Powered Siri — Already Live in iOS 26.4, Full Launch September 2026</h2>
+    <div class="spread-body">
+      <p>At Google Cloud Next, Google confirmed the timeline for Gemini-powered Siri. Phase 1 is already live: iOS 26.4, released recently, uses Gemini for improved context awareness and on-screen recognition. Phase 2 arrives in September 2026 with iOS 27 and iPhone 18 — bringing "Full Conversational Siri" with deep personalization.</p>
+      <p>The deal is substantial: Bloomberg reports Apple is paying approximately $1 billion per year to incorporate Gemini into Siri. Apple Intelligence will continue running on-device and via Private Cloud Compute, maintaining Apple's privacy standards, while Gemini powers the cloud-based intelligence layer.</p>
+      <p>The implications for Apple Mail are significant. A Gemini-powered Siri that understands your email context could transform how iPhone users interact with their inbox — through voice, through system-wide suggestions, and through proactive notifications that actually understand message importance.</p>
+    </div>
+    <div class="impact-box">
+      <strong>→ Impact Analysis</strong>
+      <p>When Siri can intelligently summarize, triage, and respond to email via voice commands powered by Gemini, Apple Mail goes from a basic client to an AI-powered inbox overnight — for hundreds of millions of iPhone users. This is a slow-moving but massive threat to third-party iOS email clients. The team should plan for a world where Apple Mail + Siri handles the "smart inbox" use case natively by Q4 2026.</p>
+    </div>
+    <a href="https://www.macrumors.com/2026/04/22/google-gemini-powered-siri-2026/" class="read-more" target="_blank">Read more →</a>
+  </div>
+</section>
+
+<!-- STORY 04 — Clean -->
+<section class="spread spread-clean">
+  <div class="spread-numeral">04</div>
+  <div class="spread-inner">
+    <span class="badge badge-medium">🟠 Medium Impact</span>
+    <p class="spread-date">April 9–17, 2026</p>
+    <h2>Cloudflare Open-Sources "Agentic Inbox" — A Self-Hosted AI Email Client Anyone Can Deploy</h2>
+    <div class="spread-body">
+      <p>During Cloudflare's Agents Week (April 9-16), developer Thomas Gauvin open-sourced Agentic Inbox — a complete, self-hosted email client with a built-in AI agent that runs entirely on Cloudflare Workers. The code is on GitHub and anyone can deploy it to their own Cloudflare account.</p>
+      <p>The AI agent reads your inbox, searches conversations, and drafts replies through a side panel with 9 email tools. It automatically processes inbound emails and generates draft replies, but always requires explicit user confirmation before sending. Each mailbox is isolated in its own Durable Object with a SQLite database, and attachments are stored in R2.</p>
+      <p>This is different from the Cloudflare Email Service beta (covered previously) — Agentic Inbox is a consumer-facing reference application that demonstrates what a complete AI email client looks like when built on modern agent infrastructure. It's a blueprint that any developer can fork and customize.</p>
+    </div>
+    <div class="impact-box">
+      <strong>→ Impact Analysis</strong>
+      <p>An open-source AI email client lowers the barrier to entry for new competitors dramatically. Any startup can fork Agentic Inbox and build a differentiated email product in weeks instead of months. The team should study this codebase — both as competitive intelligence and as a potential reference for how others are approaching AI email agent architecture.</p>
+    </div>
+    <a href="https://github.com/cloudflare/agentic-inbox" class="read-more" target="_blank">Read more →</a>
+  </div>
+</section>
+
+<!-- STORY 05 — Terminal -->
+<section class="spread spread-terminal">
+  <div class="spread-numeral">05</div>
+  <div class="spread-inner">
+    <span class="badge badge-medium">🟠 Medium Impact</span>
+    <p class="spread-date">April 24, 2026</p>
+    <h2>GPT-5.5 Hits the API — $5/$30 Per Million Tokens, Built for Agentic Email Workflows</h2>
+    <div class="spread-body">
+      <p>While GPT-5.5's ChatGPT launch was covered last week, the API availability (April 24) is the bigger story for the email ecosystem. At $5 per million input tokens and $30 per million output tokens, any email app can now plug in OpenAI's most capable agentic model.</p>
+      <p>GPT-5.5 is specifically optimized for multi-step agentic workflows: give it a messy, multi-part task and it plans, uses tools, checks its work, navigates ambiguity, and keeps going. OpenAI explicitly highlights coding, research, document creation, and data analysis — but the email use case is obvious: read 50 emails, draft contextual replies, schedule follow-ups, update a CRM, summarize action items.</p>
+      <p>GPT-5.5 Pro, the higher-tier variant, doubles the API price but claims substantially stronger performance on complex reasoning tasks. Both models are available to all API developers.</p>
+    </div>
+    <div class="impact-box">
+      <strong>→ Impact Analysis</strong>
+      <p>GPT-5.5 in the API means every email startup — including our product — can access frontier-level agentic capabilities. The playing field levels: it's no longer about having the best AI model, but about the best email-specific UX, data pipeline, and personalization on top of commodity models. The team should evaluate GPT-5.5's agentic capabilities against our current model stack for email-specific tasks.</p>
+    </div>
+    <a href="https://openai.com/index/introducing-gpt-5-5/" class="read-more" target="_blank">Read more →</a>
+  </div>
+</section>
+
+<!-- STORY 06 — Academic -->
+<section class="spread spread-academic">
+  <div class="spread-numeral">06</div>
+  <div class="spread-inner">
+    <span class="badge badge-low">🟡 Low Impact</span>
+    <p class="spread-date">April 2026</p>
+    <h2>Cora Exits Beta — The "Inbox as Feed" Experiment Goes Live</h2>
+    <div class="spread-body">
+      <p>Cora, the AI email manager from the Every team, has exited beta and is now publicly available at $15/month. Its pitch: "Give Cora your inbox, take back your life." The product's key insight — turning email from an inbox into a feed — represents one of the more interesting UX experiments in the space.</p>
+      <p>Here's how it works: Cora auto-archives most of your email. Things only stay in your inbox if the AI thinks you need to reply. Twice a day, you get a "brief" — a scannable summary of everything that came in, organized by importance. Recent updates improved email thread visualization, redesigned brief notifications into useful snapshots, and refined the summarization system.</p>
+      <p>The approach is philosophically different from both traditional email clients (you manage everything) and agentic clients (AI manages everything). Cora sits in between: AI curates and summarizes, but you still decide what to act on.</p>
+    </div>
+    <div class="impact-box">
+      <strong>→ Impact Analysis</strong>
+      <p>The "inbox as feed" concept is worth studying as a design direction. At $15/month, Cora is a niche product, but its twice-daily briefing format could inform how our product approaches email summaries and priority views. The auto-archive-by-default approach is bold — monitor user reception to see if people are ready to let AI decide what stays in their inbox.</p>
+    </div>
+    <a href="https://every.to/p/introducing-cora-manage-your-inbox-with-ai" class="read-more" target="_blank">Read more →</a>
+  </div>
+</section>
+
+<!-- STORY 07 — Big Stat -->
+<section class="spread spread-bigstat">
+  <div class="spread-numeral">07</div>
+  <div class="spread-inner">
+    <span class="badge badge-medium">🟠 Medium Impact</span>
+    <p class="spread-date">April 2026</p>
+    <h2>Microsoft Basic Auth Deadline Hits April 30 — OAuth-Only Era Begins in Two Days</h2>
+    <div class="spread-body">
+      <div class="big-number">Apr 30</div>
+      <p>The long-anticipated deadline arrives this Thursday: Microsoft will enforce 100% rejection of Basic Authentication for SMTP AUTH in Exchange Online. The enforcement began gradually on March 1, 2026 with a small percentage of rejections, ramping up throughout April. After April 30, any app using Basic Auth (username + password) for IMAP, POP, or SMTP connections to Microsoft 365 will simply stop working.</p>
+      <p>This isn't just a Microsoft story — it's the final nail in the coffin of password-based email access. Combined with Gmail's parallel Gmailify/POP shutdown, the two dominant email platforms now require OAuth 2.0 exclusively. Legacy desktop clients, older mobile apps, and automation scripts that haven't migrated will break simultaneously.</p>
+      <p>For users of smaller email clients that haven't implemented proper OAuth flows, Thursday will be the day their apps stop connecting to Microsoft 365 mailboxes entirely.</p>
+    </div>
+    <div class="impact-box">
+      <strong>→ Impact Analysis</strong>
+      <p>This is an immediate action item: verify that all Microsoft 365 account connections use OAuth 2.0 and test thoroughly before Thursday. Beyond our product, this deadline will generate a wave of frustrated users whose current email apps break — creating a brief but real acquisition window for clients with robust OAuth support. Customer support should be prepared for an uptick in Microsoft 365 connection questions this week.</p>
+    </div>
+    <a href="https://techcommunity.microsoft.com/blog/exchange/exchange-online-to-retire-basic-auth-for-client-submission-smtp-auth/4114750" class="read-more" target="_blank">Read more →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <strong>Morning Edition</strong> — Auto-generated competitor intelligence<br>
+  Sources verified April 28, 2026 · Powered by Claude
+</footer>
+
+</body>
+</html>
