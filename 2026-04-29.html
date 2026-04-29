@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Morning Edition — April 29, 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-snap-type:y mandatory}
+body{font-family:'Inter',sans-serif;color:#1a1a1a;background:#0a0a0a;overflow-x:hidden}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;justify-content:space-between;align-items:center;padding:16px 40px;background:rgba(10,10,10,0.85);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,0.08)}
+nav .logo{font-family:'Fraunces',serif;font-size:1.1rem;color:#fff;font-weight:600;letter-spacing:-0.02em}
+nav .date{font-size:0.82rem;color:rgba(255,255,255,0.5);font-weight:400;letter-spacing:0.04em;text-transform:uppercase}
+
+/* SECTIONS */
+section{min-height:100vh;scroll-snap-align:start;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:100px 40px 60px}
+@media(max-width:768px){section{padding:80px 20px 40px}nav{padding:14px 20px}}
+
+/* BADGE */
+.badge{display:inline-block;font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:6px 14px;border-radius:100px;margin-bottom:16px}
+.badge-high{background:#ff3b30;color:#fff}
+.badge-medium{background:#ff9500;color:#fff}
+.badge-low{background:#ffd60a;color:#1a1a1a}
+.badge-quick{background:#5e5ce6;color:#fff}
+
+.story-date{font-size:0.78rem;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:12px;opacity:0.6}
+.headline{font-family:'Fraunces',serif;font-weight:700;line-height:1.12;letter-spacing:-0.03em;margin-bottom:24px}
+.body-text{font-size:1.05rem;line-height:1.75;max-width:640px;margin-bottom:28px}
+.impact-box{border-left:3px solid;padding:16px 24px;font-style:italic;font-size:0.98rem;line-height:1.7;max-width:600px;margin-bottom:24px;border-radius:0 8px 8px 0}
+.read-more{display:inline-block;font-size:0.85rem;font-weight:600;text-decoration:none;letter-spacing:0.04em;padding:10px 20px;border-radius:100px;transition:all 0.2s}
+
+/* BIG NUMERAL */
+.numeral{position:absolute;font-family:'Fraunces',serif;font-weight:900;line-height:1;pointer-events:none;user-select:none}
+
+/* ====== COVER ====== */
+.cover{background:linear-gradient(160deg,#0a0a0a 0%,#1a1028 50%,#0a0a0a 100%);text-align:center;flex-direction:column}
+.cover .numeral{font-size:clamp(200px,40vw,500px);color:rgba(255,255,255,0.03);top:50%;left:50%;transform:translate(-50%,-50%)}
+.cover .edition-label{font-size:0.8rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:12px}
+.cover h1{font-family:'Fraunces',serif;font-size:clamp(3rem,8vw,6.5rem);color:#fff;font-weight:900;letter-spacing:-0.04em;line-height:1.05;margin-bottom:20px}
+.cover .subtitle{font-size:1.1rem;color:rgba(255,255,255,0.5);max-width:480px;margin:0 auto;line-height:1.6}
+.cover .scroll-hint{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,0.3);font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:0.3}50%{opacity:0.7}}
+
+/* ====== STYLE 1: HERO WARM CREAM ====== */
+.s-hero{background:#faf5ef;color:#1a1a1a}
+.s-hero .numeral{font-size:clamp(250px,35vw,450px);color:rgba(180,140,80,0.07);right:-5%;top:50%;transform:translateY(-50%)}
+.s-hero .headline{font-size:clamp(2rem,4.5vw,3.4rem);color:#1a1a1a}
+.s-hero .impact-box{background:rgba(180,140,80,0.08);border-color:#b48c50}
+.s-hero .read-more{background:#1a1a1a;color:#faf5ef}
+.s-hero .read-more:hover{background:#333}
+.s-hero .story-date{color:#8a7a5a}
+
+/* ====== STYLE 2: DARK MIDNIGHT ====== */
+.s-dark{background:linear-gradient(170deg,#0d1117 0%,#161b22 100%);color:#e6edf3}
+.s-dark .numeral{font-size:clamp(250px,35vw,450px);color:rgba(56,139,253,0.06);left:-5%;top:50%;transform:translateY(-50%)}
+.s-dark .headline{font-size:clamp(2rem,4.5vw,3.4rem);color:#fff}
+.s-dark .impact-box{background:rgba(56,139,253,0.08);border-color:#388bfd}
+.s-dark .read-more{background:#388bfd;color:#fff}
+.s-dark .read-more:hover{background:#58a6ff}
+.s-dark .story-date{color:#8b949e}
+.s-dark .body-text{color:#c9d1d9}
+
+/* ====== STYLE 3: ROSE ALERT ====== */
+.s-rose{background:linear-gradient(160deg,#fff5f5 0%,#ffe8e8 100%);color:#1a1a1a}
+.s-rose .numeral{font-size:clamp(250px,35vw,450px);color:rgba(220,50,50,0.05);right:-3%;top:50%;transform:translateY(-50%) rotate(-8deg)}
+.s-rose .headline{font-size:clamp(2rem,4.5vw,3.4rem);color:#c41e3a}
+.s-rose .impact-box{background:rgba(220,50,50,0.06);border-color:#c41e3a}
+.s-rose .read-more{background:#c41e3a;color:#fff}
+.s-rose .read-more:hover{background:#d43f52}
+.s-rose .story-date{color:#b85050}
+
+/* ====== STYLE 4: CLEAN MINIMAL ====== */
+.s-clean{background:#ffffff;color:#1a1a1a}
+.s-clean .numeral{font-size:clamp(250px,35vw,450px);color:rgba(255,120,0,0.05);left:-5%;bottom:-10%;transform:none}
+.s-clean .headline{font-size:clamp(2rem,4.5vw,3.4rem);color:#1a1a1a}
+.s-clean .impact-box{background:rgba(255,120,0,0.06);border-color:#ff7800}
+.s-clean .read-more{background:#ff7800;color:#fff}
+.s-clean .read-more:hover{background:#ff9030}
+.s-clean .story-date{color:#999}
+
+/* ====== STYLE 5: TERMINAL ====== */
+.s-terminal{background:#0c0c0c;color:#33ff33;font-family:'Inter',monospace}
+.s-terminal .numeral{font-size:clamp(250px,35vw,450px);color:rgba(51,255,51,0.04);right:-5%;top:50%;transform:translateY(-50%)}
+.s-terminal .headline{font-size:clamp(1.8rem,4vw,3rem);color:#33ff33;font-family:'Fraunces',serif}
+.s-terminal .body-text{color:#aaffaa}
+.s-terminal .impact-box{background:rgba(51,255,51,0.05);border-color:#33ff33;color:#88ff88}
+.s-terminal .read-more{background:#33ff33;color:#0c0c0c}
+.s-terminal .read-more:hover{background:#66ff66}
+.s-terminal .story-date{color:#559955}
+.s-terminal .badge-low{background:#33ff33;color:#0c0c0c}
+
+/* ====== STYLE 6: ACADEMIC DROP-CAP ====== */
+.s-academic{background:linear-gradient(170deg,#fffbe6 0%,#fff8d6 100%);color:#2a2200}
+.s-academic .numeral{font-size:clamp(250px,35vw,450px);color:rgba(180,140,0,0.06);left:-5%;top:50%;transform:translateY(-50%)}
+.s-academic .headline{font-size:clamp(2rem,4.5vw,3.2rem);color:#2a2200;font-style:italic}
+.s-academic .body-text::first-letter{font-family:'Fraunces',serif;font-size:3.4em;float:left;line-height:0.8;margin-right:12px;margin-top:6px;color:#b48c00}
+.s-academic .impact-box{background:rgba(180,140,0,0.08);border-color:#b48c00}
+.s-academic .read-more{background:#2a2200;color:#fffbe6}
+.s-academic .read-more:hover{background:#444200}
+.s-academic .story-date{color:#8a7a00}
+
+/* ====== STYLE 7: OCEAN TEAL ====== */
+.s-ocean{background:linear-gradient(170deg,#0a2e2e 0%,#0d3d3d 50%,#0a2828 100%);color:#e0f0f0}
+.s-ocean .numeral{font-size:clamp(250px,35vw,450px);color:rgba(0,200,180,0.05);right:-5%;top:50%;transform:translateY(-50%)}
+.s-ocean .headline{font-size:clamp(2rem,4.5vw,3.4rem);color:#5cf0d8}
+.s-ocean .body-text{color:#b0d8d0}
+.s-ocean .impact-box{background:rgba(0,200,180,0.08);border-color:#5cf0d8}
+.s-ocean .read-more{background:#5cf0d8;color:#0a2e2e}
+.s-ocean .read-more:hover{background:#80f5e0}
+.s-ocean .story-date{color:#5ca8a0}
+
+/* ====== STYLE 8: QUICK HITS GRID ====== */
+.s-quickhits{background:linear-gradient(170deg,#12111a 0%,#1a1826 100%);color:#e0dfe8}
+.s-quickhits .numeral{font-size:clamp(200px,30vw,400px);color:rgba(94,92,230,0.05);left:50%;top:50%;transform:translate(-50%,-50%)}
+.s-quickhits .headline{font-size:clamp(2rem,4vw,3rem);color:#fff;text-align:center;margin-bottom:40px}
+.quick-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;max-width:1000px;width:100%}
+.quick-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:28px;transition:all 0.2s}
+.quick-card:hover{background:rgba(255,255,255,0.07);border-color:rgba(255,255,255,0.15)}
+.quick-card h3{font-family:'Fraunces',serif;font-size:1.15rem;color:#fff;margin-bottom:12px;line-height:1.3}
+.quick-card p{font-size:0.92rem;line-height:1.65;color:#a0a0b0;margin-bottom:14px}
+.quick-card a{font-size:0.82rem;color:#8b8bf0;text-decoration:none;font-weight:600}
+.quick-card a:hover{color:#a5a5ff}
+
+/* ====== FOOTER ====== */
+footer{background:#0a0a0a;color:rgba(255,255,255,0.3);text-align:center;padding:60px 40px;font-size:0.82rem;line-height:1.8;border-top:1px solid rgba(255,255,255,0.06)}
+footer strong{color:rgba(255,255,255,0.5)}
+
+/* INNER CONTENT */
+.inner{max-width:780px;width:100%;position:relative;z-index:2}
+.inner-wide{max-width:1100px;width:100%;position:relative;z-index:2;display:flex;flex-direction:column;align-items:center}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">&#10022; Morning Edition</div>
+  <div class="date">April 29, 2026</div>
+</nav>
+
+<!-- COVER -->
+<section class="cover">
+  <div class="numeral">ME</div>
+  <div class="edition-label">Competitor Intelligence</div>
+  <h1>Morning<br>Edition</h1>
+  <p class="subtitle">Your daily briefing on email, calendar, meetings &amp; AI.</p>
+  <div class="scroll-hint">Scroll to begin &darr;</div>
+</section>
+
+<!-- STORY 01: Perplexity Personal Computer for Mac -->
+<section class="s-hero">
+  <div class="numeral">01</div>
+  <div class="inner">
+    <span class="badge badge-high">&#128308; High Impact</span>
+    <div class="story-date">April 16, 2026</div>
+    <h2 class="headline">Perplexity Launches "Personal Computer" for Mac &mdash; An Always-On AI That Lives in Your Email, Calendar &amp; Files</h2>
+    <p class="body-text">Perplexity has released Personal Computer, a native Mac application that turns any Mac &mdash; ideally a Mac mini running 24/7 &mdash; into an always-on AI agent with deep access to your local files, Apple Mail, Calendar, iMessage, and every app on your desktop. Double-tap both Command keys and Personal Computer springs to life, reading your screen context and offering quick actions across whatever you're working on.</p>
+    <p class="body-text">The feature is exclusive to Perplexity Max subscribers ($200/month) and builds on the company's multi-model Computer platform, which orchestrates across 19 specialized AI models. Unlike browser-based AI assistants, Personal Computer operates natively at the OS level &mdash; reading local folders, composing emails in Apple Mail, and managing Calendar events without uploading data to the cloud. Perplexity recommends dedicating a Mac mini as a persistent AI workstation that handles your inbox and schedule around the clock.</p>
+    <div class="impact-box">
+      &rarr; <strong>Impact:</strong> This is the second always-on desktop AI assistant to launch in a week (after Amazon Quick). The pattern is clear: AI companies are racing to become the default layer between you and your email. Perplexity's native Mac integration with Apple Mail and Calendar creates a direct alternative to our product for power users willing to pay $200/month for an ambient AI that manages their inbox autonomously.
+    </div>
+    <a href="https://www.macrumors.com/2026/04/16/perplexity-personal-computer-for-mac/" class="read-more" target="_blank">Read more &rarr;</a>
+  </div>
+</section>
+
+<!-- STORY 02: Claude Managed Agents -->
+<section class="s-dark">
+  <div class="numeral">02</div>
+  <div class="inner">
+    <span class="badge badge-high">&#128308; High Impact</span>
+    <div class="story-date">April 8, 2026</div>
+    <h2 class="headline">Anthropic Ships Claude Managed Agents &mdash; Production-Grade AI Agent Infrastructure With Notion &amp; Asana as Launch Partners</h2>
+    <p class="body-text">Anthropic launched Claude Managed Agents in public beta &mdash; a fully hosted service that runs long-horizon autonomous agents with secure sandboxing, built-in tools (code execution, web browsing, file operations), and server-sent event streaming. The pitch: go from prototype to production agent in days instead of months, at standard Claude API token rates plus $0.08 per session-hour.</p>
+    <p class="body-text">The initial customer list is telling: Notion, Asana, and Rakuten are already integrating Managed Agents into their products. This means the infrastructure to build sophisticated email and calendar agents is now a commodity &mdash; any startup with an API key can spin up an autonomous agent that triages inboxes, schedules meetings, and drafts follow-ups. The era of DIY agent infrastructure is ending; the era of agents-as-a-service is here.</p>
+    <div class="impact-box">
+      &rarr; <strong>Impact:</strong> This dramatically lowers the barrier for any competitor to build agentic email features. When Notion, Asana, and every SaaS tool can embed production-grade email agents for $0.08/hour, the competitive moat shifts from "can you build an agent" to "do you have the data and UX to make it useful." The team's advantage lies in deep email/calendar context that generic agent platforms can't easily replicate.
+    </div>
+    <a href="https://siliconangle.com/2026/04/08/anthropic-launches-claude-managed-agents-speed-ai-agent-development/" class="read-more" target="_blank">Read more &rarr;</a>
+  </div>
+</section>
+
+<!-- STORY 03: WWDC 2026 Siri Redesign -->
+<section class="s-rose">
+  <div class="numeral">03</div>
+  <div class="inner">
+    <span class="badge badge-medium">&#128992; Medium Impact</span>
+    <div class="story-date">April 19, 2026</div>
+    <h2 class="headline">WWDC 2026 Graphic Leaks iOS 17 Siri Redesign &mdash; Dynamic Island Glow, Dedicated App, Deep Email &amp; Calendar Context</h2>
+    <p class="body-text">Bloomberg's Mark Gurman confirmed what eagle-eyed observers suspected: Apple's WWDC 2026 invitation artwork is a direct preview of the new Siri interface in iOS 27. The glowing "26" with its halation effect mirrors what Siri will look like when invoked through the Dynamic Island &mdash; a thin luminous glow with a "Search or Ask" prompt that serves as the gateway to a complete Siri overhaul.</p>
+    <p class="body-text">The redesign includes a dedicated Siri app (preinstalled on iOS 27) with persistent conversation history, on-screen awareness so Siri can answer questions about what you're looking at, and &mdash; critically &mdash; deep personal context across Calendar, Mail, Messages, and Notes. Apple's vision: you highlight text in an email and ask Siri to add it to a calendar event, or ask "when am I free next week?" and get an answer grounded in your actual schedule. WWDC runs June 8&ndash;12.</p>
+    <div class="impact-box">
+      &rarr; <strong>Impact:</strong> Apple is building Siri into a first-party AI email and calendar assistant that will ship to every iPhone 15 Pro and newer. If Siri can natively triage Mail, schedule from Calendar, and maintain conversation history, it reduces the need for third-party email intelligence. The team should closely track what APIs Apple opens to third-party apps &mdash; being a Siri-integrated email client could be a major differentiator, or being excluded could be a major risk.
+    </div>
+    <a href="https://www.macrumors.com/2026/04/19/wwdc-2026-graphic-teases-ios-27-feature/" class="read-more" target="_blank">Read more &rarr;</a>
+  </div>
+</section>
+
+<!-- STORY 04: Claude Design -->
+<section class="s-clean">
+  <div class="numeral">04</div>
+  <div class="inner">
+    <span class="badge badge-medium">&#128992; Medium Impact</span>
+    <div class="story-date">April 17, 2026</div>
+    <h2 class="headline">Anthropic Launches Claude Design &mdash; AI Visual Prototyping That Reads Your Figma Files and Ships to Code</h2>
+    <p class="body-text">Anthropic Labs released Claude Design, a visual workspace powered by Opus 4.7 that lets users create prototypes, slides, one-pagers, and landing pages through natural conversation. The key differentiator: Claude Design can read your existing codebase and Figma files to automatically extract your design system, then apply it consistently to every new project. Refinement happens through chat, inline comments, direct edits, and AI-generated adjustment sliders for spacing, color, and layout.</p>
+    <p class="body-text">What makes this more than another AI design toy is the handoff mechanism. When a design is ready, Claude packages everything into a bundle that can be passed directly to Claude Code with a single instruction &mdash; creating a closed loop from exploration to prototype to production code, all within Anthropic's ecosystem. Available in research preview for Pro, Max, Team, and Enterprise subscribers ($20+/month).</p>
+    <div class="impact-box">
+      &rarr; <strong>Impact:</strong> While not directly an email competitor, Claude Design signals how AI platforms are collapsing entire creative workflows into single tools. The design-to-code pipeline is relevant to any product team: competitors (and the team itself) can now prototype and ship UI changes faster than ever. More broadly, Anthropic is building an ecosystem that makes it easy to build anything &mdash; including email clients.
+    </div>
+    <a href="https://techcrunch.com/2026/04/17/anthropic-launches-claude-design-a-new-product-for-creating-quick-visuals/" class="read-more" target="_blank">Read more &rarr;</a>
+  </div>
+</section>
+
+<!-- STORY 05: Claude Opus 4.7 -->
+<section class="s-terminal">
+  <div class="numeral">05</div>
+  <div class="inner">
+    <span class="badge badge-medium">&#128992; Medium Impact</span>
+    <div class="story-date">April 16, 2026</div>
+    <h2 class="headline">Claude Opus 4.7 Ships &mdash; Frontier Coding + 2x Vision Resolution at Unchanged Pricing</h2>
+    <p class="body-text">Anthropic released Claude Opus 4.7, its most capable generally available model. The headline improvements: substantially better software engineering performance (especially on the hardest tasks that previously needed human supervision), and doubled vision resolution &mdash; maximum image resolution jumps from 1,568px / 1.15MP to 2,576px / 3.75MP. Pricing stays flat at $5 per million input tokens and $25 per million output tokens.</p>
+    <p class="body-text">Opus 4.7 is available across all Claude products and the API, plus Amazon Bedrock, Google Cloud Vertex AI, and Microsoft Foundry. Alongside the model release, Anthropic added cybersecurity safeguards that automatically detect and block requests indicating prohibited or high-risk security uses &mdash; a nod to the Mythos Preview capabilities that preceded this launch.</p>
+    <div class="impact-box">
+      &rarr; <strong>Impact:</strong> Better coding models at flat pricing mean every AI-powered email product gets smarter for free. The 2x vision improvement is particularly relevant for email clients handling image-heavy messages, receipts, and attachments. Any team building on Claude's API (including our product) benefits immediately from this upgrade with zero cost increase.
+    </div>
+    <a href="https://www.anthropic.com/news/claude-opus-4-7" class="read-more" target="_blank">Read more &rarr;</a>
+  </div>
+</section>
+
+<!-- STORY 06: Claude Mythos + Project Glasswing -->
+<section class="s-academic">
+  <div class="numeral">06</div>
+  <div class="inner">
+    <span class="badge badge-low">&#128993; Low Impact</span>
+    <div class="story-date">April 7, 2026</div>
+    <h2 class="headline">Claude Mythos Preview Finds Zero-Days in Every Major OS &mdash; Apple, Microsoft, Amazon Join Project Glasswing Consortium</h2>
+    <p class="body-text">Anthropic unveiled Claude Mythos Preview, a model so capable at cybersecurity that the company chose not to release it publicly. In testing, Mythos autonomously discovered a 17-year-old remote code execution vulnerability in FreeBSD and identified thousands of zero-day vulnerabilities across every major operating system and web browser. It reproduced and exploited vulnerabilities on the first attempt in 83.1% of cases.</p>
+    <p class="body-text">Rather than sell the model, Anthropic launched Project Glasswing &mdash; an industry consortium where partner organizations use Mythos to find and fix vulnerabilities in their own systems. Launch partners include Amazon, Apple, Broadcom, Cisco, CrowdStrike, the Linux Foundation, Microsoft, and Palo Alto Networks. The model remains restricted, but the goal is to eventually enable safe deployment of Mythos-class capabilities at scale.</p>
+    <div class="impact-box">
+      &rarr; <strong>Impact:</strong> Email security is a critical battleground, and AI models that can autonomously find zero-days change the calculus for every email client. The defensive benefit (major platforms getting hardened) is real, but so is the offensive risk: if Mythos-class capabilities eventually leak or are replicated, email infrastructure becomes more vulnerable. The team should monitor Project Glasswing's impact on email protocol security.
+    </div>
+    <a href="https://techcrunch.com/2026/04/07/anthropic-mythos-ai-model-preview-security/" class="read-more" target="_blank">Read more &rarr;</a>
+  </div>
+</section>
+
+<!-- STORY 07: Yahoo Mail Planner -->
+<section class="s-ocean">
+  <div class="numeral">07</div>
+  <div class="inner">
+    <span class="badge badge-low">&#128993; Low Impact</span>
+    <div class="story-date">March 23, 2026</div>
+    <h2 class="headline">Yahoo Mail Launches "Planner" &mdash; AI Turns Your Inbox Into a Task &amp; Calendar Manager</h2>
+    <p class="body-text">Yahoo Mail introduced Planner, an AI-powered feature that transforms the inbox into a personal productivity hub by unifying email, calendar, and task management in a single interface. Powered by Yahoo's Scout Intelligence Platform, Planner scans incoming messages and automatically extracts "life admin" details &mdash; bill payment deadlines, doctor's appointments, event reminders &mdash; pulling them into an integrated to-do list and calendar view.</p>
+    <p class="body-text">The launch came with a splashy Cardi B marketing campaign around "FOMSI" (Fear of Missing Something Important) and, notably, a new ad format: Sponsored Events in Planner, starting with H&R Block tax reminders surfaced directly in users' daily workflow. Yahoo is betting that the 225M+ Yahoo Mail users who never left will upgrade their experience rather than switch to a competitor.</p>
+    <div class="impact-box">
+      &rarr; <strong>Impact:</strong> Yahoo Mail remains one of the largest email services globally, and Planner shows that even legacy providers are moving toward AI-powered email + calendar + task unification &mdash; the exact product vision our product is pursuing. The Sponsored Events ad format is also worth watching: it's a monetization model that embeds advertising directly into productivity features, which could become an industry pattern.
+    </div>
+    <a href="https://www.yahooinc.com/press/yahoo-mail-introduces-planner-an-ai-powered-personal-productivity-hub" class="read-more" target="_blank">Read more &rarr;</a>
+  </div>
+</section>
+
+<!-- STORY 08: QUICK HITS -->
+<section class="s-quickhits">
+  <div class="numeral">&#9889;</div>
+  <div class="inner-wide">
+    <h2 class="headline">Quick Hits</h2>
+    <div class="quick-grid">
+      <div class="quick-card">
+        <span class="badge badge-medium" style="margin-bottom:12px">&#128992; Medium</span>
+        <h3>Anthropic Ships 9 Creative Tool Connectors</h3>
+        <p>Claude now integrates directly with Adobe Creative Cloud (50+ tools), Blender, Autodesk Fusion, Ableton, Splice, Affinity, SketchUp, and Resolume. Anthropic joined the Blender Development Fund as a patron. Signals AI platforms expanding beyond text into every creative workflow.</p>
+        <a href="https://9to5mac.com/2026/04/28/anthropic-releases-9-new-claude-connectors-for-creative-tools-including-blender-and-adobe/" target="_blank">Read more &rarr;</a>
+      </div>
+      <div class="quick-card">
+        <span class="badge badge-medium" style="margin-bottom:12px">&#128992; Medium</span>
+        <h3>Perplexity Computer Storms Enterprise via Slack</h3>
+        <p>Perplexity's multi-model agent platform is now available to enterprise customers, with employees querying @computer directly inside Slack. In internal testing of 16,000+ queries, Perplexity claims it completed 3.25 years of work in four weeks. 100+ enterprises demanded access over a single weekend.</p>
+        <a href="https://venturebeat.com/technology/perplexity-takes-its-computer-ai-agent-into-the-enterprise-taking-aim-at" target="_blank">Read more &rarr;</a>
+      </div>
+      <div class="quick-card">
+        <span class="badge badge-low" style="margin-bottom:12px">&#128993; Low</span>
+        <h3>Gmail AI Overviews Hit Enterprise Inboxes</h3>
+        <p>Google's Gemini 3-powered AI Overviews are rolling out to all Business, Enterprise, and Education Gmail tiers. Users can ask natural language questions in Gmail search and get concise answers without opening individual emails. Full rollout expected by May 7.</p>
+        <a href="https://techcrunch.com/2026/04/22/ai-overviews-are-coming-to-your-gmail-at-work/" target="_blank">Read more &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <strong>Morning Edition</strong> &mdash; Auto-generated competitor intelligence<br>
+  Sources verified April 29, 2026 &middot; Powered by Claude
+</footer>
+
+</body>
+</html>
