@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Morning Edition — May 1, 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,400;1,9..144,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --cream: #FAF7F2;
+  --navy: #0F1729;
+  --rose: #F8E4E4;
+  --rose-accent: #D4456A;
+  --orange: #E8653A;
+  --green: #00FF88;
+  --terminal-bg: #0A0A0A;
+  --amber: #F5E6C8;
+  --teal: #0A3D3D;
+  --teal-light: #14B8A6;
+  --slate: #F1F3F5;
+  --purple: #2D1B69;
+  --purple-light: #A78BFA;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  color: #1a1a1a;
+  background: #fff;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* NAV */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2.5rem;
+  background: rgba(15, 23, 41, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.nav-brand {
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #fff;
+  letter-spacing: 0.02em;
+}
+.nav-date {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.6);
+  font-weight: 400;
+}
+
+/* COVER */
+.cover {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: var(--navy);
+  color: #fff;
+  text-align: center;
+  padding: 6rem 2rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+.cover::before {
+  content: '✦';
+  position: absolute;
+  font-size: 28rem;
+  opacity: 0.03;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.cover-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.35em;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 2rem;
+}
+.cover-title {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(3.5rem, 8vw, 7rem);
+  font-weight: 800;
+  line-height: 1.05;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.7) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.cover-subtitle {
+  font-size: 1.15rem;
+  color: rgba(255,255,255,0.55);
+  max-width: 480px;
+  line-height: 1.7;
+  font-weight: 300;
+}
+.cover-date {
+  font-family: 'Fraunces', serif;
+  font-size: 1.3rem;
+  color: rgba(255,255,255,0.35);
+  margin-top: 3rem;
+  font-weight: 300;
+}
+.cover-count {
+  margin-top: 1.5rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: rgba(255,255,255,0.3);
+}
+
+/* SPREAD BASE */
+.spread {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+.spread-inner {
+  max-width: 720px;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+.spread-numeral {
+  position: absolute;
+  font-family: 'Fraunces', serif;
+  font-weight: 900;
+  font-size: clamp(12rem, 25vw, 22rem);
+  line-height: 1;
+  opacity: 0.06;
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+}
+.badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  padding: 0.35rem 0.85rem;
+  border-radius: 3px;
+  margin-bottom: 1rem;
+}
+.badge-high { background: #FEE2E2; color: #DC2626; }
+.badge-medium { background: #FFF3E0; color: #E65100; }
+.badge-low { background: #FFF9C4; color: #F57F17; }
+.badge-quick { background: #E8F5E9; color: #2E7D32; }
+.spread-date {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 1.2rem;
+  opacity: 0.5;
+}
+.spread-headline {
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 1.8rem;
+}
+.spread-body {
+  font-size: 1.05rem;
+  line-height: 1.85;
+  margin-bottom: 2rem;
+}
+.spread-body p { margin-bottom: 1rem; }
+.impact-box {
+  padding: 1.5rem 1.8rem;
+  border-radius: 6px;
+  font-style: italic;
+  line-height: 1.75;
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+}
+.read-more {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: opacity 0.2s;
+}
+.read-more:hover { opacity: 0.7; }
+
+/* === SPREAD 1: HERO WARM CREAM === */
+.spread-hero {
+  background: var(--cream);
+  color: #1a1a1a;
+}
+.spread-hero .spread-numeral { color: #C4A882; right: -3rem; top: 50%; transform: translateY(-50%); }
+.spread-hero .spread-headline { font-size: clamp(2rem, 4vw, 3rem); color: #1a1a1a; }
+.spread-hero .impact-box { background: rgba(0,0,0,0.04); border-left: 3px solid var(--orange); }
+.spread-hero .read-more { color: var(--orange); }
+
+/* === SPREAD 2: DARK/MIDNIGHT === */
+.spread-dark {
+  background: var(--navy);
+  color: #E8ECF4;
+}
+.spread-dark .spread-numeral { color: #1E3A6A; left: -2rem; top: 50%; transform: translateY(-50%); }
+.spread-dark .spread-headline { font-size: clamp(2rem, 4vw, 3rem); color: #fff; }
+.spread-dark .spread-date { color: rgba(255,255,255,0.35); }
+.spread-dark .impact-box { background: rgba(255,255,255,0.05); border-left: 3px solid #3B82F6; }
+.spread-dark .read-more { color: #60A5FA; }
+.spread-dark .badge-high { background: rgba(239,68,68,0.15); color: #F87171; }
+
+/* === SPREAD 3: ROSE/ALERT === */
+.spread-rose {
+  background: var(--rose);
+  color: #2D1520;
+}
+.spread-rose .spread-numeral { color: var(--rose-accent); right: -1rem; top: 10%; transform: rotate(-8deg); opacity: 0.08; }
+.spread-rose .spread-headline { font-size: clamp(2rem, 4vw, 2.8rem); color: #2D1520; }
+.spread-rose .impact-box { background: rgba(212,69,106,0.08); border-left: 3px solid var(--rose-accent); }
+.spread-rose .read-more { color: var(--rose-accent); }
+
+/* === SPREAD 4: TERMINAL === */
+.spread-terminal {
+  background: var(--terminal-bg);
+  color: #C8D6C8;
+  font-family: 'Inter', sans-serif;
+}
+.spread-terminal .spread-numeral { color: var(--green); left: -2rem; bottom: 5%; opacity: 0.05; }
+.spread-terminal .spread-headline { font-size: clamp(1.8rem, 3.5vw, 2.6rem); color: var(--green); }
+.spread-terminal .spread-date { color: var(--green); opacity: 0.4; }
+.spread-terminal .badge-medium { background: rgba(0,255,136,0.1); color: var(--green); }
+.spread-terminal .impact-box { background: rgba(0,255,136,0.04); border-left: 3px solid var(--green); }
+.spread-terminal .read-more { color: var(--green); }
+
+/* === SPREAD 5: CLEAN/MINIMAL === */
+.spread-clean {
+  background: #FFFFFF;
+  color: #1a1a1a;
+  border-top: 4px solid var(--orange);
+}
+.spread-clean .spread-numeral { color: var(--orange); right: -3rem; top: 50%; transform: translateY(-50%); opacity: 0.04; }
+.spread-clean .spread-headline { font-size: clamp(2rem, 4vw, 2.8rem); }
+.spread-clean .impact-box { background: #FFF7ED; border-left: 3px solid var(--orange); }
+.spread-clean .read-more { color: var(--orange); }
+
+/* === SPREAD 6: ACADEMIC/DROP-CAP === */
+.spread-academic {
+  background: var(--amber);
+  color: #3D2E0A;
+}
+.spread-academic .spread-numeral { color: #C4A040; left: -2rem; top: 50%; transform: translateY(-50%); }
+.spread-academic .spread-headline { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-style: italic; }
+.spread-academic .spread-body p:first-child::first-letter {
+  font-family: 'Fraunces', serif;
+  font-size: 3.5rem;
+  float: left;
+  line-height: 0.8;
+  margin-right: 0.5rem;
+  margin-top: 0.15rem;
+  color: #8B6914;
+}
+.spread-academic .impact-box { background: rgba(139,105,20,0.08); border-left: 3px solid #8B6914; }
+.spread-academic .read-more { color: #8B6914; }
+
+/* === SPREAD 7: OCEAN === */
+.spread-ocean {
+  background: var(--teal);
+  color: #D1FAE5;
+}
+.spread-ocean .spread-numeral { color: var(--teal-light); right: -2rem; top: 50%; transform: translateY(-50%); opacity: 0.07; }
+.spread-ocean .spread-headline { font-size: clamp(2rem, 4vw, 2.8rem); color: #fff; }
+.spread-ocean .spread-date { color: rgba(255,255,255,0.35); }
+.spread-ocean .impact-box { background: rgba(20,184,166,0.1); border-left: 3px solid var(--teal-light); }
+.spread-ocean .read-more { color: var(--teal-light); }
+.spread-ocean .badge-low { background: rgba(20,184,166,0.15); color: var(--teal-light); }
+
+/* === SPREAD 8: QUICK HITS GRID === */
+.spread-grid {
+  background: #111318;
+  color: #C8CDD5;
+}
+.spread-grid .spread-numeral { display: none; }
+.spread-grid .section-title {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+.spread-grid .section-sub {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 2.5rem;
+}
+.hit-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.2rem;
+}
+@media (min-width: 640px) {
+  .hit-cards { grid-template-columns: 1fr 1fr; }
+}
+.hit-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: border-color 0.2s;
+}
+.hit-card:hover { border-color: rgba(255,255,255,0.15); }
+.hit-card .hit-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.6rem;
+  display: inline-block;
+}
+.hit-card h3 {
+  font-family: 'Fraunces', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 0.6rem;
+  line-height: 1.3;
+}
+.hit-card p {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.55);
+}
+.hit-card a {
+  color: #60A5FA;
+  text-decoration: none;
+  font-size: 0.82rem;
+  font-weight: 600;
+  display: inline-block;
+  margin-top: 0.8rem;
+}
+
+/* FOOTER */
+.footer {
+  background: var(--navy);
+  color: rgba(255,255,255,0.35);
+  text-align: center;
+  padding: 3rem 2rem;
+  font-size: 0.8rem;
+  line-height: 1.8;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .nav { padding: 0.8rem 1.2rem; }
+  .nav-brand { font-size: 0.95rem; }
+  .spread { padding: 5rem 1.5rem; }
+  .spread-numeral { font-size: 10rem !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand">✦ Morning Edition</div>
+  <div class="nav-date">Thursday, May 1, 2026</div>
+</nav>
+
+<!-- COVER -->
+<section class="cover">
+  <div class="cover-label">Competitor Intelligence</div>
+  <h1 class="cover-title">Morning<br>Edition</h1>
+  <p class="cover-subtitle">Your daily briefing on email, calendar, meetings &amp; AI.</p>
+  <div class="cover-date">May 1, 2026</div>
+  <div class="cover-count">7 stories · 3 quick hits</div>
+</section>
+
+<!-- STORY 01: Microsoft Agent 365 & E7 — HERO/CREAM -->
+<section class="spread spread-hero" id="story-01">
+  <div class="spread-numeral">01</div>
+  <div class="spread-inner">
+    <span class="badge badge-high">🔴 High Impact</span>
+    <div class="spread-date">May 1, 2026</div>
+    <h2 class="spread-headline">Microsoft Agent 365 Goes Live Today — The $99/User Enterprise Agent Era Begins</h2>
+    <div class="spread-body">
+      <p>Today marks the general availability of Microsoft Agent 365, a dedicated control plane for AI agents across the enterprise, priced at $15 per user as a standalone add-on. It arrives alongside the new Microsoft 365 E7 "Frontier Suite" — a $99/user/month bundle that combines E5, Copilot, Agent 365, and Entra Suite into the company's first new enterprise license tier since E5 launched in 2015.</p>
+      <p>Agent 365 gives IT and security teams a single console to observe, govern, manage, and secure every AI agent in the organization — whether built on Microsoft platforms, from ecosystem partners, or registered independently. Tens of millions of agents have already appeared in the Agent 365 Registry during preview, with tens of thousands of customers adopting the platform.</p>
+      <p>The control plane provides detailed logging, audit trails, and compliance tools. For Microsoft, it's a bet that the real enterprise value isn't just building agents — it's governing and securing them at scale, using the same infrastructure companies already trust for managing people.</p>
+    </div>
+    <div class="impact-box">
+      → <strong>Impact:</strong> Microsoft is creating a governance moat. By making Agent 365 the "AD for agents," enterprises building on Microsoft will naturally route email, calendar, and meeting agents through this control plane. For our product, this means Outlook-integrated agent workflows are now first-class citizens with enterprise security controls baked in — a capability gap third-party email clients will struggle to match.
+    </div>
+    <a href="https://trustmarque.com/microsoft-365-e7-agent-365-whats-launching-1-may-and-what-it-means" class="read-more" target="_blank">Read more →</a>
+  </div>
+</section>
+
+<!-- STORY 02: Cloudflare Email for Agents — DARK/MIDNIGHT -->
+<section class="spread spread-dark" id="story-02">
+  <div class="spread-numeral">02</div>
+  <div class="spread-inner">
+    <span class="badge badge-high">🔴 High Impact</span>
+    <div class="spread-date">April 16, 2026</div>
+    <h2 class="spread-headline">Cloudflare Ships Email-as-Infrastructure for AI Agents</h2>
+    <div class="spread-body">
+      <p>Cloudflare's Email Service has entered public beta with a clear thesis: email is becoming a core interface for AI agents, and developers need infrastructure built for it. The service provides bidirectional email — sending and receiving — natively from Cloudflare Workers and its Agents SDK, at $0.35 per 1,000 messages with automatic SPF, DKIM, and DMARC configuration.</p>
+      <p>The launch includes an Email MCP server so external agents can discover and call email endpoints, Wrangler CLI commands for scripted sending, and — most notably — an open-source "Agentic Inbox" reference application with conversation threading, attachment handling, and a built-in MCP server for human-in-the-loop review.</p>
+      <p>Each agent gets its own identity from a single domain. The address-based resolver routes different agent instances via the email address itself — no separate inbox provisioning required. Agents backed by Durable Objects maintain persistent state across email conversations, remembering context without a separate database.</p>
+    </div>
+    <div class="impact-box">
+      → <strong>Impact:</strong> Cloudflare is commoditizing the infrastructure layer that makes AI email agents possible. When any developer can spin up an email-native agent with a few lines of code, the barrier to building "email clients powered by agents" drops dramatically. The open-source Agentic Inbox is essentially a blueprint for building a Superhuman competitor on Cloudflare's stack. The team should monitor adoption closely — this could accelerate the pace of new AI email entrants significantly.
+    </div>
+    <a href="https://blog.cloudflare.com/email-for-agents/" class="read-more" target="_blank">Read more →</a>
+  </div>
+</section>
+
+<!-- STORY 03: Gemini Notetaker Expands — ROSE/ALERT -->
+<section class="spread spread-rose" id="story-03">
+  <div class="spread-numeral">03</div>
+  <div class="spread-inner">
+    <span class="badge badge-medium">🟠 Medium Impact</span>
+    <div class="spread-date">April 22, 2026</div>
+    <h2 class="spread-headline">Google Gemini Notetaker Breaks Free — Now Captures In-Person Meetings, Zoom, and Teams</h2>
+    <div class="spread-body">
+      <p>Announced at Cloud Next 2026, Google's "Take Notes for Me" AI feature in Google Meet is no longer confined to virtual calls. The Gemini-powered notetaker now works at in-person meetings and on competing platforms — including Zoom and Microsoft Teams — positioning it not as a Meet feature, but as a universal capture layer for conversations wherever they happen.</p>
+      <p>Users trigger the feature from the Meet mobile app or desktop browser, even when not in a virtual call. Gemini listens, transcribes, generates structured notes with key points and action items, and delivers everything into a Google Doc. The feature supports eight languages (English, French, German, Italian, Japanese, Korean, Portuguese, Spanish) and works for spontaneous meetings without pre-scheduling.</p>
+      <p>The AI meeting assistant market is projected to grow by $3.46 billion by 2029. But Google's move applies direct pressure to standalone tools like Otter.ai and Fireflies.ai by bundling this capability into Workspace at no extra cost.</p>
+    </div>
+    <div class="impact-box">
+      → <strong>Impact:</strong> This is a direct challenge to our meeting notes capabilities. Google is turning Gemini into a platform-agnostic notetaker that follows you into every meeting — physical or virtual, Google or otherwise. The team's meeting notes feature needs to compete not just on quality, but on the frictionless "just tap and go" experience Google is offering. Cross-platform support (Zoom, Teams) is particularly threatening as it eliminates the lock-in argument.
+    </div>
+    <a href="https://www.techbuzz.ai/articles/google-gemini-now-takes-notes-at-in-person-meetings" class="read-more" target="_blank">Read more →</a>
+  </div>
+</section>
+
+<!-- STORY 04: Google Drive Projects — TERMINAL -->
+<section class="spread spread-terminal" id="story-04">
+  <div class="spread-numeral">04</div>
+  <div class="spread-inner">
+    <span class="badge badge-medium">🟠 Medium Impact</span>
+    <div class="spread-date">April 22, 2026</div>
+    <h2 class="spread-headline">Google Drive Projects: Files Now Organize Themselves Into AI-Aware Workspaces</h2>
+    <div class="spread-body">
+      <p>Also unveiled at Cloud Next, Google Drive Projects transforms Drive from a storage tool into an active collaborator. Projects creates intelligent spaces that organize files and emails together, giving both colleagues and Gemini the full context of what a team is working on. Combined with AI Overviews in Drive — now generally available — users can have multi-turn conversations with Gemini about their files, explore folders, and surface insights from across their document repository.</p>
+      <p>This is part of Google's broader Workspace Intelligence play: a semantic AI layer that maps emails, chats, files, collaborators, and active projects into shared context for agentic work. The more context Gemini has, the more useful its email, calendar, and meeting suggestions become — a flywheel effect that standalone productivity apps can't easily replicate.</p>
+    </div>
+    <div class="impact-box">
+      → <strong>Impact:</strong> Google is building a contextual moat. By organizing files, emails, and calendar events into unified "Projects," Gemini gains a level of work understanding that a third-party email client can't match without deep file system integration. The team should consider how to build comparable context aggregation — perhaps through integrations with cloud storage services — to avoid falling behind on AI-assisted productivity suggestions.
+    </div>
+    <a href="https://9to5google.com/2026/04/22/google-workspace-next-2026/" class="read-more" target="_blank">Read more →</a>
+  </div>
+</section>
+
+<!-- STORY 05: Notion Agents Cheaper — CLEAN/MINIMAL -->
+<section class="spread spread-clean" id="story-05">
+  <div class="spread-numeral">05</div>
+  <div class="spread-inner">
+    <span class="badge badge-medium">🟠 Medium Impact</span>
+    <div class="spread-date">April 14, 2026</div>
+    <h2 class="spread-headline">Notion Custom Agents Get 35–50% Cheaper — Credits System Launches May 4</h2>
+    <div class="spread-body">
+      <p>Notion 3.4 makes Custom Agents significantly more affordable, with costs dropping 35–50% for repetitive tasks like email triage. The update also introduces AI Autofill for databases — bringing agents directly into structured data workflows — and the ability to create "skills" that teach the Notion Agent important workflows.</p>
+      <p>Starting May 4, Custom Agents will use a new Notion Credits system (purchasable credits), though they're free until then. The pricing move is strategic: by making agents cheap enough for casual use, Notion is encouraging users to automate more of their email, calendar, and document workflows within the Notion ecosystem.</p>
+      <p>Combined with last week's calendar and mail integration (agents can now schedule meetings and draft emails from connected accounts), Notion is rapidly becoming a unified AI layer across docs, email, and calendar — the same "one app for everything" pitch that defines the productivity space in 2026.</p>
+    </div>
+    <div class="impact-box">
+      → <strong>Impact:</strong> Notion's price cuts signal that agent-powered email triage is becoming a commodity feature. When a $16/month productivity tool offers AI email management that's 35–50% cheaper to run, it puts pressure on dedicated email clients to justify their pricing with superior agent capabilities. The team should track Notion's adoption numbers post-May 4 — if credits-based agents gain traction, it validates the market but also intensifies competition for the "AI email assistant" positioning.
+    </div>
+    <a href="https://www.notion.com/releases/2026-04-14" class="read-more" target="_blank">Read more →</a>
+  </div>
+</section>
+
+<!-- STORY 06: Stanford Research — ACADEMIC/DROP-CAP -->
+<section class="spread spread-academic" id="story-06">
+  <div class="spread-numeral">06</div>
+  <div class="spread-inner">
+    <span class="badge badge-low">🟡 Low Impact</span>
+    <div class="spread-date">April 15, 2026</div>
+    <h2 class="spread-headline">Stanford Finds AI Makes People 76–176% More Efficient at Digital Chores</h2>
+    <div class="spread-body">
+      <p>A Stanford SIEPR study tracking 200,000 U.S. households delivers some of the first rigorous evidence on how generative AI affects everyday productivity. The finding: using tools like ChatGPT makes people 76% to 176% more efficient at "digital chores" — job hunting, travel planning, shopping, bill paying, and managing personal communications.</p>
+      <p>But there's a catch. People spend the freed-up time on leisure, not skill development. And the "GenAI digital divide" is widening: younger, higher-income individuals adopt AI tools substantially faster than older and lower-income populations. The researchers warn that this gap risks creating a two-tier productivity economy where AI benefits compound for those already ahead.</p>
+      <p>The broader Stanford AI Index 2026 reinforces this: GenAI hit 53% population adoption in just three years (faster than PCs or the internet), and AI is boosting workplace productivity 14–26% across industries.</p>
+    </div>
+    <div class="impact-box">
+      → <strong>Impact:</strong> This research validates the core thesis behind AI email and calendar tools: people want AI to handle routine communication tasks so they can spend time on other things. The 76–176% efficiency gain on "digital chores" is a powerful marketing datapoint. However, the digital divide finding suggests the team should prioritize intuitive, frictionless AI features that don't require users to learn prompting — make the AI work for everyone, not just power users.
+    </div>
+    <a href="https://news.stanford.edu/stories/2026/04/digital-chores-productivity-boost-research" class="read-more" target="_blank">Read more →</a>
+  </div>
+</section>
+
+<!-- STORY 07: Read AI Digital Twin — OCEAN -->
+<section class="spread spread-ocean" id="story-07">
+  <div class="spread-numeral">07</div>
+  <div class="spread-inner">
+    <span class="badge badge-low">🟡 Low Impact</span>
+    <div class="spread-date">February 26, 2026</div>
+    <h2 class="spread-headline">Read AI's "Ada" Digital Twin — Your AI Email Proxy That Schedules and Answers for You</h2>
+    <div class="spread-body">
+      <p>Read AI launched Ada, an email-based "digital twin" that works as your intelligent proxy. CC ada@read.ai on any email thread and instruct it: "Ada — find a time for the three of us." Ada checks your calendar, replies with availability, and handles the back-and-forth negotiation until a meeting is booked.</p>
+      <p>For substantive questions beyond scheduling, Ada "sidebars" with you first — proposing draft responses and waiting for your approval before sending. It also taps into company knowledge bases and web search to answer questions on your behalf, positioning itself as more than a calendar bot.</p>
+      <p>The activation model is notably friction-light: no app install, no setup wizard — just CC an email address. Ada launched free to all 5 million+ Read AI monthly active users, with the company betting that an email-first interface removes the adoption barriers that plague traditional AI assistants.</p>
+    </div>
+    <div class="impact-box">
+      → <strong>Impact:</strong> Read AI's approach is clever: by using the CC field as the activation mechanism, Ada bypasses the need for a dedicated app entirely. This "email-native agent" pattern — where the AI lives inside existing email threads rather than in a separate interface — is worth watching. If the model gains traction, it could reshape expectations for how AI scheduling and response drafting should work. The team should evaluate whether a similar lightweight activation pattern could complement our product's full-featured approach.
+    </div>
+    <a href="https://techcrunch.com/2026/02/26/read-ai-launches-an-email-based-digital-twin-to-help-you-with-schedules-and-answers/" class="read-more" target="_blank">Read more →</a>
+  </div>
+</section>
+
+<!-- QUICK HITS — GRID -->
+<section class="spread spread-grid" id="quick-hits">
+  <div class="spread-numeral"></div>
+  <div class="spread-inner" style="max-width: 820px;">
+    <span class="badge badge-quick">⚡ Quick Hits</span>
+    <h2 class="section-title">Signals &amp; Shorts</h2>
+    <p class="section-sub">Smaller stories worth tracking</p>
+    <div class="hit-cards">
+
+      <div class="hit-card">
+        <div class="hit-badge" style="color: #F59E0B;">🟠 Medium</div>
+        <h3>Meta Business AI Hits 10M Conversations/Week</h3>
+        <p>Meta's business AI tools now facilitate roughly 10 million conversations per week as of late March — up from 1 million at the start of 2026. The 10x growth in three months shows AI-powered customer communication is scaling faster than expected across WhatsApp, Messenger, and Instagram.</p>
+        <a href="https://techcrunch.com/2026/04/30/meta-says-its-business-ai-now-facilitates-10-million-conversations-a-week/" target="_blank">Read more →</a>
+      </div>
+
+      <div class="hit-card">
+        <div class="hit-badge" style="color: var(--teal-light);">⚡ Signal</div>
+        <h3>AgentMail Raises $6M — Email Inboxes for AI Agents</h3>
+        <p>Y Combinator-backed AgentMail raised $6M (General Catalyst led) to build email infrastructure where AI agents get their own inboxes. Thousands of developers already power hundreds of thousands of agents across procurement, logistics, and finance. Paul Graham is an angel investor.</p>
+        <a href="https://techcrunch.com/2026/03/10/agentmail-raises-6m-to-build-an-email-service-for-ai-agents/" target="_blank">Read more →</a>
+      </div>
+
+      <div class="hit-card">
+        <div class="hit-badge" style="color: var(--teal-light);">⚡ Signal</div>
+        <h3>Clockwise Sunsets — Calendar AI Consolidation Continues</h3>
+        <p>Clockwise, the AI calendar tool acquired by Salesforce, shut down on March 27. Reclaim.ai is absorbing users with a full price match through June 2026 and a one-click import tool. The calendar AI space is consolidating as big players embed scheduling intelligence natively.</p>
+        <a href="https://reclaim.ai/blog/clockwise-vs-reclaim" target="_blank">Read more →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>Morning Edition — Auto-generated competitor intelligence</p>
+  <p>Sources verified May 1, 2026 · Powered by Claude</p>
+</footer>
+
+</body>
+</html>
