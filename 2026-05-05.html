@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Morning Edition — May 5, 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-snap-type: y proximity; }
+body { font-family: 'Inter', sans-serif; color: #1a1a1a; background: #0a0a0a; }
+
+/* NAV */
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1rem 2.5rem; background: rgba(10,10,10,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.08); }
+.nav-brand { font-family: 'Fraunces', serif; font-size: 1.1rem; color: #fff; font-weight: 700; letter-spacing: -0.02em; }
+.nav-date { font-family: 'Inter', sans-serif; font-size: 0.8rem; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.12em; }
+
+/* SPREAD */
+.spread { min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; scroll-snap-align: start; }
+
+/* COVER */
+.cover { background: #0a0a0a; color: #fff; flex-direction: column; text-align: center; padding: 2rem; }
+.cover-label { font-family: 'Inter', sans-serif; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.25em; color: rgba(255,255,255,0.4); margin-bottom: 1.5rem; }
+.cover-title { font-family: 'Fraunces', serif; font-size: clamp(3rem, 8vw, 7rem); font-weight: 900; line-height: 1; letter-spacing: -0.03em; margin-bottom: 1rem; }
+.cover-subtitle { font-family: 'Inter', sans-serif; font-size: clamp(0.95rem, 1.8vw, 1.2rem); color: rgba(255,255,255,0.5); max-width: 500px; line-height: 1.6; font-weight: 300; }
+.cover-meta { margin-top: 3rem; font-size: 0.8rem; color: rgba(255,255,255,0.25); letter-spacing: 0.1em; text-transform: uppercase; }
+.cover-star { font-size: 3rem; margin-bottom: 2rem; opacity: 0.6; }
+.cover-count { margin-top: 2rem; font-family: 'Fraunces', serif; font-size: 1.1rem; color: rgba(255,255,255,0.3); }
+
+/* NUMERAL BG */
+.numeral { position: absolute; font-family: 'Fraunces', serif; font-weight: 900; font-size: clamp(15rem, 35vw, 30rem); line-height: 1; opacity: 0.04; pointer-events: none; user-select: none; }
+
+/* CONTENT CARD */
+.card { max-width: 720px; width: 90%; padding: 3rem 0; position: relative; z-index: 2; }
+.badge { display: inline-block; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; padding: 0.35rem 0.9rem; border-radius: 99px; margin-bottom: 1.2rem; }
+.card-date { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; opacity: 0.5; }
+.card h2 { font-family: 'Fraunces', serif; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+.card p { font-size: 1.05rem; line-height: 1.75; margin-bottom: 1rem; font-weight: 400; }
+.impact { margin-top: 1.5rem; padding: 1.25rem 1.5rem; border-radius: 8px; font-style: italic; font-size: 0.95rem; line-height: 1.65; }
+.read-more { display: inline-block; margin-top: 1.5rem; font-size: 0.85rem; font-weight: 600; text-decoration: none; letter-spacing: 0.04em; transition: opacity 0.2s; }
+.read-more:hover { opacity: 0.7; }
+
+/* STYLE: HERO (warm cream) */
+.spread-hero { background: #faf5ee; color: #1a1a1a; }
+.spread-hero .numeral { color: #d4a574; right: -5%; top: 10%; }
+.spread-hero .badge { background: #dc2626; color: #fff; }
+.spread-hero .impact { background: rgba(212,165,116,0.12); border-left: 3px solid #d4a574; }
+.spread-hero .read-more { color: #b45309; }
+
+/* STYLE: DARK/MIDNIGHT */
+.spread-dark { background: #0f172a; color: #e2e8f0; }
+.spread-dark .numeral { color: #3b82f6; left: -5%; bottom: 5%; }
+.spread-dark .badge { background: #dc2626; color: #fff; }
+.spread-dark .impact { background: rgba(59,130,246,0.08); border-left: 3px solid #3b82f6; }
+.spread-dark .read-more { color: #60a5fa; }
+.spread-dark .card-date { color: rgba(226,232,240,0.4); }
+
+/* STYLE: TERMINAL */
+.spread-terminal { background: #0c0c0c; color: #e0e0e0; }
+.spread-terminal .numeral { color: #22c55e; right: -3%; top: 15%; font-family: 'Courier New', monospace; }
+.spread-terminal .badge { background: #16a34a; color: #fff; }
+.spread-terminal h2 { font-family: 'Courier New', monospace; font-size: clamp(1.5rem, 3.5vw, 2.4rem); }
+.spread-terminal .impact { background: rgba(34,197,94,0.06); border-left: 3px solid #22c55e; font-family: 'Courier New', monospace; font-size: 0.9rem; }
+.spread-terminal .read-more { color: #22c55e; }
+.spread-terminal .card-date { color: rgba(224,224,224,0.35); }
+
+/* STYLE: ROSE/ALERT */
+.spread-rose { background: #fff1f2; color: #1a1a1a; }
+.spread-rose .numeral { color: #fb7185; left: -8%; top: -5%; transform: rotate(-12deg); }
+.spread-rose .badge { background: #e11d48; color: #fff; }
+.spread-rose .impact { background: rgba(251,113,133,0.1); border-left: 3px solid #fb7185; }
+.spread-rose .read-more { color: #be123c; }
+
+/* STYLE: OCEAN */
+.spread-ocean { background: #042f2e; color: #ccfbf1; }
+.spread-ocean .numeral { color: #14b8a6; right: -5%; bottom: 0; }
+.spread-ocean .badge { background: #0d9488; color: #fff; }
+.spread-ocean .impact { background: rgba(20,184,166,0.08); border-left: 3px solid #14b8a6; }
+.spread-ocean .read-more { color: #5eead4; }
+.spread-ocean .card-date { color: rgba(204,251,241,0.35); }
+
+/* QUICK HITS GRID */
+.spread-grid { background: #111827; color: #e5e7eb; padding: 6rem 2rem 4rem; flex-direction: column; }
+.grid-title { font-family: 'Fraunces', serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; color: #fff; margin-bottom: 0.5rem; text-align: center; }
+.grid-subtitle { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.15em; color: rgba(255,255,255,0.35); margin-bottom: 3rem; text-align: center; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; max-width: 1000px; width: 90%; }
+.grid-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 1.8rem; transition: background 0.2s; }
+.grid-card:hover { background: rgba(255,255,255,0.07); }
+.grid-card .grid-badge { font-size: 1.2rem; margin-bottom: 0.75rem; }
+.grid-card h3 { font-family: 'Fraunces', serif; font-size: 1.15rem; font-weight: 700; margin-bottom: 0.75rem; line-height: 1.3; }
+.grid-card h3 a { color: inherit; text-decoration: none; }
+.grid-card h3 a:hover { text-decoration: underline; }
+.grid-card p { font-size: 0.9rem; line-height: 1.6; color: rgba(229,231,235,0.7); }
+
+/* FOOTER */
+.footer { background: #0a0a0a; color: rgba(255,255,255,0.25); text-align: center; padding: 4rem 2rem; font-size: 0.8rem; line-height: 2; border-top: 1px solid rgba(255,255,255,0.06); }
+.footer-brand { font-family: 'Fraunces', serif; font-size: 1rem; color: rgba(255,255,255,0.4); margin-bottom: 0.5rem; }
+
+/* RESPONSIVE */
+@media (max-width: 640px) {
+  .nav { padding: 0.8rem 1.2rem; }
+  .nav-brand { font-size: 0.95rem; }
+  .card { padding: 2rem 1.2rem; }
+  .card h2 { font-size: 1.6rem; }
+  .impact { padding: 1rem; font-size: 0.9rem; }
+  .grid { grid-template-columns: 1fr; }
+  .spread { padding: 4rem 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand">✦ Morning Edition</div>
+  <div class="nav-date">May 5, 2026</div>
+</nav>
+
+<!-- COVER -->
+<section class="spread cover">
+  <div class="cover-star">✦</div>
+  <div class="cover-label">Competitor Intelligence</div>
+  <div class="cover-title">Morning<br>Edition</div>
+  <div class="cover-subtitle">Your daily briefing on email, calendar, meetings &amp; AI.</div>
+  <div class="cover-count">5 stories · 3 quick hits</div>
+  <div class="cover-meta">Monday, May 5, 2026</div>
+</section>
+
+<!-- STORY 01 — GPT-5.5 Launch Event -->
+<section class="spread spread-hero">
+  <div class="numeral">01</div>
+  <div class="card">
+    <div class="badge">🔴 High Impact</div>
+    <div class="card-date">May 5, 2026</div>
+    <h2>OpenAI Throws GPT-5.5 a Launch Party — The Model Planned It Itself</h2>
+    <p>OpenAI is hosting an invite-only "GPT-5.5 on 5/5" event in San Francisco tonight, running from 5:55 PM to 8:55 PM. In a surreal twist, CEO Sam Altman revealed that GPT-5.5 itself planned the party — requesting short speeches, a toast from its creators, and a central place to collect suggestions for GPT-5.6.</p>
+    <p>The model, which began rolling out April 28, represents OpenAI's biggest leap into agentic territory. GPT-5.5 scores 82.7% on Terminal-Bench 2.0 (complex command-line workflows) and 78.7% on OSWorld-Verified (autonomous computer operation) — both state-of-the-art. It can plan multi-step tasks, use tools, verify its own work, and keep going until a job is finished.</p>
+    <p>Altman publicly invited Elon Musk to the event, saying "He can come if he wants… the world needs more love" — a pointed olive branch amid their ongoing legal battle, where Musk recently admitted xAI had distilled OpenAI models.</p>
+    <div class="impact">→ Impact: GPT-5.5's autonomous computer-use capabilities (78.7% on real desktop tasks) mean AI can now reliably operate email clients, calendar apps, and productivity tools on a user's behalf. As OpenAI pushes toward a "super app" that handles knowledge work end-to-end, the team's differentiation must come from speed, privacy, and a UX that feels more intentional than a general-purpose AI operating a screen.</div>
+    <a class="read-more" href="https://techcrunch.com/2026/04/23/openai-chatgpt-gpt-5-5-ai-model-superapp/" target="_blank" rel="noopener">Read more →</a>
+  </div>
+</section>
+
+<!-- STORY 02 — Sierra $950M -->
+<section class="spread spread-dark">
+  <div class="numeral">02</div>
+  <div class="card">
+    <div class="badge">🔴 High Impact</div>
+    <div class="card-date">May 4, 2026</div>
+    <h2>Sierra Raises $950M at $15.8B — Bret Taylor Says "The Era of Clicking Buttons Is Over"</h2>
+    <p>Bret Taylor's AI agent startup Sierra announced a massive $950 million Series E led by Tiger Global and Google Ventures, vaulting its valuation to $15.8 billion — up from $10 billion last fall. Sierra has reached $150 million in annual recurring revenue in just eight quarters, a growth pace unprecedented in traditional software.</p>
+    <p>The funding comes as Sierra expands from customer-service AI into a broader agent platform. Its "Ghostwriter" tool, launched in March, lets businesses describe what they need in plain English or upload SOPs and call transcripts to generate production-ready AI agents across voice, chat, and email. Sierra now serves over 40% of the Fortune 50, including Prudential, Cigna, and Rocket Mortgage.</p>
+    <p>Taylor, who serves as both OpenAI's board chair and Sierra's CEO, declared that "the era of clicking buttons is over" — arguing AI agents will replace traditional click-based web applications entirely.</p>
+    <div class="impact">→ Impact: Sierra's explosive growth validates that enterprise customers are ready to let AI agents handle communication channels autonomously. With $15.8B in backing and a tool that generates email/voice/chat agents from plain-English descriptions, Sierra could easily expand into inbox management territory — putting it squarely in competition with our product's AI features.</div>
+    <a class="read-more" href="https://techcrunch.com/2026/05/04/sierra-raises-950m-as-the-race-to-own-enterprise-ai-gets-serious/" target="_blank" rel="noopener">Read more →</a>
+  </div>
+</section>
+
+<!-- STORY 03 — Mistral Le Chat Work Mode -->
+<section class="spread spread-terminal">
+  <div class="numeral">03</div>
+  <div class="card">
+    <div class="badge">🟠 Medium Impact</div>
+    <div class="card-date">May 2, 2026</div>
+    <h2>Mistral Launches "Work Mode" — Le Chat Now Reads Your Email, Calendar &amp; Slack</h2>
+    <p>French AI lab Mistral released Medium 3.5, a 128-billion-parameter dense model, alongside a major Le Chat upgrade: "Work Mode." The new mode connects directly to email, calendar, Slack, Notion, Linear, and GitHub, enabling multi-step workflows with human-in-the-loop approval for sensitive actions.</p>
+    <p>In Work Mode, connectors are on by default rather than chosen manually, letting the agent autonomously reach into mailboxes, calendars, and documents. Use cases include catching up on email threads, creating Jira issues from discussions, producing research briefs, and posting team summaries to Slack — all in a single workflow.</p>
+    <p>Mistral also launched "Vibe Remote Agents" — cloud-based coding agents that execute asynchronously in sandboxed environments with GitHub integration. Medium 3.5 scores 77.6% on SWE-Bench Verified at just $1.50 per million input tokens — dramatically undercutting frontier pricing.</p>
+    <div class="impact">→ Impact: Another AI assistant now treats email and calendar as first-class data sources. Mistral's approach — connectors on by default with human approval gates — is the exact interaction model the team is building toward. Le Chat's aggressive pricing ($1.50/M tokens) and open-weight model mean this kind of integration will proliferate fast among developers building custom productivity tools.</div>
+    <a class="read-more" href="https://mistral.ai/news/vibe-remote-agents-mistral-medium-3-5" target="_blank" rel="noopener">Read more →</a>
+  </div>
+</section>
+
+<!-- STORY 04 — Notion Agents Go Paid -->
+<section class="spread spread-rose">
+  <div class="numeral">04</div>
+  <div class="card">
+    <div class="badge">🟠 Medium Impact</div>
+    <div class="card-date">May 4, 2026</div>
+    <h2>Notion Agents Exit Free Preview — Calendar Booking &amp; Email Drafting Now Cost Credits</h2>
+    <p>Starting yesterday, Notion's Custom Agents moved from free preview to a paid credits model at $10 per 1,000 credits, with each agent run consuming 30–60 credits depending on complexity. Agents that touch databases, use Slack or Calendar connectors, or perform long writes land closer to 60 credits per run.</p>
+    <p>The monetization shift comes with new capabilities: Notion Agent now surfaces your calendar to help find available time with teammates, displaying a ranked list of options, comparing schedules, and allowing booking without leaving the chat. A new settings tab lets users connect their calendar and inbox, enabling Notion AI to schedule meetings and draft emails natively.</p>
+    <p>The pricing signals Notion's confidence that its AI agents deliver enough value to charge for — and that users are willing to pay per-action rather than per-seat for AI productivity workflows.</p>
+    <div class="impact">→ Impact: Notion joining the "AI that manages your email and calendar" space adds another well-funded competitor approaching the inbox from a different angle — workspace-first rather than email-first. Their credits-based pricing model is worth studying: it aligns cost with AI usage rather than user count, which could become the standard for productivity AI features.</div>
+    <a class="read-more" href="https://www.notion.com/releases" target="_blank" rel="noopener">Read more →</a>
+  </div>
+</section>
+
+<!-- STORY 05 — Cerebras IPO -->
+<section class="spread spread-ocean">
+  <div class="numeral">05</div>
+  <div class="card">
+    <div class="badge">🟠 Medium Impact</div>
+    <div class="card-date">May 4, 2026</div>
+    <h2>Cerebras Files for $3.5B Nasdaq IPO — Backed by a $20B+ OpenAI Compute Deal</h2>
+    <p>AI chip specialist Cerebras Systems filed updated paperwork for a Nasdaq IPO, planning to sell 28 million shares at $115–$125 each to raise up to $3.5 billion. The company reported Q4 revenue of $510 million, up 76% year-over-year, driven by surging demand for AI inference hardware.</p>
+    <p>The headline number: Cerebras has secured a multi-year deal with OpenAI for up to 750 megawatts of compute capacity valued at more than $20 billion through 2028. This positions Cerebras as a key infrastructure provider for the models powering the next generation of AI assistants and agents.</p>
+    <p>The IPO comes as the AI hardware market matures beyond NVIDIA's dominance, with specialized inference chips becoming critical as AI moves from training to deployment at scale — especially for the always-on, low-latency agents that email and productivity apps demand.</p>
+    <div class="impact">→ Impact: The infrastructure buildout behind AI assistants continues to accelerate. OpenAI committing $20B+ to a single compute provider signals they're planning for a world where billions of users interact with AI agents continuously — the kind of always-on inference load that agentic email management at scale would require. As inference costs drop, more competitors can afford to offer sophisticated AI features.</div>
+    <a class="read-more" href="https://techstartups.com/2026/05/04/top-tech-news-today-may-4-2026/" target="_blank" rel="noopener">Read more →</a>
+  </div>
+</section>
+
+<!-- QUICK HITS -->
+<section class="spread spread-grid">
+  <div class="grid-title">Quick Hits</div>
+  <div class="grid-subtitle">Signals worth watching</div>
+  <div class="grid">
+
+    <div class="grid-card">
+      <div class="grid-badge">⚡</div>
+      <h3><a href="https://cybernews.com/ai-news/gpt5-openai-musk-altman-party/" target="_blank" rel="noopener">Musk Admits xAI Distilled OpenAI Models in Court</a></h3>
+      <p>Elon Musk acknowledged that xAI had, to some extent, used OpenAI model outputs to train its own Grok models — a practice called "distillation." The admission came during ongoing legal proceedings and could reshape IP norms across the AI industry.</p>
+    </div>
+
+    <div class="grid-card">
+      <div class="grid-badge">⚡</div>
+      <h3><a href="https://www.businesstoday.in/technology/story/ios-27-could-bring-major-ai-upgrades-to-iphones-what-to-expect-at-wwdc-2026-529530-2026-05-04" target="_blank" rel="noopener">WWDC Countdown: 34 Days Until iOS 27 Siri Extensions Unveil</a></h3>
+      <p>Fresh preview articles confirm iOS 27 will let users choose between Claude, Gemini, and ChatGPT as Siri "Extensions" — routing different query types to different AI providers. Apple's June 8 keynote is expected to formalize the framework. Developer APIs will follow.</p>
+    </div>
+
+    <div class="grid-card">
+      <div class="grid-badge">⚡</div>
+      <h3><a href="https://techstartups.com/2026/05/04/top-startup-and-tech-funding-news-may-4-2025/" target="_blank" rel="noopener">BMW i Ventures Launches $300M Fund with Industrial AI Focus</a></h3>
+      <p>The automaker's venture arm raised a fresh $300 million fund with AI agents for engineering and design workflows as a key investment thesis — signaling that agentic AI is expanding well beyond knowledge work into manufacturing and physical operations.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-brand">✦ Morning Edition</div>
+  <div>Auto-generated competitor intelligence</div>
+  <div>Sources verified May 5, 2026 · Powered by Claude</div>
+</footer>
+
+</body>
+</html>
