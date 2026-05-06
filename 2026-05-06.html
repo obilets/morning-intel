@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Morning Edition — May 6, 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,400;1,9..144,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-snap-type: y proximity; }
+body { font-family: 'Inter', sans-serif; color: #1a1a1a; background: #f5f0eb; }
+
+/* NAV */
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; padding: 1rem 2.5rem; background: rgba(26,26,26,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.08); }
+.nav-brand { font-family: 'Fraunces', serif; font-weight: 700; font-size: 1.1rem; color: #fff; letter-spacing: -0.02em; }
+.nav-date { font-family: 'Inter', sans-serif; font-weight: 400; font-size: 0.82rem; color: rgba(255,255,255,0.55); letter-spacing: 0.08em; text-transform: uppercase; }
+
+/* SPREAD BASE */
+.spread { min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; scroll-snap-align: start; padding: 6rem 2rem 4rem; }
+.spread-inner { max-width: 820px; width: 100%; position: relative; z-index: 2; }
+
+/* BADGE */
+.badge { display: inline-block; font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.35rem 0.9rem; border-radius: 2rem; margin-bottom: 1.2rem; }
+.badge-high { background: #dc2626; color: #fff; }
+.badge-medium { background: #ea580c; color: #fff; }
+.badge-low { background: #ca8a04; color: #fff; }
+.badge-quick { background: #7c3aed; color: #fff; }
+
+/* DATE */
+.story-date { font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.8rem; opacity: 0.6; }
+
+/* HEADLINE */
+.headline { font-family: 'Fraunces', serif; font-weight: 800; line-height: 1.08; letter-spacing: -0.03em; margin-bottom: 1.6rem; }
+
+/* BODY */
+.story-body { font-family: 'Inter', sans-serif; font-size: 1.05rem; line-height: 1.75; margin-bottom: 2rem; }
+.story-body p { margin-bottom: 1rem; }
+
+/* IMPACT BOX */
+.impact { border-left: 3px solid; padding: 1.2rem 1.6rem; margin-bottom: 1.8rem; font-family: 'Inter', sans-serif; font-style: italic; font-size: 0.95rem; line-height: 1.65; }
+.impact strong { font-style: normal; font-weight: 600; }
+
+/* READ MORE */
+.read-more { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.88rem; text-decoration: none; letter-spacing: 0.04em; display: inline-flex; align-items: center; gap: 0.4rem; transition: gap 0.2s; }
+.read-more:hover { gap: 0.7rem; }
+
+/* BIG NUMERAL */
+.big-num { position: absolute; font-family: 'Fraunces', serif; font-weight: 900; opacity: 0.045; line-height: 1; z-index: 0; pointer-events: none; user-select: none; }
+
+/* ======================== */
+/* COVER */
+/* ======================== */
+.cover { background: #1a1a1a; color: #fff; text-align: center; flex-direction: column; }
+.cover .edition-label { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 1.2rem; }
+.cover .cover-title { font-family: 'Fraunces', serif; font-weight: 900; font-size: clamp(3.2rem, 8vw, 6.5rem); line-height: 1.0; letter-spacing: -0.04em; margin-bottom: 1.2rem; background: linear-gradient(135deg, #fff 0%, #d4c5b0 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.cover .cover-sub { font-family: 'Inter', sans-serif; font-weight: 300; font-size: 1.15rem; color: rgba(255,255,255,0.55); max-width: 520px; margin: 0 auto 2rem; line-height: 1.6; }
+.cover .cover-date { font-family: 'Inter', sans-serif; font-weight: 500; font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.35); }
+.cover .story-count { display: inline-block; margin-top: 1.5rem; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: #1a1a1a; background: #d4c5b0; padding: 0.4rem 1.2rem; border-radius: 2rem; }
+.cover .scroll-hint { position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); font-family: 'Inter', sans-serif; font-size: 0.75rem; color: rgba(255,255,255,0.3); letter-spacing: 0.08em; animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.7; } }
+
+/* ======================== */
+/* STYLE 1: HERO (warm cream) */
+/* ======================== */
+.spread-hero { background: #f5f0eb; color: #1a1a1a; }
+.spread-hero .big-num { font-size: clamp(14rem, 30vw, 26rem); top: -4rem; right: -2rem; color: #1a1a1a; }
+.spread-hero .headline { font-size: clamp(2.2rem, 5vw, 3.6rem); color: #1a1a1a; }
+.spread-hero .impact { border-color: #dc2626; background: rgba(220,38,38,0.04); }
+.spread-hero .read-more { color: #dc2626; }
+
+/* ======================== */
+/* STYLE 2: DARK / MIDNIGHT */
+/* ======================== */
+.spread-dark { background: #0f172a; color: #e2e8f0; }
+.spread-dark .big-num { font-size: clamp(14rem, 30vw, 26rem); top: -3rem; left: -2rem; color: #3b82f6; opacity: 0.07; }
+.spread-dark .story-date { color: #60a5fa; opacity: 1; }
+.spread-dark .headline { font-size: clamp(2.2rem, 5vw, 3.6rem); color: #fff; }
+.spread-dark .story-body { color: #cbd5e1; }
+.spread-dark .impact { border-color: #3b82f6; background: rgba(59,130,246,0.08); color: #93c5fd; }
+.spread-dark .read-more { color: #60a5fa; }
+
+/* ======================== */
+/* STYLE 3: ROSE / ALERT */
+/* ======================== */
+.spread-rose { background: #fdf2f8; color: #1a1a1a; }
+.spread-rose .big-num { font-size: clamp(14rem, 30vw, 26rem); bottom: -4rem; right: -1rem; color: #ec4899; opacity: 0.06; transform: rotate(-12deg); }
+.spread-rose .story-date { color: #db2777; opacity: 1; }
+.spread-rose .headline { font-size: clamp(2.2rem, 5vw, 3.6rem); color: #1a1a1a; }
+.spread-rose .impact { border-color: #ec4899; background: rgba(236,72,153,0.05); }
+.spread-rose .read-more { color: #db2777; }
+
+/* ======================== */
+/* STYLE 4: CLEAN / MINIMAL */
+/* ======================== */
+.spread-clean { background: #fff; color: #1a1a1a; }
+.spread-clean .big-num { font-size: clamp(14rem, 30vw, 26rem); top: 50%; left: -3rem; transform: translateY(-50%); color: #f97316; opacity: 0.05; }
+.spread-clean .story-date { color: #f97316; opacity: 1; }
+.spread-clean .headline { font-size: clamp(2.2rem, 5vw, 3.6rem); }
+.spread-clean .impact { border-color: #f97316; background: rgba(249,115,22,0.04); }
+.spread-clean .read-more { color: #f97316; }
+
+/* ======================== */
+/* STYLE 5: ACADEMIC / DROP-CAP */
+/* ======================== */
+.spread-academic { background: #fefce8; color: #1a1a1a; border-top: 6px solid #ca8a04; }
+.spread-academic .big-num { font-size: clamp(14rem, 30vw, 26rem); top: -2rem; right: 0; color: #ca8a04; opacity: 0.06; }
+.spread-academic .story-date { color: #a16207; opacity: 1; }
+.spread-academic .headline { font-size: clamp(2rem, 4.5vw, 3.2rem); font-style: italic; }
+.spread-academic .story-body p:first-child::first-letter { font-family: 'Fraunces', serif; font-size: 3.8rem; font-weight: 800; float: left; line-height: 0.8; margin: 0.1em 0.15em 0 0; color: #ca8a04; }
+.spread-academic .impact { border-color: #ca8a04; background: rgba(202,138,4,0.06); }
+.spread-academic .read-more { color: #a16207; }
+
+/* ======================== */
+/* STYLE 6: QUICK HITS GRID (dark) */
+/* ======================== */
+.spread-grid { background: #18181b; color: #e4e4e7; }
+.spread-grid .spread-inner { max-width: 960px; }
+.spread-grid .section-title { font-family: 'Fraunces', serif; font-weight: 800; font-size: clamp(1.8rem, 4vw, 2.8rem); color: #fff; margin-bottom: 0.5rem; }
+.spread-grid .section-sub { font-family: 'Inter', sans-serif; font-size: 0.9rem; color: rgba(255,255,255,0.45); margin-bottom: 2.5rem; }
+.hit-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; }
+.hit-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 1.6rem; transition: background 0.2s; }
+.hit-card:hover { background: rgba(255,255,255,0.08); }
+.hit-card .hit-badge { display: inline-block; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.25rem 0.7rem; border-radius: 1rem; margin-bottom: 0.8rem; background: #7c3aed; color: #fff; }
+.hit-card h3 { font-family: 'Fraunces', serif; font-weight: 700; font-size: 1.1rem; color: #fff; margin-bottom: 0.6rem; line-height: 1.3; }
+.hit-card p { font-size: 0.88rem; line-height: 1.6; color: #a1a1aa; margin-bottom: 0.8rem; }
+.hit-card a { color: #a78bfa; font-size: 0.82rem; font-weight: 600; text-decoration: none; }
+.hit-card a:hover { text-decoration: underline; }
+
+/* ======================== */
+/* FOOTER */
+/* ======================== */
+.footer { background: #0f0f0f; color: rgba(255,255,255,0.35); text-align: center; padding: 4rem 2rem; font-family: 'Inter', sans-serif; font-size: 0.82rem; line-height: 1.8; }
+.footer strong { color: rgba(255,255,255,0.55); font-weight: 600; }
+
+/* RESPONSIVE */
+@media (max-width: 640px) {
+  .nav { padding: 0.8rem 1.2rem; }
+  .nav-brand { font-size: 0.95rem; }
+  .nav-date { font-size: 0.7rem; }
+  .spread { padding: 5rem 1.2rem 3rem; }
+  .headline { font-size: clamp(1.8rem, 6vw, 2.8rem) !important; }
+  .big-num { opacity: 0.03 !important; }
+  .hit-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand">✦ Morning Edition</div>
+  <div class="nav-date">May 6, 2026</div>
+</nav>
+
+<!-- COVER -->
+<section class="spread cover">
+  <div class="spread-inner">
+    <div class="edition-label">Competitor Intelligence</div>
+    <h1 class="cover-title">Morning<br>Edition</h1>
+    <p class="cover-sub">Your daily briefing on email, calendar, meetings &amp; AI.</p>
+    <div class="cover-date">Wednesday, May 6, 2026</div>
+    <div class="story-count">5 Stories · 3 Quick Hits</div>
+  </div>
+  <div class="scroll-hint">↓ Scroll to begin</div>
+</section>
+
+<!-- STORY 01: HERO (warm cream) -->
+<section class="spread spread-hero">
+  <div class="big-num">01</div>
+  <div class="spread-inner">
+    <span class="badge badge-high">🔴 High Impact</span>
+    <div class="story-date">May 5–6, 2026</div>
+    <h2 class="headline">GPT-5.5 Instant Is Now ChatGPT's Default&nbsp;— And It Reads Your Gmail</h2>
+    <div class="story-body">
+      <p>OpenAI rolled out GPT-5.5 Instant on May 5 as the new default model powering every ChatGPT conversation, retiring GPT-5.3 Instant after just three months. The upgrade is significant on its own merits — 52.5% fewer hallucinated claims on high-stakes medical, legal, and financial prompts, and responses that are 30% more concise — but it's the personalization layer that should have every email client paying attention.</p>
+      <p>For Plus and Pro subscribers, GPT-5.5 Instant now references past conversations, uploaded files, and <strong>connected Gmail accounts</strong> to deliver answers grounded in your personal context. A new "memory sources" feature shows users exactly where ChatGPT pulled its information, and lets them delete or correct anything it got wrong. The Gmail integration means ChatGPT can surface flight details, meeting confirmations, and project context without the user ever opening their inbox.</p>
+      <p>OpenAI plans to extend this personalization to Free, Go Business, and Enterprise users in the coming weeks, with mobile support following shortly after.</p>
+    </div>
+    <div class="impact">
+      <strong>→ Impact:</strong> ChatGPT is steadily becoming the <em>interface</em> through which hundreds of millions of users interact with their email — not as a client, but as a conversational layer that makes dedicated inbox apps feel redundant. Each personalization upgrade tightens that grip. The team's AI features must deliver contextual intelligence that goes <em>deeper</em> than a general-purpose chatbot skimming Gmail metadata.
+    </div>
+    <a href="https://techcrunch.com/2026/05/05/openai-releases-gpt-5-5-instant-a-new-default-model-for-chatgpt/" class="read-more" target="_blank">Read more →</a>
+  </div>
+</section>
+
+<!-- STORY 02: DARK / MIDNIGHT -->
+<section class="spread spread-dark">
+  <div class="big-num">02</div>
+  <div class="spread-inner">
+    <span class="badge badge-high">🔴 High Impact</span>
+    <div class="story-date">May 5, 2026</div>
+    <h2 class="headline">Anthropic Storms Wall Street: 10 Finance Agents, Full Microsoft&nbsp;365 Integration</h2>
+    <div class="story-body">
+      <p>At an invite-only New York briefing featuring CEO Dario Amodei alongside JPMorgan Chase's Jamie Dimon, Anthropic unveiled a sweeping enterprise push: ten pre-built AI agent templates for financial services and a unified Microsoft 365 integration that puts Claude inside Excel, PowerPoint, and Word — with Outlook "coming soon."</p>
+      <p>The agent templates target the most labor-intensive workflows in banking and insurance: pitchbook generation, earnings analysis, credit memos, underwriting, KYC compliance, month-end close, statement audits, and insurance claims processing. Each ships as a reference architecture complete with skills, connectors, and sub-agents. Separately, Anthropic announced a Moody's MCP app for credit ratings data and revealed that FIS is co-building a Financial Crimes AI Agent that compresses anti-money-laundering investigations from days to minutes.</p>
+      <p>Context now carries automatically between Microsoft 365 apps, so analysis started in a model can end in a deck without re-explaining anything. The Outlook integration, when it lands, will bring Claude directly into enterprise inboxes.</p>
+    </div>
+    <div class="impact">
+      <strong>→ Impact:</strong> Anthropic's M365 integration means Claude will soon live <em>inside</em> Outlook — the world's dominant enterprise inbox. When the biggest AI lab and the biggest bank align on email-embedded agents, it signals that the "AI layer" in enterprise email is no longer optional. Our product's enterprise story must account for a world where the incumbent inbox already has a frontier model built in.
+    </div>
+    <a href="https://fortune.com/2026/05/05/anthropic-wall-street-financial-services-agents-jamie-dimon/" class="read-more" target="_blank">Read more →</a>
+  </div>
+</section>
+
+<!-- STORY 03: ROSE / ALERT -->
+<section class="spread spread-rose">
+  <div class="big-num">03</div>
+  <div class="spread-inner">
+    <span class="badge badge-high">🔴 High Impact</span>
+    <div class="story-date">May 5, 2026</div>
+    <h2 class="headline">Amodei Warns of "Moment of Danger"&nbsp;— AI Found Tens of Thousands of Software Vulnerabilities</h2>
+    <div class="story-body">
+      <p>On the same stage, Dario Amodei delivered a sobering warning: Anthropic's restricted Mythos model has discovered almost 300 vulnerabilities in Firefox alone, and "thousands, probably by now tens of thousands" across other closed-door assessments. He described a 6-to-12-month window for organizations to patch before adversarial AI capabilities — particularly from Chinese state-linked actors — catch up.</p>
+      <p>"The danger is just some enormous increase in the amount of vulnerabilities, in the amount of breaches, in the financial damage that's done from ransomware on schools, hospitals, not to mention banks," Amodei said. Jamie Dimon called the situation "very heightened risk." Anthropic has kept Mythos access limited to a handful of partner companies, and Amodei advocated for AI regulation modeled on the automotive industry — "fair, but puts guardrails on the most serious things."</p>
+      <p>Six months ago, Anthropic detected the first attempts by Chinese state-linked actors to conduct cyberattacks on U.S. tech companies using Claude. The threat vector has only grown since.</p>
+    </div>
+    <div class="impact">
+      <strong>→ Impact:</strong> The cybersecurity calculus has shifted dramatically. Any product that handles user email — our product included — is a high-value target. The Mythos revelations suggest that vulnerability discovery is about to be industrialized by AI on both sides. Security and encryption aren't differentiators anymore; they're table stakes that must evolve at AI speed.
+    </div>
+    <a href="https://www.cnbc.com/2026/05/05/anthropic-ceo-cyber-moment-of-danger-mythos-vulnerabilities.html" class="read-more" target="_blank">Read more →</a>
+  </div>
+</section>
+
+<!-- STORY 04: CLEAN / MINIMAL -->
+<section class="spread spread-clean">
+  <div class="big-num">04</div>
+  <div class="spread-inner">
+    <span class="badge badge-medium">🟠 Medium Impact</span>
+    <div class="story-date">May 5, 2026</div>
+    <h2 class="headline">Amodei and Dimon on AI Jobs: "Nobody Knows — But Prepare for the Pessimistic Case"</h2>
+    <div class="story-body">
+      <p>In a surprisingly candid exchange, both Amodei and Dimon rejected fatalism about AI replacing white-collar workers — while refusing to offer false reassurance. "I don't think anyone knows," Amodei said, marking a notable shift from his earlier, more alarming warnings about AI-driven job displacement. He urged proactive policy action, noting that workforce policy "has a lag of two to three years."</p>
+      <p>Dimon echoed the nuanced position, acknowledging uncertainty while pointing to historical technology transitions. The conversation came in the context of Anthropic deploying 10 agent templates that automate precisely the kind of financial analyst work that employs hundreds of thousands of people — making the abstract debate very concrete. Fortune characterized Amodei's stance as invoking Jevons paradox: AI could make financial analysis so cheap that demand for it explodes, creating more work rather than less.</p>
+    </div>
+    <div class="impact">
+      <strong>→ Impact:</strong> The "AI + productivity" narrative is maturing beyond hype. For our product, this means users increasingly expect AI to do meaningful work — not just suggest replies, but autonomously manage workflows. The teams building for this future fastest will capture the users who are watching this debate and expecting their tools to evolve.
+    </div>
+    <a href="https://fortune.com/2026/05/05/dario-amodei-jevons-paradox-will-ai-wipe-out-white-collar-jobs/" class="read-more" target="_blank">Read more →</a>
+  </div>
+</section>
+
+<!-- STORY 05: ACADEMIC / DROP-CAP -->
+<section class="spread spread-academic">
+  <div class="big-num">05</div>
+  <div class="spread-inner">
+    <span class="badge badge-low">🟡 Low Impact</span>
+    <div class="story-date">May 4–5, 2026</div>
+    <h2 class="headline">Claude Security Enters Public Beta — Opus 4.7 Scans Code for Vulnerabilities</h2>
+    <div class="story-body">
+      <p>Anthropic opened Claude Security to all Enterprise customers in public beta, bringing automated code vulnerability scanning and AI-generated patches directly into the Claude.ai workflow. Powered by Opus 4.7, the feature can run scheduled scans across entire codebases, perform targeted scans on specific files or directories, and track triage status with workflow integrations for exporting findings.</p>
+      <p>The timing is deliberate — arriving alongside Amodei's "moment of danger" warning, Claude Security positions Anthropic as both the company revealing the scale of the vulnerability problem <em>and</em> selling the tools to fix it. Enterprise customers can now pair Opus 4.7's vulnerability detection with proposed patches, reviewed by human engineers before deployment.</p>
+    </div>
+    <div class="impact">
+      <strong>→ Impact:</strong> AI-powered security scanning is becoming standard in enterprise toolchains. For the team, the takeaway is that security posture — especially for a product handling sensitive email data — will increasingly be judged by whether you're using AI-grade defenses, not just traditional audit cycles.
+    </div>
+    <a href="https://www.helpnetsecurity.com/2026/05/04/anthropic-claude-security-public-beta/" class="read-more" target="_blank">Read more →</a>
+  </div>
+</section>
+
+<!-- QUICK HITS: GRID -->
+<section class="spread spread-grid">
+  <div class="spread-inner">
+    <h2 class="section-title">⚡ Quick Hits</h2>
+    <p class="section-sub">Signals worth watching, condensed.</p>
+    <div class="hit-grid">
+
+      <div class="hit-card">
+        <div class="hit-badge">⚡ Quick Hit</div>
+        <h3>OpenAI Workspace Agents Go Paid Today</h3>
+        <p>The free preview of ChatGPT Workspace Agents ends May 6. Credit-based pricing kicks in for Business and Enterprise users building email, calendar, and task-automation agents. Specific per-credit rates remain unpublished at launch.</p>
+        <a href="https://openai.com/index/introducing-workspace-agents-in-chatgpt/" target="_blank">Read more →</a>
+      </div>
+
+      <div class="hit-card">
+        <div class="hit-badge">⚡ Quick Hit</div>
+        <h3>FIS + Anthropic Build AML Agent</h3>
+        <p>FIS, the $50B+ fintech infrastructure giant, is co-building a Financial Crimes AI Agent with Anthropic that compresses anti-money-laundering investigations from days to minutes. Announced at the Anthropic–JPMorgan event.</p>
+        <a href="https://www.anthropic.com/news/finance-agents" target="_blank">Read more →</a>
+      </div>
+
+      <div class="hit-card">
+        <div class="hit-badge">⚡ Quick Hit</div>
+        <h3>Avoca Raises $125M for AI Call Center Agents</h3>
+        <p>Avoca closed a $125M Series B led by General Catalyst and Meritech for AI agents that transcribe, summarize, and act on customer calls in real time. Total funding now ~$180M. The customer communication agent space keeps heating up.</p>
+        <a href="https://news.crunchbase.com/venture/biggest-funding-rounds-defense-aerospace-ai-fintech/" target="_blank">Read more →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <strong>Morning Edition</strong> — Auto-generated competitor intelligence<br>
+  Sources verified May 6, 2026 · Powered by Claude
+</footer>
+
+</body>
+</html>
