@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Morning Edition — May 7, 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,400;1,9..144,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-snap-type: y proximity; }
+body { font-family: 'Inter', sans-serif; background: #111; color: #222; overflow-x: hidden; }
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; padding: 1rem 2.5rem; background: rgba(17,17,17,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.08); }
+.nav-brand { font-family: 'Fraunces', serif; font-size: 1.1rem; color: #fff; font-weight: 600; letter-spacing: 0.02em; }
+.nav-date { font-family: 'Inter', sans-serif; font-size: 0.85rem; color: rgba(255,255,255,0.5); font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; }
+.spread { min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; scroll-snap-align: start; }
+.spread-inner { max-width: 860px; width: 100%; padding: 6rem 2.5rem 4rem; position: relative; z-index: 2; }
+.giant-num { position: absolute; font-family: 'Fraunces', serif; font-weight: 900; font-size: clamp(15rem, 28vw, 30rem); line-height: 1; opacity: 0.06; z-index: 1; pointer-events: none; user-select: none; }
+.badge { display: inline-block; font-family: 'Inter', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.35rem 0.85rem; border-radius: 2px; margin-bottom: 1.2rem; }
+.date-label { font-family: 'Inter', sans-serif; font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem; opacity: 0.6; }
+.headline { font-family: 'Fraunces', serif; line-height: 1.15; margin-bottom: 1.5rem; font-weight: 700; }
+.body-text { font-size: 1.08rem; line-height: 1.75; margin-bottom: 1.2rem; }
+.impact-box { padding: 1.25rem 1.5rem; border-radius: 4px; margin-top: 1.5rem; margin-bottom: 1.5rem; font-style: italic; line-height: 1.65; font-size: 1rem; }
+.read-more { display: inline-block; font-size: 0.85rem; font-weight: 600; text-decoration: none; letter-spacing: 0.06em; margin-top: 0.8rem; transition: opacity 0.2s; }
+.read-more:hover { opacity: 0.7; }
+
+/* COVER */
+.cover { background: #0a0a0a; color: #fff; text-align: center; flex-direction: column; }
+.cover .edition-label { font-family: 'Inter', sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 1rem; }
+.cover h1 { font-family: 'Fraunces', serif; font-size: clamp(3.2rem, 8vw, 6rem); font-weight: 800; line-height: 1.05; margin-bottom: 1rem; background: linear-gradient(135deg, #fff 0%, #ccc 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.cover .subtitle { font-size: 1.15rem; color: rgba(255,255,255,0.45); max-width: 520px; margin: 0 auto 2rem; line-height: 1.6; }
+.cover .cover-date { font-family: 'Fraunces', serif; font-size: 1.4rem; color: rgba(255,255,255,0.25); margin-top: 1rem; }
+.cover .story-count { font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-top: 2rem; }
+.cover-line { width: 60px; height: 2px; background: rgba(255,255,255,0.15); margin: 1.5rem auto; }
+
+/* 1 — HERO (warm cream) */
+.spread-hero { background: #FAF5EE; color: #2a2218; }
+.spread-hero .giant-num { color: #2a2218; right: -3%; top: 5%; }
+.spread-hero .badge { background: #dc2626; color: #fff; }
+.spread-hero .headline { font-size: clamp(2rem, 4.5vw, 3.2rem); color: #1a1408; }
+.spread-hero .impact-box { background: rgba(42,34,24,0.06); border-left: 3px solid #b8860b; }
+.spread-hero .read-more { color: #b8860b; }
+
+/* 2 — DARK / MIDNIGHT */
+.spread-dark { background: #0d1b2a; color: #c8d6e5; }
+.spread-dark .giant-num { color: #1e3a5f; right: -4%; top: 3%; opacity: 0.12; }
+.spread-dark .badge { background: #dc2626; color: #fff; }
+.spread-dark .headline { font-size: clamp(2rem, 4.5vw, 3rem); color: #e8f0fe; }
+.spread-dark .impact-box { background: rgba(255,255,255,0.04); border-left: 3px solid #4a90d9; }
+.spread-dark .read-more { color: #6aadff; }
+
+/* 3 — ROSE / ALERT */
+.spread-rose { background: #fdf2f4; color: #3d1c25; }
+.spread-rose .giant-num { color: #e8a0b0; left: -5%; top: 5%; transform: rotate(-8deg); opacity: 0.1; }
+.spread-rose .badge { background: #ea580c; color: #fff; }
+.spread-rose .headline { font-size: clamp(2rem, 4.5vw, 3rem); color: #2d0f16; }
+.spread-rose .impact-box { background: rgba(61,28,37,0.05); border-left: 3px solid #d4547a; }
+.spread-rose .read-more { color: #c43c5e; }
+
+/* 4 — TERMINAL */
+.spread-terminal { background: #0c0c0c; color: #a3b8a0; }
+.spread-terminal .giant-num { color: #1a3318; right: -4%; top: 2%; opacity: 0.15; }
+.spread-terminal .badge { background: #ea580c; color: #fff; }
+.spread-terminal .headline { font-size: clamp(2rem, 4.5vw, 3rem); color: #4ade80; font-family: 'Inter', monospace; font-weight: 700; }
+.spread-terminal .body-text { font-family: 'Inter', sans-serif; }
+.spread-terminal .impact-box { background: rgba(74,222,128,0.06); border-left: 3px solid #22c55e; font-family: 'Inter', sans-serif; }
+.spread-terminal .read-more { color: #4ade80; }
+
+/* 5 — CLEAN / MINIMAL */
+.spread-clean { background: #ffffff; color: #333; }
+.spread-clean .giant-num { color: #f97316; right: -3%; top: 5%; opacity: 0.06; }
+.spread-clean .badge { background: #ea580c; color: #fff; }
+.spread-clean .headline { font-size: clamp(2rem, 4.5vw, 3rem); color: #111; }
+.spread-clean .impact-box { background: #fef7f0; border-left: 3px solid #f97316; }
+.spread-clean .read-more { color: #f97316; }
+
+/* 6 — ACADEMIC / DROP CAP */
+.spread-academic { background: #fefbf0; color: #3d3520; }
+.spread-academic .giant-num { color: #d4a030; left: -4%; top: 4%; opacity: 0.08; }
+.spread-academic .badge { background: #eab308; color: #1a1508; }
+.spread-academic .headline { font-size: clamp(2rem, 4.2vw, 2.8rem); color: #2a2010; font-style: italic; }
+.spread-academic .body-text:first-of-type::first-letter { font-family: 'Fraunces', serif; font-size: 3.8rem; float: left; line-height: 0.8; margin-right: 0.15em; margin-top: 0.08em; color: #b8860b; font-weight: 700; }
+.spread-academic .impact-box { background: rgba(180,140,20,0.06); border-left: 3px solid #d4a030; }
+.spread-academic .read-more { color: #b8860b; }
+
+/* 7 — QUICK HITS (dark grid) */
+.spread-grid { background: #141418; color: #c8c8d0; padding: 6rem 2rem 4rem; }
+.grid-title { font-family: 'Fraunces', serif; font-size: clamp(2rem, 4vw, 3rem); color: #fff; text-align: center; margin-bottom: 0.5rem; }
+.grid-subtitle { text-align: center; font-size: 0.85rem; color: rgba(255,255,255,0.35); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 3rem; }
+.hits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; max-width: 960px; margin: 0 auto; }
+.hit-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); border-radius: 6px; padding: 1.5rem; transition: background 0.2s; }
+.hit-card:hover { background: rgba(255,255,255,0.07); }
+.hit-card .hit-badge { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.75rem; display: inline-block; padding: 0.2rem 0.6rem; border-radius: 2px; }
+.hit-card h3 { font-family: 'Fraunces', serif; font-size: 1.15rem; color: #eee; margin-bottom: 0.75rem; line-height: 1.35; }
+.hit-card p { font-size: 0.92rem; line-height: 1.6; color: rgba(255,255,255,0.55); }
+.hit-card a { color: #6aadff; text-decoration: none; font-size: 0.82rem; font-weight: 600; display: inline-block; margin-top: 0.75rem; }
+
+/* FOOTER */
+.footer { background: #0a0a0a; color: rgba(255,255,255,0.3); text-align: center; padding: 3rem 2rem; font-size: 0.8rem; line-height: 1.8; }
+.footer-line { width: 40px; height: 1px; background: rgba(255,255,255,0.1); margin: 0 auto 1.5rem; }
+
+/* RESPONSIVE */
+@media (max-width: 640px) {
+  .nav { padding: 0.85rem 1.2rem; }
+  .nav-brand { font-size: 0.95rem; }
+  .nav-date { font-size: 0.72rem; }
+  .spread-inner { padding: 5rem 1.5rem 3rem; }
+  .giant-num { font-size: 12rem !important; }
+  .hits-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand">&#10022; Morning Edition</div>
+  <div class="nav-date">Wednesday, May 7, 2026</div>
+</nav>
+
+<!-- COVER -->
+<section class="spread cover">
+  <div class="spread-inner" style="max-width: 700px;">
+    <div class="edition-label">Competitor Intelligence</div>
+    <h1>Morning<br>Edition</h1>
+    <div class="cover-line"></div>
+    <p class="subtitle">Your daily briefing on email, calendar, meetings &amp; AI.</p>
+    <div class="cover-date">May 7, 2026</div>
+    <div class="story-count">6 stories &middot; 3 quick hits</div>
+  </div>
+</section>
+
+<!-- STORY 01 — HERO -->
+<section class="spread spread-hero">
+  <div class="giant-num">01</div>
+  <div class="spread-inner">
+    <span class="badge">&#128308; High Impact</span>
+    <div class="date-label">May 6, 2026</div>
+    <h2 class="headline">Anthropic's 80x Growth Triggers Emergency SpaceX Compute Deal&hairsp;&mdash;&hairsp;220K GPUs, Claude Limits Doubled</h2>
+    <p class="body-text">Anthropic CEO Dario Amodei dropped a staggering number at the company's developer conference on Wednesday: revenue and usage grew 80-fold in Q1, far beyond the planned 10x trajectory. "It's just crazy," Amodei told the audience. "Too hard to handle." The explosive demand, driven largely by Claude Code adoption in enterprises, has stretched the company's compute infrastructure to its limits.</p>
+    <p class="body-text">Hours later, Anthropic announced a deal to take over the full compute capacity of SpaceX's Colossus 1 data center in Memphis, Tennessee. The agreement gives Anthropic access to more than 220,000 NVIDIA GPUs — including H100, H200, and GB200 accelerators — and over 300 megawatts of capacity, available within weeks. The immediate payoff: doubled rate limits for Claude Code, removed peak-hour caps for Pro and Max subscribers, and increased API throughput for Opus models. As part of the agreement, Anthropic also expressed interest in partnering with SpaceX to develop multi-gigawatt compute capacity in space.</p>
+    <div class="impact-box">
+      &rarr; <strong>Impact:</strong> Anthropic's infrastructure scale-up directly expands the capabilities available to every developer and enterprise building on Claude — including teams building AI email and productivity features. The 80x growth signals explosive enterprise demand for agentic AI, which means the competitive pressure to ship AI-native email, calendar, and workflow tools is accelerating far faster than anyone forecasted even three months ago.
+    </div>
+    <a class="read-more" href="https://www.cnbc.com/2026/05/06/anthropic-spacex-data-center-capacity.html" target="_blank">Read more &rarr;</a>
+  </div>
+</section>
+
+<!-- STORY 02 — DARK -->
+<section class="spread spread-dark">
+  <div class="giant-num">02</div>
+  <div class="spread-inner">
+    <span class="badge">&#128308; High Impact</span>
+    <div class="date-label">May 6, 2026</div>
+    <h2 class="headline">Google Opens Workspace to AI Agents&hairsp;&mdash;&hairsp;MCP Server Goes Public With Gmail, Calendar, Drive & Chat Tools</h2>
+    <p class="body-text">Google rolled out a landmark update for its Workspace platform this week: a public developer preview of the Workspace MCP (Model Context Protocol) server, giving any third-party AI agent secure, structured access to Gmail, Calendar, Drive, and Chat. The server, first teased at Cloud Next '26, now ships with a command-line interface and remote MCP integrations — meaning external AI tools can draft emails, search Drive files, find calendar availability, and manage Chat conversations through a standardized protocol.</p>
+    <p class="body-text">Alongside the MCP server, Google launched an AI control center in the admin console, giving enterprise IT teams visibility into exactly which AI agents are accessing Workspace data and what actions they're taking. A new tiered access model governs API usage, with adjusted quotas for Gmail, Calendar, and Drive APIs effective immediately. Google expects fewer than 1% of developers will need to exceed the standard tier.</p>
+    <div class="impact-box">
+      &rarr; <strong>Impact:</strong> This is a pivotal moment for the email client landscape. With Google officially opening Gmail and Calendar to third-party AI agents via MCP, every productivity tool can now build deep, structured integrations without reverse-engineering APIs. For our product, this creates both opportunity (richer Gmail integration) and threat (competitors gain the same access). The standardized protocol also lowers the barrier for new AI-native email entrants.
+    </div>
+    <a class="read-more" href="https://workspaceupdates.googleblog.com/2026/05/agent-tools-and-security-updates-for-workspace-developers.html" target="_blank">Read more &rarr;</a>
+  </div>
+</section>
+
+<!-- STORY 03 — ROSE -->
+<section class="spread spread-rose">
+  <div class="giant-num" style="transform: rotate(-8deg);">03</div>
+  <div class="spread-inner">
+    <span class="badge">&#128992; Medium Impact</span>
+    <div class="date-label">May 4, 2026</div>
+    <h2 class="headline">Perplexity Computer Lands in Microsoft Teams&hairsp;&mdash;&hairsp;$2.8B in Labor-Equivalent Work and Counting</h2>
+    <p class="body-text">Perplexity has brought its Computer agent orchestrator — the $200/month tool that chains 19 AI models to execute complex workflows — directly into Microsoft Teams, where over 350 million people collaborate daily. The integration lets employees message Computer inside Teams to draft documents, research topics, build prototypes, and manage tasks without switching apps. Requests, context, and outputs stay within the Teams workspace for seamless collaboration.</p>
+    <p class="body-text">The numbers are eye-popping: since launching a month ago, Computer has performed over $2.8 billion in labor-equivalent work across paid subscribers. Perplexity reports that 92% of C-level subscribers use Computer weekly. The integration connects to thousands of enterprise services including Outlook, OneDrive, SharePoint, Excel, and Azure DevOps — effectively creating an AI agent layer that sits on top of Microsoft's entire productivity stack.</p>
+    <div class="impact-box">
+      &rarr; <strong>Impact:</strong> Perplexity is positioning Computer as the universal AI agent for knowledge work — and by embedding it in Teams, they're reaching the same enterprise users our product serves. The $2.8B labor-equivalent figure, while a marketing metric, signals genuine enterprise traction. Perplexity's "meta-agent" approach — orchestrating many models for multi-step tasks — represents a different architectural bet than single-model AI assistants.
+    </div>
+    <a class="read-more" href="https://www.perplexity.ai/hub/blog/computer-in-teams-is-here" target="_blank">Read more &rarr;</a>
+  </div>
+</section>
+
+<!-- STORY 04 — TERMINAL -->
+<section class="spread spread-terminal">
+  <div class="giant-num">04</div>
+  <div class="spread-inner">
+    <span class="badge">&#128992; Medium Impact</span>
+    <div class="date-label">May 4, 2026</div>
+    <h2 class="headline">OpenAI's "Deployment Company" Raises $4B+ From Private Equity to Push AI Into the Enterprise</h2>
+    <p class="body-text">OpenAI has finalized a $4+ billion joint venture with TPG, Brookfield Asset Management, Advent International, and Bain Capital — a new entity called "The Deployment Company" designed to embed AI directly into midsized enterprises. The venture arrives just weeks after Anthropic announced its own $1.5 billion PE-backed joint venture with Blackstone, Goldman Sachs, and Hellman & Friedman.</p>
+    <p class="body-text">The strategic logic is identical for both: private equity firms offer a built-in distribution channel through their portfolio companies, many of which are midsized businesses lacking the in-house expertise to deploy AI autonomously. Both ventures will embed engineers inside companies to redesign workflows and integrate AI into core operations — from inbox management and scheduling to document workflows and meeting preparation. With both companies racing toward potential fall 2026 IPOs, these ventures double as revenue accelerators and enterprise credibility builders.</p>
+    <div class="impact-box">
+      &rarr; <strong>Impact:</strong> The PE channel play means AI-native email and productivity tools will be pushed into thousands of midsized companies over the next 12 months — not through marketing, but through hands-on deployment teams. For the team, this accelerates the timeline for when enterprise users expect their email client to have autonomous agent capabilities baked in, not bolted on.
+    </div>
+    <a class="read-more" href="https://techcrunch.com/2026/05/04/anthropic-and-openai-are-both-launching-joint-ventures-for-enterprise-ai-services/" target="_blank">Read more &rarr;</a>
+  </div>
+</section>
+
+<!-- STORY 05 — CLEAN -->
+<section class="spread spread-clean">
+  <div class="giant-num">05</div>
+  <div class="spread-inner">
+    <span class="badge">&#128992; Medium Impact</span>
+    <div class="date-label">May 1–7, 2026 (GA rollout)</div>
+    <h2 class="headline">Copilot Chat Expands to Shared &amp; Delegate Mailboxes&hairsp;&mdash;&hairsp;AI Comes to Team Email</h2>
+    <p class="body-text">Microsoft has begun the general availability rollout of Copilot Chat in shared and delegate mailboxes across Outlook. The update means teams managing shared inboxes — support queues, department aliases, executive assistants — can now use Copilot to summarize threads, draft replies, and search across the shared mailbox using natural language. No special prompt syntax is required; users interact as if the shared mailbox were their own.</p>
+    <p class="body-text">Privacy is handled carefully: Copilot conversation history is saved to the individual user's primary account, not to the shared mailbox itself, so multiple team members won't see each other's AI interactions. Both full-access shared mailboxes and folder-level delegated permissions are supported, meaning even partial-access delegates can benefit from AI assistance on the folders they can see.</p>
+    <div class="impact-box">
+      &rarr; <strong>Impact:</strong> Shared mailboxes are a critical team collaboration workflow that our product supports. Microsoft extending Copilot to these shared contexts raises user expectations — teams will increasingly expect AI-powered triage, summarization, and drafting in any shared email environment. This is a direct competitive pressure point for our team email features.
+    </div>
+    <a class="read-more" href="https://office-watch.com/2026/outlook-copilot-shared-delegate-mailboxes/" target="_blank">Read more &rarr;</a>
+  </div>
+</section>
+
+<!-- STORY 06 — ACADEMIC -->
+<section class="spread spread-academic">
+  <div class="giant-num">06</div>
+  <div class="spread-inner">
+    <span class="badge">&#128993; Low Impact</span>
+    <div class="date-label">May 6, 2026</div>
+    <h2 class="headline">Google Workspace Studio Ships Calendar Agent Steps&hairsp;&mdash;&hairsp;Email-to-Calendar Automation Goes No-Code</h2>
+    <p class="body-text">Google completed the rollout of two new Workspace Studio steps on May 6: "Block time" and "Meet starter." These no-code building blocks let users wire up automated workflows that read email context (via the "Ask Gemini" or "Extract" steps) and take calendar actions — like adding a reminder block for an appointment confirmation received in email, scheduling focus time after a busy meeting day, or automatically creating a Meet link when a scheduling trigger fires.</p>
+    <p class="body-text">The update is part of Google's broader strategy to make Workspace Studio a full no-code agent builder for non-technical users. Combined with the Workspace MCP server launch (story 02), Google is simultaneously opening Workspace to external AI agents and empowering internal users to build their own lightweight automations across Gmail, Calendar, and Meet — no developer needed.</p>
+    <div class="impact-box">
+      &rarr; <strong>Impact:</strong> Google is chipping away at one of our product's key differentiators: intelligent email-to-calendar workflows. As Workspace Studio makes it trivial for any Google user to set up "email triggers calendar action" automations without code, the bar for what an email + calendar app must offer natively keeps rising. The no-code agent surface is worth watching closely.
+    </div>
+    <a class="read-more" href="https://workspaceupdates.googleblog.com/2026/" target="_blank">Read more &rarr;</a>
+  </div>
+</section>
+
+<!-- QUICK HITS GRID -->
+<section class="spread spread-grid">
+  <div style="max-width: 960px; width: 100%; margin: 0 auto;">
+    <h2 class="grid-title">Quick Hits</h2>
+    <p class="grid-subtitle">Signals worth tracking</p>
+    <div class="hits-grid">
+
+      <div class="hit-card">
+        <span class="hit-badge" style="background: rgba(234,179,8,0.15); color: #eab308;">&#9889; Signal</span>
+        <h3>SAP Acquires Prior Labs for &euro;1B to Build Tabular AI</h3>
+        <p>SAP announced the acquisition of 18-month-old German startup Prior Labs, committing &euro;1 billion over four years to build frontier AI specifically for structured business data. Prior Labs' TabPFN models, published in Nature, set state-of-the-art on tabular benchmarks. LLMs struggle with tables and numbers — this acquisition bets that specialized models will outperform general-purpose AI on the data that actually runs enterprises.</p>
+        <a href="https://techcrunch.com/2026/05/05/sap-bets-1-16b-on-18-month-old-german-ai-lab-and-says-yes-to-nemoclaw/" target="_blank">Read more &rarr;</a>
+      </div>
+
+      <div class="hit-card">
+        <span class="hit-badge" style="background: rgba(234,179,8,0.15); color: #eab308;">&#9889; Signal</span>
+        <h3>ChatGPT, Claude &amp; Gemini All Land on Apple CarPlay</h3>
+        <p>iOS 26.4 introduced a new conversational app framework for CarPlay, and all three major AI assistants — ChatGPT, Claude, and Gemini — have shipped integrations. Users can start voice conversations directly from the dashboard. No wake word yet (manual tap required), but it's the first time third-party AI has been embedded in Apple's automotive interface, establishing a new distribution surface for AI assistants.</p>
+        <a href="https://www.macrumors.com/2026/02/18/ios-26-4-carplay-support/" target="_blank">Read more &rarr;</a>
+      </div>
+
+      <div class="hit-card">
+        <span class="hit-badge" style="background: rgba(234,179,8,0.15); color: #eab308;">&#9889; Signal</span>
+        <h3>Anthropic Surpasses OpenAI in Revenue: $30B vs $25B ARR</h3>
+        <p>For the first time, Anthropic's annualized run rate ($30B) has eclipsed OpenAI's ($25B), driven by an enterprise-heavy revenue mix — 80% business customers versus OpenAI's more consumer-weighted model. Counterpoint Research puts Anthropic at 31.4% global LLM revenue share in Q1 2026, narrowly ahead of OpenAI at 29%, despite having roughly one-seventh of OpenAI's monthly active users (134M vs. 900M).</p>
+        <a href="https://www.theregister.com/2026/04/30/openai_anthropic_top_lines_research_counterpoint/" target="_blank">Read more &rarr;</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-line"></div>
+  Morning Edition &mdash; Auto-generated competitor intelligence<br>
+  Sources verified May 7, 2026 &middot; Powered by Claude
+</footer>
+
+</body>
+</html>
