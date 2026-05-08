@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Morning Edition — May 8, 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-snap-type: y proximity; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  color: #1a1a1a;
+  background: #faf9f6;
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1rem 2.5rem;
+  background: rgba(250,249,246,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  font-size: 0.85rem; font-weight: 500; letter-spacing: 0.04em;
+}
+nav .logo { font-family: 'Fraunces', serif; font-weight: 700; font-size: 1.05rem; }
+nav .date { color: #888; }
+
+/* ── SHARED SECTION BASE ── */
+section {
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  padding: 6rem 2rem 4rem;
+  position: relative; overflow: hidden;
+  scroll-snap-align: start;
+}
+.inner {
+  max-width: 820px; width: 100%; position: relative; z-index: 2;
+}
+.bg-num {
+  position: absolute; font-family: 'Fraunces', serif; font-weight: 900;
+  font-size: clamp(14rem,22vw,26rem); line-height: 1; opacity: 0.045;
+  pointer-events: none; z-index: 1; user-select: none;
+}
+.badge {
+  display: inline-block; padding: 0.3rem 0.85rem; border-radius: 100px;
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; margin-bottom: 1rem;
+}
+.date-label { font-size: 0.78rem; color: inherit; opacity: 0.6; margin-bottom: 0.75rem; font-weight: 500; }
+h2 {
+  font-family: 'Fraunces', serif; font-weight: 900;
+  font-size: clamp(2rem,4.5vw,3.2rem); line-height: 1.12;
+  margin-bottom: 1.5rem;
+}
+.body-text { font-size: 1.05rem; line-height: 1.75; margin-bottom: 1.5rem; }
+.body-text p { margin-bottom: 1rem; }
+.impact-box {
+  padding: 1.25rem 1.5rem; border-radius: 10px;
+  font-style: italic; font-size: 0.95rem; line-height: 1.65;
+  margin-bottom: 1.5rem;
+}
+.read-more {
+  display: inline-block; font-size: 0.85rem; font-weight: 600;
+  text-decoration: none; letter-spacing: 0.03em;
+  padding: 0.5rem 0; border-bottom: 2px solid;
+  transition: opacity 0.2s;
+}
+.read-more:hover { opacity: 0.7; }
+
+/* ── COVER ── */
+.cover {
+  background: #faf9f6;
+  min-height: 100vh; text-align: center;
+  flex-direction: column;
+}
+.cover .edition-label {
+  font-size: 0.8rem; font-weight: 600; letter-spacing: 0.15em;
+  text-transform: uppercase; color: #c45a2d; margin-bottom: 1rem;
+}
+.cover h1 {
+  font-family: 'Fraunces', serif; font-weight: 900;
+  font-size: clamp(3.2rem,8vw,6.5rem); line-height: 1.05;
+  margin-bottom: 1.5rem; color: #1a1a1a;
+}
+.cover .subtitle {
+  font-size: 1.15rem; color: #666; max-width: 520px;
+  margin: 0 auto 2rem; line-height: 1.6;
+}
+.cover .meta {
+  font-size: 0.82rem; color: #aaa; letter-spacing: 0.06em;
+}
+.cover .story-count {
+  display: inline-block; background: #c45a2d; color: #fff;
+  padding: 0.4rem 1rem; border-radius: 100px;
+  font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em;
+  margin-top: 1.5rem;
+}
+
+/* ── STYLE 1: HERO (warm cream) ── */
+.s-hero { background: #f5f0e8; color: #2c2418; }
+.s-hero .bg-num { color: #c45a2d; right: -3%; top: 5%; }
+.s-hero .badge { background: #dc3545; color: #fff; }
+.s-hero h2 { color: #2c2418; }
+.s-hero .impact-box { background: rgba(196,90,45,0.08); border-left: 4px solid #c45a2d; }
+.s-hero .read-more { color: #c45a2d; border-color: #c45a2d; }
+
+/* ── STYLE 2: DARK/MIDNIGHT ── */
+.s-dark { background: #0f1629; color: #d4daf0; }
+.s-dark .bg-num { color: #3366ff; left: -4%; top: 8%; }
+.s-dark .badge { background: #f08c00; color: #fff; }
+.s-dark h2 { color: #e8ecf8; }
+.s-dark .impact-box { background: rgba(51,102,255,0.1); border-left: 4px solid #3366ff; }
+.s-dark .read-more { color: #6699ff; border-color: #6699ff; }
+.s-dark .date-label { color: #8899cc; }
+
+/* ── STYLE 3: ROSE/ALERT ── */
+.s-rose { background: #fff0f0; color: #3d1f1f; }
+.s-rose .bg-num { color: #e84057; right: -2%; top: 2%; transform: rotate(-8deg); }
+.s-rose .badge { background: #f08c00; color: #fff; }
+.s-rose h2 { color: #3d1f1f; }
+.s-rose .impact-box { background: rgba(232,64,87,0.07); border-left: 4px solid #e84057; }
+.s-rose .read-more { color: #e84057; border-color: #e84057; }
+
+/* ── STYLE 4: TERMINAL ── */
+.s-terminal { background: #0a0a0a; color: #c8d6c8; }
+.s-terminal .bg-num { color: #00cc66; left: -3%; bottom: 5%; font-family: 'Courier New', monospace; }
+.s-terminal .badge { background: #f08c00; color: #fff; }
+.s-terminal h2 { color: #00ff88; font-family: 'Fraunces', serif; }
+.s-terminal .impact-box { background: rgba(0,204,102,0.08); border-left: 4px solid #00cc66; }
+.s-terminal .read-more { color: #00cc66; border-color: #00cc66; }
+.s-terminal .date-label { color: #669966; }
+
+/* ── STYLE 5: ACADEMIC ── */
+.s-academic { background: #fdf8e8; color: #3a3520; }
+.s-academic .bg-num { color: #d4a017; right: -5%; top: 3%; }
+.s-academic .badge { background: #eab308; color: #1a1a1a; }
+.s-academic h2 { color: #3a3520; font-style: italic; }
+.s-academic .impact-box { background: rgba(212,160,23,0.08); border-left: 4px solid #d4a017; }
+.s-academic .read-more { color: #b8860b; border-color: #b8860b; }
+.s-academic .body-text p:first-of-type::first-letter {
+  font-family: 'Fraunces', serif; font-size: 3.5rem; font-weight: 900;
+  float: left; line-height: 0.85; margin: 0.08em 0.12em 0 0; color: #d4a017;
+}
+
+/* ── STYLE 6: OCEAN ── */
+.s-ocean { background: #0c2e3e; color: #b8d8e8; }
+.s-ocean .bg-num { color: #1a8a8a; right: -4%; top: 6%; }
+.s-ocean .badge { background: #eab308; color: #1a1a1a; }
+.s-ocean h2 { color: #e0f4f4; }
+.s-ocean .impact-box { background: rgba(26,138,138,0.12); border-left: 4px solid #20b2aa; }
+.s-ocean .read-more { color: #20b2aa; border-color: #20b2aa; }
+.s-ocean .date-label { color: #6aacbc; }
+
+/* ── QUICK HITS GRID ── */
+.s-quickhits { background: #1a1a2e; color: #d0d0e8; }
+.s-quickhits h2 { color: #fff; text-align: center; margin-bottom: 2.5rem; }
+.hits-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+.hit-card {
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px; padding: 1.5rem;
+  transition: background 0.2s;
+}
+.hit-card:hover { background: rgba(255,255,255,0.07); }
+.hit-card .hit-badge {
+  display: inline-block; font-size: 0.65rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 0.2rem 0.6rem; border-radius: 100px;
+  background: #6c5ce7; color: #fff; margin-bottom: 0.75rem;
+}
+.hit-card h3 {
+  font-family: 'Fraunces', serif; font-size: 1.15rem; font-weight: 700;
+  color: #fff; margin-bottom: 0.75rem; line-height: 1.3;
+}
+.hit-card p { font-size: 0.9rem; line-height: 1.6; color: #a0a0c0; }
+.hit-card a { color: #a78bfa; font-size: 0.82rem; font-weight: 600; text-decoration: none; }
+.hit-card a:hover { text-decoration: underline; }
+
+/* ── FOOTER ── */
+footer {
+  text-align: center; padding: 3rem 2rem;
+  background: #faf9f6; border-top: 1px solid rgba(0,0,0,0.06);
+  font-size: 0.8rem; color: #999; line-height: 1.8;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 700px) {
+  nav { padding: 0.8rem 1.2rem; }
+  section { padding: 5rem 1.2rem 3rem; }
+  .bg-num { font-size: clamp(8rem,40vw,14rem); }
+  h2 { font-size: clamp(1.7rem,6vw,2.6rem); }
+  .hits-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">✦ Morning Edition</div>
+  <div class="date">Thursday, May 8, 2026</div>
+</nav>
+
+<!-- COVER -->
+<section class="cover">
+  <div class="inner" style="display:flex;flex-direction:column;align-items:center;">
+    <div class="edition-label">Competitor Intelligence</div>
+    <h1>Morning<br>Edition</h1>
+    <p class="subtitle">Your daily briefing on email, calendar, meetings &amp; AI.</p>
+    <div class="meta">Thursday, May 8, 2026 · Issue #daily</div>
+    <div class="story-count">6 STORIES + 2 QUICK HITS</div>
+  </div>
+</section>
+
+<!-- STORY 01: ChatGPT in Excel & Sheets GA — HERO STYLE -->
+<section class="s-hero">
+  <div class="bg-num" style="right:-3%;top:5%;">01</div>
+  <div class="inner">
+    <span class="badge" style="background:#dc3545;">🔴 HIGH IMPACT</span>
+    <div class="date-label">May 7, 2026</div>
+    <h2>ChatGPT Embeds in Excel &amp; Google Sheets — AI Agent Goes GA Inside Your Spreadsheets</h2>
+    <div class="body-text">
+      <p>OpenAI's ChatGPT add-in for Microsoft Excel and Google Sheets has officially exited beta and is now generally available to all users worldwide — including those on the Free tier. Powered by GPT-5.5, the add-in lets users create complete spreadsheets, data sets, formulas, and dashboards from plain-language prompts.</p>
+      <p>The rollout spans every ChatGPT plan: Free, Go, Plus, Pro, Business, Enterprise, Edu, and K-12. Free and Go users get limited usage, while paid plans tie access to agentic usage limits. The beta launched in Excel in March 2026 and expanded to Google Sheets in April.</p>
+      <p>This marks OpenAI's deepest integration into the daily productivity stack yet — moving from a standalone chat interface into the tools people already live in. It positions ChatGPT not as a destination, but as an embedded layer across the office suite.</p>
+    </div>
+    <div class="impact-box">
+      → Impact: OpenAI is now native inside the two most-used spreadsheet tools on earth. This "embed everywhere" strategy is the same one Microsoft Copilot pioneered — but OpenAI is doing it cross-platform. For our product, the lesson is clear: AI that lives inside existing workflows beats AI that asks users to come to a new interface. The team should watch how users respond to agentic spreadsheet features and consider similar embedded approaches for email triage and calendar management.
+    </div>
+    <a class="read-more" href="https://openai.com/index/chatgpt-for-excel/" target="_blank" rel="noopener">Read more →</a>
+  </div>
+</section>
+
+<!-- STORY 02: ChatGPT Memory Sources — DARK STYLE -->
+<section class="s-dark">
+  <div class="bg-num" style="left:-4%;top:8%;">02</div>
+  <div class="inner">
+    <span class="badge">🟠 MEDIUM IMPACT</span>
+    <div class="date-label">May 7, 2026</div>
+    <h2>ChatGPT Memory Sources: See Exactly What Gmail Data Powers Your Personalized Answers</h2>
+    <div class="body-text">
+      <p>OpenAI is rolling out "Memory Sources" — a transparency feature that shows users exactly which context ChatGPT drew on to personalize a response. Tap the Sources icon below any reply to see which saved memories, past chats, custom instructions, or connected Gmail data influenced the answer.</p>
+      <p>The feature arrives alongside deeper memory improvements for Plus and Pro users, where ChatGPT now more aggressively pulls context from past conversations, uploaded files, and the connected Gmail app to tailor suggestions and next steps. Users retain full control: they can delete chats, disconnect apps, disable memory, or use temporary chats that leave no trace.</p>
+      <p>Memory Sources are private — they appear only in your account and are stripped from shared chats. Free, Go, Business, and Enterprise users will gain access in the coming weeks.</p>
+    </div>
+    <div class="impact-box">
+      → Impact: This is OpenAI solving the "AI black box" problem for email-connected assistants. By showing users exactly what data shaped a response, ChatGPT builds the trust needed for people to grant deeper inbox access. For our product, this sets a transparency bar: any AI feature that reads email should be able to explain what it used and why. The team should consider a similar "show your sources" mechanic for AI-generated summaries and smart replies.
+    </div>
+    <a class="read-more" href="https://www.knightli.com/en/2026/05/07/chatgpt-release-notes-memory-gpt-5-5-sheets/" target="_blank" rel="noopener">Read more →</a>
+  </div>
+</section>
+
+<!-- STORY 03: Gemini Intelligence for Android 17 — ROSE STYLE -->
+<section class="s-rose">
+  <div class="bg-num" style="right:-2%;top:2%;transform:rotate(-8deg);">03</div>
+  <div class="inner">
+    <span class="badge">🟠 MEDIUM IMPACT</span>
+    <div class="date-label">May 7–8, 2026</div>
+    <h2>Google Leaks "Gemini Intelligence" — Android 17 Gets Its Own Apple Intelligence Rival</h2>
+    <div class="body-text">
+      <p>A leaked confidential Pixel video reveals "Gemini Intelligence" running on a Google Pixel phone — suggesting Google is creating a unified AI brand for Android 17, directly mirroring Apple Intelligence. The leak also surfaces "Luminous Design," a new visual language with transparency and blur effects reminiscent of Apple's Liquid Glass aesthetic.</p>
+      <p>The branding shift signals that Google is moving beyond "Gemini" as just a chatbot name and positioning it as the system-wide intelligence layer for Android. Under this umbrella, Gmail, Calendar, and other native apps would share a common AI surface — making the entire OS feel like a cohesive AI-first experience.</p>
+      <p>Official confirmation is expected at Google I/O on May 19, though Android leadership has been publicly pushing back against comparisons to Apple's design language. The tension between the leaks and the public messaging suggests internal debate about how closely to mirror Apple's playbook.</p>
+    </div>
+    <div class="impact-box">
+      → Impact: If "Gemini Intelligence" becomes the unified AI brand across Android, Google's native email and calendar apps inherit a platform-level moat. Users will increasingly expect their email client to tap into OS-wide intelligence — understanding context from messages, calendar, maps, and more. For our product, this raises the stakes: competing on a single-app level becomes harder when the OS itself is the AI. Cross-platform intelligence and privacy-first positioning become essential differentiators.
+    </div>
+    <a class="read-more" href="https://www.notebookcheck.net/Confidential-Pixel-video-leaks-Gemini-Intelligence-and-Luminous-Design-Android-17-s-answer-to-Apple-Intelligence-and-Liquid-Glass.1291465.0.html" target="_blank" rel="noopener">Read more →</a>
+  </div>
+</section>
+
+<!-- STORY 04: Google Omni — TERMINAL STYLE -->
+<section class="s-terminal">
+  <div class="bg-num" style="left:-3%;bottom:5%;">04</div>
+  <div class="inner">
+    <span class="badge">🟠 MEDIUM IMPACT</span>
+    <div class="date-label">May 7, 2026</div>
+    <h2>Google's "Omni" Model Spotted in Gemini UI — Unified Multimodal AI Ahead of I/O</h2>
+    <div class="body-text">
+      <p>A UI string in Gemini's video generation tab has leaked a previously unseen model name: "Omni." The screenshot shows "Start with an idea or try a template. Powered by Omni" appearing alongside "Toucan," the internal codename for Gemini's current Veo-powered video tool.</p>
+      <p>Three interpretations are circulating: Omni could be a rebrand of the existing Veo pipeline, a new Gemini-trained video model running in parallel, or — most ambitiously — a unified multimodal system that handles both image and video generation in a single model. The last scenario would represent a major architectural shift from Google's current approach of routing different media types through separate specialized models.</p>
+      <p>Google I/O opens May 19–20, and the leak's timing suggests Omni is in late-stage staging. If it delivers on the unified multimodal promise, it could reshape how AI handles rich content generation across productivity tools.</p>
+    </div>
+    <div class="impact-box">
+      → Impact: A unified multimodal model lowers the barrier for embedding AI-generated visuals into emails, calendar invites, and meeting summaries. If Google ships Omni as part of Workspace, expect auto-generated visual recaps and rich email content to become native Gmail features. For our product, the takeaway is that text-only AI features will increasingly feel incomplete — the team should track how multimodal capabilities flow into productivity tools post-I/O.
+    </div>
+    <a class="read-more" href="https://wavespeed.ai/blog/posts/google-omni-video-model-leak-i-o-2026/" target="_blank" rel="noopener">Read more →</a>
+  </div>
+</section>
+
+<!-- STORY 05: Pit a16z — ACADEMIC STYLE -->
+<section class="s-academic">
+  <div class="bg-num" style="right:-5%;top:3%;">05</div>
+  <div class="inner">
+    <span class="badge">🟡 LOW IMPACT</span>
+    <div class="date-label">May 7, 2026</div>
+    <h2>Pit Exits Stealth with $16M a16z Seed — "AI Product Teams as a Service" for the Enterprise</h2>
+    <div class="body-text">
+      <p>Stockholm-based Pit, founded by the co-founders of European scooter giant Voi, has emerged from stealth with a $16 million seed round led by Andreessen Horowitz. The investor list reads like an AI industry all-star roster: executives from OpenAI, Anthropic, Google, Deel, and Revolut participated alongside Lakestar and Sweden's Stena and Lundin families.</p>
+      <p>Pit's pitch is "AI product teams as a service" — a two-part platform where Pit Studio lets employees guide the system through processes that could be automated, and Pit Cloud delivers the resulting software with enterprise-grade governance and auditability. Early results include an 85% reduction in campaign execution time and over 10,000 hours saved annually per deployment.</p>
+      <p>The company is already live in enterprise pilots across logistics, telecom, e-commerce, and healthcare — with deployments going from concept to production in days, not months.</p>
+    </div>
+    <div class="impact-box">
+      → Impact: Pit represents the next wave of AI-native enterprise tooling: instead of adding AI to existing products, they're rebuilding workflows from scratch with AI as the foundation. The "days to production" timeline is the real signal — it suggests enterprise automation is becoming radically faster. For our product, this validates the approach of deep workflow automation over surface-level AI features. The team should monitor whether Pit expands into communication and scheduling workflows.
+    </div>
+    <a class="read-more" href="https://techcrunch.com/2026/05/07/voi-founders-new-ai-startup-pit-has-become-the-latest-rising-star-out-of-stockholm/" target="_blank" rel="noopener">Read more →</a>
+  </div>
+</section>
+
+<!-- STORY 06: WWDC Siri Extensions — OCEAN STYLE -->
+<section class="s-ocean">
+  <div class="bg-num" style="right:-4%;top:6%;">06</div>
+  <div class="inner">
+    <span class="badge">🟡 LOW IMPACT</span>
+    <div class="date-label">May 7, 2026</div>
+    <h2>WWDC 2026 Countdown: Apple to Open Siri to Claude, Gemini &amp; Third-Party AI Assistants</h2>
+    <div class="body-text">
+      <p>With WWDC just a month away (June 8–12), reports are solidifying around one of iOS 27's most consequential features: a new Extensions system that lets users route Siri queries to third-party AI assistants. Apple's current exclusive ChatGPT partnership would be broken wide open, with Claude, Gemini, Grok, and others all eligible as Siri backends.</p>
+      <p>The move aligns with Apple's broader iOS 27 push: AI-powered revamps of the Calendar and Health apps, a Siri rebuilt on modern LLM architecture for multi-turn conversations, and a new "Ask Siri" toggle appearing inside built-in apps for contextual help with email, highlighted text, and more. Apple highlighted its Distinguished Winners on May 7, reinforcing the WWDC drumbeat.</p>
+      <p>If the Extensions system ships as reported, it fundamentally changes the competitive landscape for AI assistants on Apple's platform — turning iOS from a walled garden into a marketplace for intelligence providers.</p>
+    </div>
+    <div class="impact-box">
+      → Impact: Apple opening Siri to third-party AI creates an enormous opportunity — and an existential question. Any email or calendar app on iOS could potentially tap into Claude, Gemini, or ChatGPT through system-level APIs, not just their own AI stack. For our product, this could be a springboard: if the team can integrate deeply with Siri Extensions, the app could become the preferred email surface for whichever AI assistant a user chooses. It's also a defensive move — if Apple's own apps get first-class AI Extensions access, third-party clients need parity.
+    </div>
+    <a class="read-more" href="https://www.macrumors.com/2026/05/07/wwdc-2026-distinguished-winners/" target="_blank" rel="noopener">Read more →</a>
+  </div>
+</section>
+
+<!-- QUICK HITS -->
+<section class="s-quickhits">
+  <div class="inner" style="max-width:960px;">
+    <h2>⚡ Quick Hits</h2>
+    <div class="hits-grid">
+      <div class="hit-card">
+        <span class="hit-badge">Enterprise</span>
+        <h3>IBM Think 2026 Wraps: watsonx Orchestrate Becomes Multi-Agent Control Plane</h3>
+        <p>IBM's Think conference (May 4–7) saw the launch of next-gen watsonx Orchestrate — now an agentic control plane where organizations deploy agents from any source with consistent policy enforcement. IBM Bob, a new agentic dev partner, entered GA alongside Content Cortex for intelligent content services.</p>
+        <a href="https://www.ibm.com/new/announcements/ibm-announcements-at-think-2026" target="_blank" rel="noopener">Read more →</a>
+      </div>
+      <div class="hit-card">
+        <span class="hit-badge">Security</span>
+        <h3>Cognizant Launches Secure AI Services for Agentic Governance</h3>
+        <p>As enterprises race to deploy AI agents, Cognizant rolled out Secure AI Services on May 8 — covering secure agent development, production behavior monitoring, identity and access management, and evidence for compliance audits. Aims to close the gap between the 79% of companies adopting AI agents and the 2% that have fully deployed them.</p>
+        <a href="https://www.crescendo.ai/news/latest-ai-news-and-updates" target="_blank" rel="noopener">Read more →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  Morning Edition — Auto-generated competitor intelligence<br>
+  Sources verified May 8, 2026 · Powered by Claude
+</footer>
+
+</body>
+</html>
