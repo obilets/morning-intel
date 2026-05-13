@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Morning Edition — May 13, 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-snap-type:y mandatory}
+body{font-family:'Inter',sans-serif;color:#1a1a1a;background:#faf9f6;overflow-x:hidden}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;justify-content:space-between;align-items:center;padding:16px 40px;background:rgba(26,26,26,0.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.08)}
+nav .logo{font-family:'Fraunces',serif;font-weight:700;font-size:1.1rem;color:#fff;letter-spacing:-0.02em}
+nav .date{font-family:'Inter',sans-serif;font-size:0.8rem;color:rgba(255,255,255,0.6);font-weight:400;letter-spacing:0.05em;text-transform:uppercase}
+
+/* SECTIONS */
+section{min-height:100vh;scroll-snap-align:start;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:80px 40px}
+@media(max-width:768px){section{padding:80px 20px}}
+
+.numeral{position:absolute;font-family:'Fraunces',serif;font-weight:900;line-height:1;pointer-events:none;user-select:none}
+
+.badge{display:inline-block;font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:6px 14px;border-radius:100px;margin-bottom:16px}
+.badge-high{background:#e74c3c;color:#fff}
+.badge-medium{background:#e67e22;color:#fff}
+.badge-low{background:#f1c40f;color:#1a1a1a}
+.badge-quick{background:#8e44ad;color:#fff}
+
+.story-date{font-family:'Inter',sans-serif;font-size:0.75rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:12px;opacity:0.6}
+.story-headline{font-family:'Fraunces',serif;font-weight:900;line-height:1.1;letter-spacing:-0.03em;margin-bottom:24px}
+.story-body{font-family:'Inter',sans-serif;font-size:1.05rem;line-height:1.75;max-width:640px;margin-bottom:32px}
+.story-body p{margin-bottom:16px}
+.impact-box{font-family:'Inter',sans-serif;font-style:italic;font-size:0.95rem;line-height:1.7;padding:20px 24px;border-radius:8px;max-width:640px;margin-bottom:20px}
+.read-more{font-family:'Inter',sans-serif;font-size:0.85rem;font-weight:600;text-decoration:none;letter-spacing:0.02em;transition:opacity 0.2s}
+.read-more:hover{opacity:0.7}
+
+.content-wrap{max-width:720px;position:relative;z-index:2}
+
+/* COVER */
+.cover{background:#faf9f6;text-align:center;flex-direction:column}
+.cover .edition-label{font-family:'Inter',sans-serif;font-size:0.7rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:#888;margin-bottom:24px}
+.cover h1{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(3rem,8vw,6.5rem);line-height:1;letter-spacing:-0.04em;color:#1a1a1a;margin-bottom:20px}
+.cover .subtitle{font-family:'Inter',sans-serif;font-size:1.1rem;color:#666;font-weight:300;max-width:480px;margin:0 auto 40px}
+.cover .issue-date{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:400;color:#1a1a1a}
+.cover .divider{width:60px;height:3px;background:#1a1a1a;margin:32px auto}
+.cover .toc{list-style:none;text-align:left;max-width:500px;margin:0 auto}
+.cover .toc li{font-family:'Inter',sans-serif;font-size:0.9rem;padding:10px 0;border-bottom:1px solid rgba(0,0,0,0.08);display:flex;align-items:baseline;gap:12px}
+.cover .toc li .toc-num{font-family:'Fraunces',serif;font-weight:700;font-size:1rem;opacity:0.3;min-width:28px}
+.cover .toc li a{color:#1a1a1a;text-decoration:none;font-weight:500}
+.cover .toc li a:hover{text-decoration:underline}
+
+/* 01 — Hero / Warm Cream */
+.spread-01{background:#faf5ee}
+.spread-01 .numeral{font-size:clamp(15rem,30vw,28rem);color:rgba(0,0,0,0.04);right:-5%;bottom:-10%}
+.spread-01 .story-headline{font-size:clamp(2rem,4.5vw,3.4rem);color:#1a1a1a}
+.spread-01 .impact-box{background:rgba(0,0,0,0.05);color:#1a1a1a}
+.spread-01 .read-more{color:#c0392b}
+
+/* 02 — Dark / Midnight */
+.spread-02{background:#0d1b2a;color:#e0e0e0}
+.spread-02 .numeral{font-size:clamp(15rem,30vw,28rem);color:rgba(255,255,255,0.03);left:-5%;top:-8%}
+.spread-02 .story-headline{font-size:clamp(2rem,4.5vw,3.4rem);color:#fff}
+.spread-02 .story-date{color:rgba(255,255,255,0.5)}
+.spread-02 .impact-box{background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.85)}
+.spread-02 .read-more{color:#5dade2}
+
+/* 03 — Rose / Alert */
+.spread-03{background:#fdf0ef}
+.spread-03 .numeral{font-size:clamp(15rem,30vw,28rem);color:rgba(192,57,43,0.06);right:-3%;top:-5%;transform:rotate(-12deg)}
+.spread-03 .story-headline{font-size:clamp(2rem,4.5vw,3.4rem);color:#2c1810}
+.spread-03 .impact-box{background:rgba(192,57,43,0.08);color:#2c1810}
+.spread-03 .read-more{color:#c0392b}
+
+/* 04 — Clean / Minimal */
+.spread-04{background:#ffffff;border-top:6px solid #e67e22}
+.spread-04 .numeral{font-size:clamp(15rem,30vw,28rem);color:rgba(230,126,34,0.05);left:-4%;bottom:-8%}
+.spread-04 .story-headline{font-size:clamp(2rem,4.5vw,3.4rem);color:#1a1a1a}
+.spread-04 .impact-box{background:#fef9f3;border-left:4px solid #e67e22;color:#1a1a1a}
+.spread-04 .read-more{color:#e67e22}
+
+/* 05 — Terminal */
+.spread-05{background:#0a0a0a;color:#c8c8c8}
+.spread-05 .numeral{font-size:clamp(15rem,30vw,28rem);color:rgba(39,174,96,0.06);right:-3%;top:-6%}
+.spread-05 .story-headline{font-size:clamp(2rem,4.5vw,3.2rem);color:#27ae60;font-family:'Fraunces',serif}
+.spread-05 .story-date{color:rgba(39,174,96,0.7)}
+.spread-05 .impact-box{background:rgba(39,174,96,0.08);border:1px solid rgba(39,174,96,0.2);color:#c8c8c8}
+.spread-05 .read-more{color:#27ae60}
+
+/* 06 — Academic / Drop-cap */
+.spread-06{background:#fefbf0}
+.spread-06 .numeral{font-size:clamp(15rem,30vw,28rem);color:rgba(0,0,0,0.03);left:-5%;bottom:-10%}
+.spread-06 .story-headline{font-size:clamp(2rem,4.5vw,3.2rem);color:#1a1a1a;font-style:italic}
+.spread-06 .impact-box{background:rgba(211,168,60,0.1);border-left:4px solid #d3a83c;color:#1a1a1a}
+.spread-06 .read-more{color:#b8860b}
+.drop-cap::first-letter{font-family:'Fraunces',serif;font-size:3.5em;float:left;line-height:0.8;margin-right:8px;margin-top:6px;color:#d3a83c;font-weight:900}
+
+/* Quick Hits Grid */
+.spread-quick{background:#1a1a2e;color:#e0e0e0}
+.spread-quick .story-headline{font-size:clamp(2rem,4vw,3rem);color:#fff;text-align:center;margin-bottom:40px}
+.quick-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;max-width:960px;width:100%}
+.quick-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:28px;transition:transform 0.2s,background 0.2s}
+.quick-card:hover{transform:translateY(-2px);background:rgba(255,255,255,0.08)}
+.quick-card h3{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:#fff;margin-bottom:12px;line-height:1.3}
+.quick-card p{font-family:'Inter',sans-serif;font-size:0.9rem;line-height:1.6;color:rgba(255,255,255,0.7);margin-bottom:16px}
+.quick-card a{font-size:0.8rem;font-weight:600;color:#8e44ad;text-decoration:none}
+.quick-card a:hover{text-decoration:underline}
+
+/* Footer */
+footer{background:#0d0d0d;color:rgba(255,255,255,0.5);text-align:center;padding:48px 40px;font-family:'Inter',sans-serif;font-size:0.8rem;line-height:1.8}
+footer strong{color:rgba(255,255,255,0.8)}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">✦ Morning Edition</div>
+  <div class="date">Tuesday, May 13, 2026</div>
+</nav>
+
+<!-- COVER -->
+<section class="cover">
+  <div>
+    <div class="edition-label">Competitor Intelligence</div>
+    <h1>Morning<br>Edition</h1>
+    <p class="subtitle">Your daily briefing on email, calendar, meetings &amp; AI.</p>
+    <div class="divider"></div>
+    <p class="issue-date">May 13, 2026</p>
+    <div style="height:40px"></div>
+    <ul class="toc">
+      <li><span class="toc-num">01</span><a href="#s1">Googlebook's Magic Pointer — DeepMind Turns the Cursor into an AI Agent</a></li>
+      <li><span class="toc-num">02</span><a href="#s2">Thinking Machines Lab Unveils Full-Duplex "Interaction Models"</a></li>
+      <li><span class="toc-num">03</span><a href="#s3">Microsoft Copilot Embeds Anthropic Claude — On by Default</a></li>
+      <li><span class="toc-num">04</span><a href="#s4">Google Races to Cement Gemini Before Apple's AI Reboot</a></li>
+      <li><span class="toc-num">05</span><a href="#s5">Zoom Ships Cross-Platform Meeting Intelligence This Month</a></li>
+      <li><span class="toc-num">06</span><a href="#s6">AI Meeting Recorders Head to Federal Court May 20</a></li>
+      <li><span class="toc-num">⚡</span><a href="#sq">Quick Hits — Three More Signals</a></li>
+    </ul>
+  </div>
+</section>
+
+<!-- 01 — Hero / Warm Cream -->
+<section class="spread-01" id="s1">
+  <div class="numeral">01</div>
+  <div class="content-wrap">
+    <span class="badge badge-high">High Impact</span>
+    <div class="story-date">May 12, 2026</div>
+    <h2 class="story-headline">Googlebook's "Magic Pointer" — DeepMind Turns the Cursor Into an AI Agent for Email&nbsp;&amp;&nbsp;Calendar</h2>
+    <div class="story-body">
+      <p>Google didn't just announce a new laptop category at The Android Show — it reimagined the most fundamental input device on a computer. Built with Google DeepMind, the Googlebook's "Magic Pointer" replaces the traditional cursor with an AI-powered pointing device that understands context, anticipates intent, and surfaces Gemini intelligence with a simple wiggle.</p>
+      <p>The implications for email and calendar workflows are immediate: hover over a date mentioned in an email and Gemini suggests creating a calendar event. Select a restaurant name and get a reservation link. Point at a flight confirmation and see it on a map with drive-time estimates. DeepMind describes the vision as a pointer that understands not just what it's pointing at, but why it matters to you — drawing on Gmail, Calendar, and your broader Google graph.</p>
+      <p>The first Googlebooks from Acer, Asus, Dell, HP, and Lenovo ship this fall, running Android with full app support plus phone-app streaming via "Cast my apps." Custom widgets can be generated by prompting Gemini — pulling live data from Gmail and Calendar into dashboard tiles on the home screen.</p>
+    </div>
+    <div class="impact-box">→ <strong>Impact:</strong> This is the cursor itself becoming an email-and-calendar AI agent. When the most basic interaction layer on a laptop is context-aware and connected to your inbox, the value of a dedicated email client shifts from "organizing messages" to "delivering intelligence the OS can't." The team needs to think about what our product offers that a smart cursor never could — depth of workflow, cross-account intelligence, and privacy.</div>
+    <a class="read-more" href="https://deepmind.google/blog/ai-pointer/" target="_blank" rel="noopener">Read more →</a>
+  </div>
+</section>
+
+<!-- 02 — Dark / Midnight -->
+<section class="spread-02" id="s2">
+  <div class="numeral">02</div>
+  <div class="content-wrap">
+    <span class="badge badge-high">High Impact</span>
+    <div class="story-date">May 11–12, 2026</div>
+    <h2 class="story-headline">Mira Murati's Thinking Machines Lab Unveils "Interaction Models" — Full-Duplex AI That Responds in 0.4&nbsp;Seconds</h2>
+    <div class="story-body">
+      <p>The former CTO of OpenAI just introduced a fundamentally new class of AI model. Thinking Machines Lab's "interaction models" are trained from scratch to handle real-time, full-duplex communication — the model listens, speaks, sees, and pauses naturally, all simultaneously, rather than bolting real-time interaction onto a turn-based architecture.</p>
+      <p>The numbers are striking: TML-Interaction-Small, a 276-billion-parameter Mixture-of-Experts model (12B active), achieves a 0.40-second response latency, versus OpenAI's GPT-Realtime-2.0 at 1.18 seconds. The model processes audio, video, and text in parallel 200-millisecond blocks, treating input and output as continuous, overlapping streams rather than sequential turns.</p>
+      <p>A research preview is expected within months, with a broader release later this year. Murati's lab published the architecture and benchmarks before scaling the model — a deliberate signal that this isn't vaporware.</p>
+    </div>
+    <div class="impact-box">→ <strong>Impact:</strong> Full-duplex interaction models are the missing piece for AI meeting assistants that actually participate rather than passively transcribe. Imagine a meeting copilot that listens, takes notes, and responds to questions in real time — all in under half a second. This technology will reshape the meeting notes category within 12–18 months, and our product should be watching for integration opportunities.</div>
+    <a class="read-more" href="https://techcrunch.com/2026/05/11/thinking-machines-wants-to-build-an-ai-that-actually-listens-while-it-talks/" target="_blank" rel="noopener">Read more →</a>
+  </div>
+</section>
+
+<!-- 03 — Rose / Alert -->
+<section class="spread-03" id="s3">
+  <div class="numeral">03</div>
+  <div class="content-wrap">
+    <span class="badge badge-medium">Medium Impact</span>
+    <div class="story-date">May 4–12, 2026</div>
+    <h2 class="story-headline">Microsoft Copilot Embeds Anthropic Claude Models Directly in Word, Excel &amp; PowerPoint — On by Default</h2>
+    <div class="story-body">
+      <p>This is distinct from Anthropic's standalone Claude add-ins for Office (covered last week). Microsoft is now embedding Anthropic's Claude models <em>inside Copilot itself</em> — meaning users editing a Word document, crunching numbers in Excel, or building slides in PowerPoint can select Claude as the AI engine powering Copilot, right from the model selector in the toolbar.</p>
+      <p>The rollout is live: Anthropic models are enabled by default for all Copilot Premium tenants outside the EU, EFTA, and UK. European organizations must opt in manually — and UK tenants faced a May 12 decision deadline. Word integration with Anthropic models is expected to reach full availability by summer 2026.</p>
+      <p>This marks a significant shift: Microsoft's own productivity copilot is now multi-model, offering users a choice between OpenAI and Anthropic for their daily document workflows. Copilot is no longer a single-vendor experience.</p>
+    </div>
+    <div class="impact-box">→ <strong>Impact:</strong> When the world's dominant office suite lets users pick between GPT and Claude inside the same toolbar, AI model quality becomes a commodity differentiator rather than a moat. For our product, this means the AI engine powering email features matters less than the workflow intelligence built around it — personalization, cross-account context, and action-oriented design are the real battleground.</div>
+    <a class="read-more" href="https://www.pcsofter.com/news/anthropic-ai-models-coming-to-microsoft-word-via-microsoft-365-copilot-in-late-may-2026.html" target="_blank" rel="noopener">Read more →</a>
+  </div>
+</section>
+
+<!-- 04 — Clean / Minimal -->
+<section class="spread-04" id="s4">
+  <div class="numeral">04</div>
+  <div class="content-wrap">
+    <span class="badge badge-medium">Medium Impact</span>
+    <div class="story-date">May 12, 2026</div>
+    <h2 class="story-headline">Google Races to Cement Gemini as the "Operating Layer" for Everything — While Also Powering Apple's&nbsp;Siri</h2>
+    <div class="story-body">
+      <p>CNBC's analysis of Google's Android Show strategy reveals a fascinating paradox: Google is simultaneously racing to make Gemini the intelligence layer across its own ecosystem (phone, car, laptop, glasses, watch) while also powering the AI behind Apple's upcoming Siri reboot at WWDC on June 8.</p>
+      <p>Android chief Sameer Samat told CNBC that Gemini Intelligence will move across apps, understand what's on screen, and complete tasks spanning multiple services — from pulling information out of Gmail to building shopping carts and booking reservations. The rollout starts this summer on Galaxy and Pixel devices, then expands to Android Auto (in 250 million cars), Wear OS, Android XR glasses, and Googlebooks.</p>
+      <p>The strategic twist: Gemini is confirmed as the model powering Apple's new Siri under a multiyear deal announced in January. Google wins regardless of which phone platform you use.</p>
+    </div>
+    <div class="impact-box">→ <strong>Impact:</strong> Gemini becoming the intelligence substrate for <em>both</em> Android and iOS means Google's AI will mediate inbox and calendar interactions for the vast majority of smartphone users worldwide. Our product competes not just with Gmail or Outlook, but with the operating system itself on both platforms. The differentiation must come from depth — multi-account intelligence, workflow automation, and privacy guarantees that an OS-level agent cannot provide.</div>
+    <a class="read-more" href="https://www.cnbc.com/2026/05/12/google-races-put-gemini-at-center-of-android-before-apples-ai-reboot.html" target="_blank" rel="noopener">Read more →</a>
+  </div>
+</section>
+
+<!-- 05 — Terminal -->
+<section class="spread-05" id="s5">
+  <div class="numeral">05</div>
+  <div class="content-wrap">
+    <span class="badge badge-low">Low Impact</span>
+    <div class="story-date">May 2026</div>
+    <h2 class="story-headline">Zoom Ships Live Notes + Zoom Drive This Month — Cross-Platform Meeting Intelligence Goes&nbsp;GA</h2>
+    <div class="story-body">
+      <p>Zoom's agentic AI push reaches general availability this month with two features that directly compete in the meeting notes space. Live Notes delivers real-time summaries during meetings or phone calls, helping participants stay on track without waiting for a post-call recap. Zoom Drive creates a central repository for all meeting and productivity assets, including Zoom Docs.</p>
+      <p>The most notable capability: "My Notes" works across third-party meeting platforms — Google Meet, Microsoft Teams, and WebEx — not just Zoom calls. Users jot notes during any meeting, and AI Companion enriches them with the transcript, creating a personalized recap focused on what matters most to each participant.</p>
+      <p>Combined with Personal Workflows (automating follow-ups and scheduling), Zoom is evolving from a video platform into a full meeting intelligence system that works regardless of which conferencing tool your team uses.</p>
+    </div>
+    <div class="impact-box">→ <strong>Impact:</strong> Cross-platform meeting notes that work on Teams, Meet, and WebEx blur the line between meeting tools and productivity assistants. As Zoom expands into the post-meeting workflow (follow-ups, scheduling, task creation), it encroaches on territory that our product's meeting notes feature occupies. The race is to own the moment after the meeting ends.</div>
+    <a class="read-more" href="https://news.zoom.com/zooms-new-agentic-ai-capabilities-supercharge-focus-and-productivity/" target="_blank" rel="noopener">Read more →</a>
+  </div>
+</section>
+
+<!-- 06 — Academic / Drop-cap -->
+<section class="spread-06" id="s6">
+  <div class="numeral">06</div>
+  <div class="content-wrap">
+    <span class="badge badge-low">Low Impact</span>
+    <div class="story-date">Hearing: May 20, 2026</div>
+    <h2 class="story-headline">AI Meeting Recorders Face Federal Court — Otter.ai and Fireflies Consent Lawsuits Head to&nbsp;Hearing</h2>
+    <div class="story-body drop-cap">
+      <p>The legal reckoning for AI meeting recorders arrives next week. A motion-to-dismiss hearing is scheduled for May 20 at the San Jose federal courthouse, addressing consent lawsuits filed against Otter.ai and Fireflies.ai over recording practices. The core legal question: does joining a meeting where an AI bot is present constitute consent to being recorded and transcribed?</p>
+      <p>The lawsuits allege violations of state wiretapping and eavesdropping statutes, arguing that participants were not adequately informed that AI tools were capturing their conversations. If the court allows the cases to proceed, it could establish precedent that reshapes how every AI meeting assistant handles consent, notification, and data retention.</p>
+      <p>The market is already feeling the chill: Reddit threads from this month show users treating meeting note tools as specialized rather than interchangeable, with privacy-conscious users gravitating toward tools like Granola that capture notes locally without sending bots into calls.</p>
+    </div>
+    <div class="impact-box">→ <strong>Impact:</strong> A ruling that tightens consent requirements for AI meeting recorders would benefit products with privacy-first architectures. If our meeting notes feature processes data on-device or with explicit user control, that becomes a selling point as competitors scramble to comply. Worth watching the May 20 hearing closely.</div>
+    <a class="read-more" href="https://tldv.io/blog/ai-meeting-recorder-lawsuits/" target="_blank" rel="noopener">Read more →</a>
+  </div>
+</section>
+
+<!-- Quick Hits -->
+<section class="spread-quick" id="sq">
+  <div style="text-align:center;width:100%">
+    <span class="badge badge-quick">Quick Hits</span>
+    <h2 class="story-headline">⚡ Three More Signals</h2>
+    <div class="quick-grid" style="margin:0 auto">
+      <div class="quick-card">
+        <h3>Shortwave Upgrades to Claude Sonnet 4 + Adds "AI Memories"</h3>
+        <p>Gmail-focused email client Shortwave swapped its AI engine to Anthropic's Claude Sonnet 4 for sharper intelligence, and shipped "AI Memories" — a feature that lets users teach the AI their preferences and have it remember behavioral rules across sessions. Voice commands also now supported.</p>
+        <a href="https://www.shortwave.com/changelog/" target="_blank" rel="noopener">Read more →</a>
+      </div>
+      <div class="quick-card">
+        <h3>Microsoft Teams Ships Real-Time Translation Across Languages</h3>
+        <p>Teams meetings now support automatic language detection and real-time translation, removing one of the last friction points in global collaboration. The feature has been rolling out since mid-April and is now broadly available to Microsoft 365 subscribers.</p>
+        <a href="https://www.geeky-gadgets.com/microsoft-365-updates-may-2026/" target="_blank" rel="noopener">Read more →</a>
+      </div>
+      <div class="quick-card">
+        <h3>JPMorgan Reclassifies AI as Core Infrastructure — 2,000 Staff Dedicated</h3>
+        <p>JPMorgan Chase formally moved AI investments from experimental R&amp;D to core infrastructure, dedicating 2,000 staff to AI development. The bank is focusing on internal productivity agents — a signal that enterprise demand for AI-powered workflow tools (including email and calendar) is real and budget-backed.</p>
+        <a href="https://www.crescendo.ai/news/latest-ai-news-and-updates" target="_blank" rel="noopener">Read more →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <strong>Morning Edition</strong> — Auto-generated competitor intelligence<br>
+  Sources verified May 13, 2026 · Powered by Claude
+</footer>
+
+</body>
+</html>
