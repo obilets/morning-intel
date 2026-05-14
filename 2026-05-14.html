@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Morning Edition — May 14, 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --font-display: 'Fraunces', Georgia, serif;
+    --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; font-size: 16px; }
+
+  body {
+    font-family: var(--font-body);
+    background: #0a0a0a;
+    color: #1a1a1a;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Fixed Nav ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1rem 2.5rem;
+    background: rgba(10,10,10,0.92); backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    font-family: var(--font-display);
+  }
+  nav .brand { color: #fafafa; font-size: 1.1rem; font-weight: 700; letter-spacing: -0.02em; }
+  nav .date-label { color: #888; font-family: var(--font-body); font-size: 0.85rem; font-weight: 500; }
+
+  /* ── Cover ── */
+  .cover {
+    min-height: 100vh; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; text-align: center;
+    background: #0a0a0a; color: #fafafa; padding: 6rem 2rem 4rem;
+    position: relative; overflow: hidden;
+  }
+  .cover::before {
+    content: '✦'; position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 40vw; opacity: 0.03; color: #a855f7;
+    pointer-events: none;
+  }
+  .cover .edition-label {
+    font-family: var(--font-body); text-transform: uppercase;
+    letter-spacing: 0.25em; font-size: 0.8rem; color: #a78bfa;
+    margin-bottom: 2rem; font-weight: 600;
+  }
+  .cover h1 {
+    font-family: var(--font-display); font-size: clamp(3.5rem, 8vw, 7rem);
+    font-weight: 900; line-height: 1; letter-spacing: -0.04em;
+    margin-bottom: 1.5rem;
+  }
+  .cover .subtitle {
+    font-size: 1.25rem; color: #888; max-width: 480px; line-height: 1.6;
+  }
+  .cover .story-count {
+    margin-top: 3rem; padding: 0.6rem 1.8rem;
+    border: 1px solid rgba(168,85,247,0.3); border-radius: 100px;
+    color: #a78bfa; font-size: 0.85rem; font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+  .cover .scroll-hint {
+    position: absolute; bottom: 2.5rem; color: #555;
+    font-size: 0.8rem; animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity: 0.4; } 50% { opacity: 1; } }
+
+  /* ── Shared Spread Styles ── */
+  .spread {
+    min-height: 100vh; display: flex; align-items: center;
+    justify-content: center; padding: 6rem 2rem; position: relative;
+    overflow: hidden;
+  }
+  .spread-inner {
+    max-width: 740px; width: 100%; position: relative; z-index: 2;
+  }
+  .spread .big-num {
+    position: absolute; font-family: var(--font-display);
+    font-size: clamp(15rem, 30vw, 28rem); font-weight: 900;
+    opacity: 0.06; line-height: 1; pointer-events: none; z-index: 1;
+    top: 50%; right: -5%; transform: translateY(-50%);
+  }
+  .badge {
+    display: inline-block; padding: 0.35rem 1rem; border-radius: 100px;
+    font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.08em; margin-bottom: 1rem;
+  }
+  .badge-high { background: #dc2626; color: #fff; }
+  .badge-medium { background: #ea580c; color: #fff; }
+  .badge-low { background: #ca8a04; color: #fff; }
+  .badge-quick { background: #7c3aed; color: #fff; }
+
+  .spread .pub-date {
+    font-size: 0.8rem; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.1em; margin-bottom: 1.2rem; opacity: 0.6;
+  }
+  .spread h2 {
+    font-family: var(--font-display); font-weight: 900;
+    font-size: clamp(2rem, 4.5vw, 3.2rem); line-height: 1.1;
+    letter-spacing: -0.03em; margin-bottom: 1.8rem;
+  }
+  .spread .body-text { font-size: 1.1rem; line-height: 1.75; margin-bottom: 1.8rem; }
+  .spread .body-text p { margin-bottom: 1rem; }
+  .spread .impact {
+    padding: 1.2rem 1.5rem; border-radius: 12px;
+    font-style: italic; font-size: 1rem; line-height: 1.65;
+    margin-bottom: 1.5rem;
+  }
+  .spread .read-more {
+    display: inline-block; font-weight: 600; font-size: 0.95rem;
+    text-decoration: none; border-bottom: 2px solid; padding-bottom: 2px;
+    transition: opacity 0.2s;
+  }
+  .spread .read-more:hover { opacity: 0.7; }
+
+  /* ── Theme: Hero (warm cream) ── */
+  .theme-hero { background: #faf5ee; color: #1a1a1a; }
+  .theme-hero .big-num { color: #d97706; }
+  .theme-hero h2 { color: #111; }
+  .theme-hero .impact { background: rgba(217,119,6,0.08); border-left: 4px solid #d97706; }
+  .theme-hero .read-more { color: #d97706; border-color: #d97706; }
+  .theme-hero .pub-date { color: #92400e; }
+
+  /* ── Theme: Dark/Midnight ── */
+  .theme-dark { background: #0f172a; color: #cbd5e1; }
+  .theme-dark .big-num { color: #3b82f6; }
+  .theme-dark h2 { color: #f1f5f9; }
+  .theme-dark .impact { background: rgba(59,130,246,0.1); border-left: 4px solid #3b82f6; color: #94a3b8; }
+  .theme-dark .read-more { color: #60a5fa; border-color: #60a5fa; }
+  .theme-dark .pub-date { color: #60a5fa; }
+
+  /* ── Theme: Rose/Alert ── */
+  .theme-rose { background: #fdf2f8; color: #1a1a1a; }
+  .theme-rose .big-num { color: #ec4899; transform: translateY(-50%) rotate(-6deg); }
+  .theme-rose h2 { color: #111; }
+  .theme-rose .impact { background: rgba(236,72,153,0.08); border-left: 4px solid #ec4899; }
+  .theme-rose .read-more { color: #db2777; border-color: #db2777; }
+  .theme-rose .pub-date { color: #9d174d; }
+
+  /* ── Theme: Clean/Minimal ── */
+  .theme-clean { background: #ffffff; color: #374151; }
+  .theme-clean .big-num { color: #f97316; }
+  .theme-clean h2 { color: #111827; }
+  .theme-clean .impact { background: #fff7ed; border-left: 4px solid #f97316; }
+  .theme-clean .read-more { color: #ea580c; border-color: #ea580c; }
+  .theme-clean .pub-date { color: #c2410c; }
+
+  /* ── Theme: Terminal ── */
+  .theme-terminal { background: #0a0a0a; color: #a3a3a3; }
+  .theme-terminal .big-num { color: #22c55e; }
+  .theme-terminal h2 { color: #f0fdf4; font-family: 'Courier New', monospace; font-size: clamp(1.6rem, 3.5vw, 2.5rem); }
+  .theme-terminal .impact { background: rgba(34,197,94,0.08); border-left: 4px solid #22c55e; color: #86efac; }
+  .theme-terminal .read-more { color: #4ade80; border-color: #4ade80; }
+  .theme-terminal .pub-date { color: #4ade80; font-family: 'Courier New', monospace; }
+
+  /* ── Theme: Quick Hits Grid (dark) ── */
+  .theme-grid { background: #18181b; color: #d4d4d8; padding: 6rem 2rem; }
+  .theme-grid .spread-inner { max-width: 900px; }
+  .theme-grid h2 {
+    color: #fafafa; text-align: center; margin-bottom: 2.5rem;
+    font-size: clamp(2rem, 4vw, 3rem);
+  }
+  .hits-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.2rem;
+  }
+  .hit-card {
+    background: #27272a; border-radius: 14px; padding: 1.5rem;
+    border: 1px solid #3f3f46; transition: transform 0.2s, border-color 0.2s;
+  }
+  .hit-card:hover { transform: translateY(-2px); border-color: #7c3aed; }
+  .hit-card .hit-title {
+    font-weight: 700; font-size: 0.95rem; color: #fafafa;
+    margin-bottom: 0.6rem; line-height: 1.4;
+  }
+  .hit-card .hit-body { font-size: 0.85rem; line-height: 1.6; color: #a1a1aa; }
+  .hit-card a {
+    display: inline-block; margin-top: 0.8rem; color: #a78bfa;
+    font-size: 0.8rem; font-weight: 600; text-decoration: none;
+  }
+  .hit-card a:hover { text-decoration: underline; }
+
+  /* ── Footer ── */
+  footer {
+    background: #0a0a0a; color: #555; text-align: center;
+    padding: 3rem 2rem; font-size: 0.85rem; line-height: 1.8;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  footer strong { color: #888; }
+
+  /* ── Responsive ── */
+  @media (max-width: 640px) {
+    nav { padding: 0.8rem 1.2rem; }
+    .spread { padding: 5rem 1.2rem; }
+    .spread .big-num { font-size: 10rem; right: -10%; }
+    .hits-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav>
+  <span class="brand">✦ Morning Edition</span>
+  <span class="date-label">Wednesday, May 14, 2026</span>
+</nav>
+
+<!-- Cover -->
+<section class="cover">
+  <p class="edition-label">Competitor Intelligence</p>
+  <h1>Morning<br>Edition</h1>
+  <p class="subtitle">Your daily briefing on email, calendar, meetings & AI.</p>
+  <div class="story-count">5 stories · 3 quick hits</div>
+  <p class="scroll-hint">↓ Scroll to read</p>
+</section>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- STORY 01 — Hero Theme -->
+<!-- ════════════════════════════════════════════ -->
+<section class="spread theme-hero">
+  <div class="big-num">01</div>
+  <div class="spread-inner">
+    <span class="badge badge-high">🔴 High Impact</span>
+    <p class="pub-date">May 13, 2026</p>
+    <h2>Notion Launches Developer Platform — Becomes an AI Agent Hub</h2>
+    <div class="body-text">
+      <p>Notion shipped the biggest platform expansion in its history yesterday: a full Developer Platform that transforms the workspace app into an orchestration layer for AI agents. The headline features are Workers (a hosted runtime for custom code), an External Agents API, database sync from any source with an API, and a new CLI for developers and coding agents alike.</p>
+      <p>At launch, Claude Code, Cursor, Codex, and Decagon are supported as partner agents — meaning teams can chat with external AI directly inside Notion, assign work, and track progress as if the agent were a teammate. Over one million custom agents have already been built since Notion launched that feature in February, and now they can connect to live data from Salesforce, Zendesk, Postgres, and more. Workers are free through August while developers experiment.</p>
+      <p>CEO Ivan Zhao framed the ambition clearly: "Any data, any tool, any agent — that's the big picture." Notion is no longer just a note-taking app. It's positioning as the control room where people and agents collaborate across tools and databases.</p>
+    </div>
+    <div class="impact">→ Impact: Notion already has Mail and Calendar. Add an agent orchestration layer that connects to every data source and every frontier AI, and you're looking at a full productivity platform that competes directly with the territory our product occupies. The "workspace as agent hub" model means users may never need to leave Notion — including for email.</div>
+    <a href="https://techcrunch.com/2026/05/13/notion-just-turned-its-workspace-into-a-hub-for-ai-agents/" target="_blank" class="read-more">→ Read more at TechCrunch</a>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- STORY 02 — Dark/Midnight Theme -->
+<!-- ════════════════════════════════════════════ -->
+<section class="spread theme-dark">
+  <div class="big-num">02</div>
+  <div class="spread-inner">
+    <span class="badge badge-high">🔴 High Impact</span>
+    <p class="pub-date">Reports circulating · Google I/O May 19</p>
+    <h2>Google's Secret "Remy" Agent — A 24/7 Autonomous AI That Acts on Your Behalf</h2>
+    <div class="body-text">
+      <p>Ahead of Google I/O next Monday, reports have surfaced that Google is internally testing a new personal AI agent codenamed "Remy." Unlike the Gemini chatbot, Remy is designed to be a true autonomous agent — one that can operate in the background 24/7, managing errands, sending documents, making purchases, and coordinating across apps without constant user input.</p>
+      <p>The reported list of connected apps is sweeping: Gmail, Calendar, Docs, Drive, Keep, Tasks, GitHub, WhatsApp, Spotify, and Google Photos. Google employees are currently dog-fooding Remy in a staff-only version of the Gemini app. The expectation is that it will be unveiled as a centerpiece at I/O on May 19, alongside a possible Gemini 4 model announcement.</p>
+      <p>If Remy ships as described, it represents Google's leap from "assistant that answers questions" to "agent that runs your life" — and email and calendar management are among the first use cases.</p>
+    </div>
+    <div class="impact">→ Impact: This is the logical next step after the Android Show's Gemini Intelligence layer. If Google ships a 24/7 personal agent that manages Gmail, Calendar, and cross-app workflows autonomously, the case for a standalone email client shrinks further for Android users. The team should watch the I/O keynote closely — Remy's capabilities will define the competitive ceiling for the rest of 2026.</div>
+    <a href="https://www.droid-life.com/2026/05/07/google-ai-agent-remy/" target="_blank" class="read-more">→ Read more at Droid Life</a>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- STORY 03 — Rose/Alert Theme -->
+<!-- ════════════════════════════════════════════ -->
+<section class="spread theme-rose">
+  <div class="big-num">03</div>
+  <div class="spread-inner">
+    <span class="badge badge-medium">🟠 Medium Impact</span>
+    <p class="pub-date">May 13, 2026</p>
+    <h2>Amazon Kills Rufus Chatbot, Launches Agentic "Alexa for Shopping"</h2>
+    <div class="body-text">
+      <p>Amazon is discontinuing its Rufus AI chatbot and merging it with Alexa+ into a new agentic shopping assistant called "Alexa for Shopping." The unified agent inherits Rufus's recommendation engine (used by 300 million customers in 2025) and Alexa+'s voice capabilities from hundreds of millions of devices.</p>
+      <p>Alexa for Shopping can compare products side by side, schedule purchases to trigger when an item hits a target price, reorder household staples, and track prices across categories — all through natural conversation. Users summon it via a cursive "A" icon on Amazon's website and app, or through Echo Show displays.</p>
+      <p>The move signals Amazon's deliberate shift from passive chatbot to autonomous agent — one that doesn't just answer questions about products but takes purchasing actions on your behalf.</p>
+    </div>
+    <div class="impact">→ Impact: Amazon's pivot validates the industry-wide "kill the chatbot, ship the agent" trend. Every major platform — Google, Microsoft, Apple, and now Amazon — is replacing conversational AI with autonomous agents that act. For the team, this accelerates the expectation that email and calendar tools should do more than surface information — they should complete tasks end-to-end.</div>
+    <a href="https://www.cnbc.com/2026/05/13/amazon-ditches-rufus-ai-chatbot-in-favor-of-alexa-shopping-agent.html" target="_blank" class="read-more">→ Read more at CNBC</a>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- STORY 04 — Clean/Minimal Theme -->
+<!-- ════════════════════════════════════════════ -->
+<section class="spread theme-clean">
+  <div class="big-num">04</div>
+  <div class="spread-inner">
+    <span class="badge badge-medium">🟠 Medium Impact</span>
+    <p class="pub-date">May 12–13, 2026</p>
+    <h2>iOS 27 Leak Wave Continues: Camera Gets Full Widget Customization, Visual Intelligence Mode</h2>
+    <div class="body-text">
+      <p>A fresh round of iOS 27 leaks dropped yesterday via 9to5Mac and Bloomberg, revealing that Apple is redesigning the iPhone Camera app with a widget-based interface. Users will be able to rearrange and customize camera controls — flash, exposure, timer, resolution — through draggable widgets from a new "Add Widgets" tray. A dedicated Visual Intelligence mode powered by Siri will let users identify objects, translate text, and use AI tools directly inside the camera.</p>
+      <p>Combined with last week's Siri 2.0 leaks (dedicated app, conversation history, cross-app email-to-calendar workflows), the picture of iOS 27 is becoming clearer: Apple is systematically injecting AI into every first-party app ahead of WWDC on June 8. Separately, leaks show macOS 27 will add Safari AI-powered automatic tab grouping through Apple Intelligence.</p>
+    </div>
+    <div class="impact">→ Impact: The pattern is clear — Apple is threading AI through Camera, Safari, Siri, and soon Mail. When iOS 27 ships, the default Apple experience will be dramatically more intelligent across the board. Each AI feature Apple adds to its own apps raises the bar for what third-party apps need to deliver to justify their existence on the home screen.</div>
+    <a href="https://9to5mac.com/2026/05/13/ios-27s-new-design-leak-sounds-a-lot-like-what-ive-been-wanting-most/" target="_blank" class="read-more">→ Read more at 9to5Mac</a>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- STORY 05 — Terminal Theme -->
+<!-- ════════════════════════════════════════════ -->
+<section class="spread theme-terminal">
+  <div class="big-num">05</div>
+  <div class="spread-inner">
+    <span class="badge badge-low">🟡 Low Impact</span>
+    <p class="pub-date">May 2026</p>
+    <h2>Air Street "State of AI: May 2026" — Frontier Models Clear 32-Step Cyber Attacks, Agent Economies Emerge</h2>
+    <div class="body-text">
+      <p>Nathan Benaich's closely watched State of AI newsletter dropped its May edition with two striking data points. First: two frontier models — Claude Mythos Preview and GPT-5.5 — independently cleared a 32-step end-to-end cyber-attack range in a single month. The UK's AI Security Institute now estimates frontier cyber-offense capability is doubling every four months.</p>
+      <p>Second: Anthropic ran "Project Deal," turning its SF headquarters into a week-long internal economy where 69 employee-backed agents navigated 500+ listings to close 186 transactions totalling $4,000. Opus 4.5 agents systematically out-negotiated Haiku 4.5 counterparts, suggesting agentic markets may inherently reward superior models with hidden premiums. Meanwhile, four Chinese labs released open-weights coding models in a 12-day window, all landing at comparable capability at a fraction of the inference cost.</p>
+    </div>
+    <div class="impact">→ Impact: The "agent economy" experiment is particularly relevant — it demonstrates that AI agents can negotiate, transact, and outperform in competitive environments. Apply that to email (auto-negotiating meeting times, vendor responses, scheduling conflicts) and the implications for our product category become concrete. Meanwhile, the Chinese model wave means AI capabilities are commoditizing faster than expected.</div>
+    <a href="https://press.airstreet.com/p/state-of-ai-may-2026" target="_blank" class="read-more">→ Read more at Air Street Press</a>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- QUICK HITS — Grid Theme -->
+<!-- ════════════════════════════════════════════ -->
+<section class="spread theme-grid">
+  <div class="spread-inner">
+    <h2>⚡ Quick Hits</h2>
+    <div class="hits-grid">
+      <div class="hit-card">
+        <div class="hit-title">ChatGPT Workspace Agents Shift to Credit-Based Pricing</div>
+        <div class="hit-body">OpenAI's research preview of Workspace Agents ended May 6. Teams can now build agents that handle email triage, meeting prep, and scheduling — connected to Gmail, Outlook, Slack, Salesforce, and Notion — through ChatGPT Business at $25/user/month with credit-based usage.</div>
+        <a href="https://openai.com/index/introducing-workspace-agents-in-chatgpt/" target="_blank">→ Source</a>
+      </div>
+      <div class="hit-card">
+        <div class="hit-title">JPMorgan Reclassifies AI from R&D to Core Infrastructure</div>
+        <div class="hit-body">JPMorgan Chase formally moved its AI investments from experimental R&D into core infrastructure, with a 2026 technology budget of approximately $19.8 billion and 2,000 staff dedicated to AI development. The signal: AI agents in enterprise workflows are no longer experiments.</div>
+        <a href="https://www.crescendo.ai/news/latest-ai-news-and-updates" target="_blank">→ Source</a>
+      </div>
+      <div class="hit-card">
+        <div class="hit-title">macOS 27: Safari Gets AI-Powered Auto Tab Grouping</div>
+        <div class="hit-body">Leaks from iOS 27 test builds show Safari will gain an "Organize Tabs" feature powered by Apple Intelligence that automatically groups open tabs into categories. Users can toggle between automatic and manual grouping — part of Apple's broader push to add AI to every first-party app.</div>
+        <a href="https://www.macrumors.com/2026/05/10/two-macos-27-changes-rumored/" target="_blank">→ Source</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <strong>Morning Edition</strong> — Auto-generated competitor intelligence<br>
+  Sources verified May 14, 2026 · Powered by Claude
+</footer>
+
+</body>
+</html>
