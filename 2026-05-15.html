@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Morning Edition — May 15, 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --cream: #FAF7F2;
+  --ink: #1A1A1A;
+  --navy: #0B1528;
+  --rose: #F2E0E0;
+  --rose-accent: #C45B5B;
+  --orange: #E87C3E;
+  --teal: #0D3B3B;
+  --purple: #2D1B4E;
+  --amber: #F5E6C8;
+  --slate: #F0EEEB;
+  --terminal-green: #39FF14;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; color: var(--ink); background: var(--cream); }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1rem 2.5rem;
+  background: rgba(26,26,26,0.92); backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+nav .logo { font-family: 'Fraunces', serif; font-size: 1.15rem; color: #fff; font-weight: 600; letter-spacing: -0.02em; }
+nav .logo span { color: var(--orange); }
+nav .date { font-size: 0.82rem; color: rgba(255,255,255,0.55); font-weight: 400; letter-spacing: 0.04em; text-transform: uppercase; }
+
+/* COVER */
+.cover {
+  min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+  background: var(--ink); color: #fff; text-align: center; padding: 6rem 2rem 4rem;
+  position: relative; overflow: hidden;
+}
+.cover::before {
+  content: '✦'; position: absolute; font-size: 28vw; opacity: 0.03;
+  font-family: 'Fraunces', serif; top: 50%; left: 50%; transform: translate(-50%, -50%);
+}
+.cover .edition-label {
+  font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.25em;
+  color: var(--orange); margin-bottom: 1.5rem; font-weight: 600;
+}
+.cover h1 {
+  font-family: 'Fraunces', serif; font-size: clamp(3rem, 8vw, 7rem);
+  font-weight: 900; line-height: 0.95; letter-spacing: -0.03em; margin-bottom: 1.5rem;
+}
+.cover .subtitle {
+  font-size: 1.1rem; color: rgba(255,255,255,0.5); max-width: 480px; line-height: 1.6; font-weight: 300;
+}
+.cover .story-count {
+  margin-top: 3rem; padding: 0.6rem 1.8rem; border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 100px; font-size: 0.8rem; color: rgba(255,255,255,0.45); letter-spacing: 0.08em; text-transform: uppercase;
+}
+
+/* SPREAD BASE */
+.spread {
+  min-height: 100vh; display: flex; flex-direction: column; justify-content: center;
+  padding: 6rem 2.5rem; position: relative; overflow: hidden;
+}
+.spread .numeral {
+  position: absolute; font-family: 'Fraunces', serif; font-weight: 900;
+  font-size: clamp(12rem, 22vw, 22rem); line-height: 1; opacity: 0.06; pointer-events: none;
+  right: -2%; top: 50%; transform: translateY(-50%);
+}
+.spread .content { max-width: 720px; position: relative; z-index: 1; }
+.spread .badge {
+  display: inline-block; padding: 0.35rem 1rem; border-radius: 100px;
+  font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+  margin-bottom: 1.2rem;
+}
+.badge-high { background: #E53E3E; color: #fff; }
+.badge-medium { background: var(--orange); color: #fff; }
+.badge-low { background: #D4A843; color: #1A1A1A; }
+.badge-quick { background: #6B46C1; color: #fff; }
+.spread .date-tag { font-size: 0.75rem; color: inherit; opacity: 0.45; margin-bottom: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; }
+.spread h2 {
+  font-family: 'Fraunces', serif; font-size: clamp(2rem, 4.5vw, 3.2rem);
+  font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 1.5rem;
+}
+.spread .body-text { font-size: 1.05rem; line-height: 1.75; margin-bottom: 1.5rem; opacity: 0.85; }
+.spread .impact-box {
+  padding: 1.25rem 1.5rem; border-radius: 8px; margin-top: 1rem; margin-bottom: 1.5rem;
+  font-style: italic; font-size: 0.95rem; line-height: 1.65;
+}
+.spread .read-more {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-size: 0.85rem; font-weight: 600; text-decoration: none; letter-spacing: 0.02em;
+  transition: gap 0.2s;
+}
+.spread .read-more:hover { gap: 0.8rem; }
+
+/* STYLE 1: Hero / Warm Cream */
+.spread-hero { background: var(--cream); color: var(--ink); }
+.spread-hero .numeral { color: var(--ink); }
+.spread-hero .impact-box { background: rgba(232,124,62,0.08); border-left: 3px solid var(--orange); }
+.spread-hero .read-more { color: var(--orange); }
+
+/* STYLE 2: Dark / Midnight */
+.spread-dark { background: var(--navy); color: #E8E4DF; }
+.spread-dark .numeral { color: #fff; }
+.spread-dark .impact-box { background: rgba(100,160,255,0.08); border-left: 3px solid #6496FF; }
+.spread-dark .read-more { color: #6496FF; }
+.spread-dark h2 { color: #fff; }
+
+/* STYLE 3: Rose / Alert */
+.spread-rose { background: var(--rose); color: var(--ink); }
+.spread-rose .numeral { color: var(--rose-accent); transform: translateY(-50%) rotate(-8deg); }
+.spread-rose .impact-box { background: rgba(196,91,91,0.08); border-left: 3px solid var(--rose-accent); }
+.spread-rose .read-more { color: var(--rose-accent); }
+
+/* STYLE 4: Terminal */
+.spread-terminal { background: #0A0A0A; color: #D4D4D4; }
+.spread-terminal .numeral { color: var(--terminal-green); opacity: 0.08; }
+.spread-terminal h2 { color: var(--terminal-green); font-family: 'Inter', sans-serif; font-weight: 700; }
+.spread-terminal .impact-box { background: rgba(57,255,20,0.05); border-left: 3px solid var(--terminal-green); }
+.spread-terminal .read-more { color: var(--terminal-green); }
+.spread-terminal .badge-medium { background: var(--terminal-green); color: #0A0A0A; }
+
+/* STYLE 5: Academic / Drop-cap Amber */
+.spread-academic { background: var(--amber); color: var(--ink); }
+.spread-academic .numeral { color: #B8860B; }
+.spread-academic h2 { font-style: italic; }
+.spread-academic .body-text::first-letter {
+  font-family: 'Fraunces', serif; font-size: 3.5rem; float: left;
+  line-height: 0.85; margin-right: 0.5rem; margin-top: 0.1rem; font-weight: 700; color: #B8860B;
+}
+.spread-academic .impact-box { background: rgba(184,134,11,0.08); border-left: 3px solid #B8860B; }
+.spread-academic .read-more { color: #B8860B; }
+
+/* STYLE 6: Ocean / Teal */
+.spread-ocean { background: var(--teal); color: #D4E8E8; }
+.spread-ocean .numeral { color: #2DD4BF; }
+.spread-ocean h2 { color: #fff; }
+.spread-ocean .impact-box { background: rgba(45,212,191,0.08); border-left: 3px solid #2DD4BF; }
+.spread-ocean .read-more { color: #2DD4BF; }
+.spread-ocean .badge-low { background: #2DD4BF; color: var(--teal); }
+
+/* STYLE 7: Quick Hits Grid */
+.spread-grid { background: #111; color: #E8E4DF; padding: 6rem 2.5rem; }
+.spread-grid h2 { font-family: 'Fraunces', serif; color: #fff; font-size: clamp(2rem, 4vw, 2.8rem); margin-bottom: 2rem; }
+.quick-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem; max-width: 960px;
+}
+.quick-card {
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px; padding: 1.5rem; transition: border-color 0.2s;
+}
+.quick-card:hover { border-color: rgba(255,255,255,0.2); }
+.quick-card .quick-badge { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--orange); margin-bottom: 0.75rem; font-weight: 600; }
+.quick-card h3 { font-family: 'Fraunces', serif; font-size: 1.15rem; font-weight: 600; margin-bottom: 0.75rem; color: #fff; line-height: 1.3; }
+.quick-card p { font-size: 0.88rem; line-height: 1.6; opacity: 0.65; }
+.quick-card a { color: var(--orange); text-decoration: none; font-size: 0.8rem; font-weight: 600; display: inline-block; margin-top: 0.75rem; }
+
+/* FOOTER */
+footer {
+  text-align: center; padding: 4rem 2rem; background: var(--ink); color: rgba(255,255,255,0.35);
+  font-size: 0.8rem; line-height: 1.8;
+}
+footer strong { color: rgba(255,255,255,0.6); }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  nav { padding: 0.8rem 1.2rem; }
+  .spread { padding: 5rem 1.5rem; }
+  .spread .numeral { font-size: 10rem; right: -10%; }
+  .quick-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo"><span>✦</span> Morning Edition</div>
+  <div class="date">May 15, 2026</div>
+</nav>
+
+<!-- COVER -->
+<section class="cover">
+  <div class="edition-label">Competitor Intelligence</div>
+  <h1>Morning<br>Edition</h1>
+  <p class="subtitle">Your daily briefing on email, calendar, meetings & AI.</p>
+  <div class="story-count">6 stories · 3 quick hits</div>
+</section>
+
+<!-- STORY 01 — Hero / Warm Cream -->
+<section class="spread spread-hero" id="story-01">
+  <div class="numeral">01</div>
+  <div class="content">
+    <span class="badge badge-high">🔴 High Impact</span>
+    <div class="date-tag">May 14, 2026</div>
+    <h2>PwC Goes All-In on Claude: 30,000 Consultants, One AI Platform</h2>
+    <p class="body-text">PwC and Anthropic dramatically expanded their strategic alliance on Wednesday, with PwC committing to roll out Claude Code and Cowork across its global workforce — starting in the U.S. and scaling to hundreds of thousands of professionals. A new joint Center of Excellence will train and certify 30,000 PwC staff on Claude, establishing Anthropic's platform as the backbone of one of the Big Four's consulting operations.</p>
+    <p class="body-text">The numbers are striking: clients are reporting delivery improvements of up to 70%, with underwriting cycles compressed from ten weeks to ten days. PwC is launching a dedicated Claude-native finance business group that combines domain expertise with the full Anthropic stack — Claude in the productivity suite, Cowork, and Claude Code. The alliance spans agentic technology builds for clients, AI-native dealmaking from diligence through integration, and the reinvention of core enterprise functions including finance, supply chain, and HR.</p>
+    <div class="impact-box">→ Impact: When a Big Four firm stakes its technology strategy on a single AI provider at this scale, it signals enterprise readiness that reshapes buyer expectations. Organizations evaluating productivity tools will increasingly ask whether their email and calendar stack integrates with the same AI layer their consultants use. The team's +AI features need to be interoperable with these emerging enterprise AI ecosystems — or risk being bypassed entirely.</div>
+    <a href="https://www.anthropic.com/news/pwc-expanded-partnership" class="read-more" target="_blank">Read more →</a>
+  </div>
+</section>
+
+<!-- STORY 02 — Dark / Midnight -->
+<section class="spread spread-dark" id="story-02">
+  <div class="numeral">02</div>
+  <div class="content">
+    <span class="badge badge-high">🔴 High Impact</span>
+    <div class="date-tag">May 14, 2026</div>
+    <h2>The Agent Pricing War: Anthropic Meters, OpenAI Undercuts</h2>
+    <p class="body-text">Anthropic announced that starting June 15, all programmatic Claude usage — via Agent SDK, headless mode, GitHub Actions, or third-party frameworks — will be billed against a separate monthly credit pool at API-style rates. Pro subscribers get $20 in credits, Max 5x users $100, and Max 20x users $200. Unused credits expire monthly. If the pool runs dry, overage tokens bill at full API rates.</p>
+    <p class="body-text">OpenAI moved fast to exploit the opening. Its counter-announcement emphasizes standard API pricing with no separate runtime fees and no session-hour meter, with the SDK remaining free and open source. Meanwhile, OpenAI's Pro $100 tier — priced to match Claude Max 5x — includes a temporary 10x Codex promotion through May 31. The message is clear: as AI agents consume compute far faster than humans ever could, the era of unlimited AI subscriptions may be ending.</p>
+    <div class="impact-box">→ Impact: This pricing split matters for every product built on top of AI models. If agentic usage gets metered separately, the cost calculus for AI-powered email triage, calendar management, and meeting intelligence changes fundamentally. Our product's AI features need a pricing architecture that scales sustainably as agents run continuously — not just when users are actively engaged.</div>
+    <a href="https://www.axios.com/2026/05/14/anthropic-claude-price-openai-tokens" class="read-more" target="_blank">Read more →</a>
+  </div>
+</section>
+
+<!-- STORY 03 — Rose / Alert -->
+<section class="spread spread-rose" id="story-03">
+  <div class="numeral">03</div>
+  <div class="content">
+    <span class="badge badge-medium">🟠 Medium Impact</span>
+    <div class="date-tag">May 14, 2026 · Event: May 19</div>
+    <h2>Google I/O in Four Days: Gemini Omni Leak Points to Unified AI Model</h2>
+    <p class="body-text">With Google I/O just four days away, a UI leak has surfaced what appears to be "Gemini Omni" — a new model that could unify text, image, and video generation into a single pipeline. The discovery came from Gemini's video generation tab, where the string "Powered by Omni" appeared alongside "Toucan," the internal name for the current Veo 3.1-powered video tool. Early leaked demos suggest improvements in prompt adherence and voice generation.</p>
+    <p class="body-text">The broader I/O picture is equally significant: Google is expected to announce Gemini 4.0 (or a major 3.x update) with a potential 10-million-token context window — enough to process an entire million-line codebase in a single API call. Android XR glasses powered by Gemini will be previewed, and the Gemini Intelligence features announced at the Android Show (AI Inbox, Daily Brief, Remy agent) are expected to get live demos and rollout timelines.</p>
+    <div class="impact-box">→ Impact: A 10-million-token context window would let an AI agent hold an entire quarter of email history, calendar events, and meeting transcripts in working memory simultaneously. That's the kind of capability that transforms email from a message-by-message experience into a holistic intelligence layer. If Google delivers this at I/O, the race to build the "AI that knows everything about your work life" accelerates dramatically.</div>
+    <a href="https://www.androidauthority.com/google-gemini-omni-video-model-leak-3665801/" class="read-more" target="_blank">Read more →</a>
+  </div>
+</section>
+
+<!-- STORY 04 — Terminal -->
+<section class="spread spread-terminal" id="story-04">
+  <div class="numeral">04</div>
+  <div class="content">
+    <span class="badge badge-medium">🟠 Medium Impact</span>
+    <div class="date-tag">May 13, 2026</div>
+    <h2>Goldman Sachs: AI's $750B Buildout Hits a Human Wall</h2>
+    <p class="body-text">The most expensive technology buildout in history is running into a problem Silicon Valley can't code its way out of: there aren't enough humans to build the physical infrastructure AI needs. Goldman Sachs estimates 760,000 additional power and grid workers are needed by 2030, including 207,000 specialized transmission and distribution roles requiring three to four years of training. That pipeline doesn't exist — and can't be built quickly.</p>
+    <p class="body-text">The numbers are sobering. Nearly half of all U.S. data centers planned for 2026 have been canceled or delayed. Of the 12 GW of AI data center capacity announced this year, only about 5 GW is under active construction. Lead times for high-voltage transformers have stretched from 12–18 months to 36–48 months. AI-related capex is expected to surpass $750 billion in 2026, but the physical world is becoming the binding constraint on AI's growth.</p>
+    <div class="impact-box">→ Impact: Infrastructure bottlenecks could slow the rollout of always-on AI agents that platforms like Gmail and Outlook are betting on. If compute capacity gets constrained, the cost of running continuous inbox triage, meeting intelligence, and calendar agents goes up for everyone. This could actually benefit lighter, more efficient AI implementations — creating an opening for products that deliver intelligence without requiring massive always-on compute overhead.</div>
+    <a href="https://fortune.com/2026/05/13/goldman-sachs-ai-agent-energy-bottleneck-labor-shortage/" class="read-more" target="_blank">Read more →</a>
+  </div>
+</section>
+
+<!-- STORY 05 — Academic / Amber -->
+<section class="spread spread-academic" id="story-05">
+  <div class="numeral">05</div>
+  <div class="content">
+    <span class="badge badge-medium">🟠 Medium Impact</span>
+    <div class="date-tag">May 13, 2026 · Tour starts May 14</div>
+    <h2>Anthropic Takes Claude to Main Street with Small Business Package</h2>
+    <p class="body-text">Anthropic launched Claude for Small Business — a suite of prebuilt agentic workflows that plugs Claude directly into QuickBooks, PayPal, HubSpot, Canva, DocuSign, Google Workspace, and Microsoft 365. The system handles payroll planning, invoice chasing, month-end reconciliation, sales campaigns, and contract routing. Critically, there's no extra charge beyond existing Claude licenses and partner tool subscriptions.</p>
+    <p class="body-text">The go-to-market is notable: starting May 14, Anthropic is running a 10-city tour (Chicago, Tulsa, Dallas, New Jersey, Baton Rouge, Birmingham, Salt Lake City, Baltimore, San Jose, Indianapolis) offering free half-day AI fluency workshops for 100 local small business leaders per stop. This is Anthropic making a deliberate play for the massive SMB segment that typically gets AI last.</p>
+    <div class="impact-box">→ Impact: When an AI provider builds native connectors to QuickBooks and Google Workspace for small businesses, it normalizes AI as the productivity layer for everyone — not just enterprise. If small business owners start managing email, invoices, and scheduling through Claude agents, the market expectation for what an email client should do rises across all segments. Our product needs to meet these users where they already are.</div>
+    <a href="https://techcrunch.com/2026/05/13/anthropic-courts-a-new-kind-of-customer-small-business-owners/" class="read-more" target="_blank">Read more →</a>
+  </div>
+</section>
+
+<!-- STORY 06 — Ocean / Teal -->
+<section class="spread spread-ocean" id="story-06">
+  <div class="numeral">06</div>
+  <div class="content">
+    <span class="badge badge-low">🟡 Low Impact</span>
+    <div class="date-tag">May 14–15, 2026</div>
+    <h2>Trump-Xi Summit Clears Nvidia H200 Chip Sales to China</h2>
+    <p class="body-text">Shortly after President Trump met President Xi on Thursday, Washington cleared sales of Nvidia's H200 AI chips to several major Chinese technology firms — a significant shift in the U.S. posture on AI export controls. A roster of top American executives including Nvidia's Jensen Huang, Tesla's Elon Musk, and Apple's Tim Cook accompanied Trump on the trip, underscoring how deeply intertwined geopolitics and AI infrastructure have become.</p>
+    <p class="body-text">The move comes as Chinese AI labs have been releasing competitive open-weight models at a fraction of Western pricing. Four labs — Z.ai, MiniMax, Moonshot, and DeepSeek — recently shipped coding models at roughly the same capability ceiling as frontier Western models, none costing more than a third of Claude Opus 4.7's pricing. Unlocking H200 access could accelerate this trend further.</p>
+    <div class="impact-box">→ Impact: Cheaper, more capable AI models from Chinese labs — now potentially running on better hardware — could reshape the competitive landscape for AI-powered productivity tools. If open-weight models reach parity with proprietary ones, the barrier to building AI email and calendar features drops significantly, potentially enabling a wave of new competitors with lower operating costs.</div>
+    <a href="https://www.cnbc.com/2026/05/14/trump-xi-summit-tech-flashpoints.html" class="read-more" target="_blank">Read more →</a>
+  </div>
+</section>
+
+<!-- QUICK HITS -->
+<section class="spread spread-grid" id="quick-hits">
+  <h2>⚡ Quick Hits</h2>
+  <div class="quick-grid">
+    <div class="quick-card">
+      <div class="quick-badge">Agentic AI · Hiring</div>
+      <h3>68% of Enterprise Hiring Leaders Expect Agentic AI to Be Core Within 12 Months</h3>
+      <p>Fusemachines' inaugural Agentic AI Forum found that enterprise hiring organizations are moving beyond experimentation. Only 14% say talent acquisition owns AI decisions alone — legal, compliance, IT, and security teams are all at the table now.</p>
+      <a href="https://www.globenewswire.com/news-release/2026/05/14/3294941/0/en/Fusemachines-Research-Shows-How-Agentic-AI-Is-Becoming-Core-to-Enterprise-Hiring.html" target="_blank">Read more →</a>
+    </div>
+    <div class="quick-card">
+      <div class="quick-badge">Infrastructure · IPO</div>
+      <h3>Cerebras to Debut on Nasdaq at $56.4B Valuation</h3>
+      <p>AI chipmaker Cerebras raised $5.55 billion in its IPO under ticker "CBRS," signaling massive investor appetite for AI infrastructure plays even as data center buildouts face delays and labor shortages.</p>
+      <a href="https://llm-stats.com/ai-news" target="_blank">Read more →</a>
+    </div>
+    <div class="quick-card">
+      <div class="quick-badge">Competitive Models</div>
+      <h3>Four Chinese Labs Ship Open-Weight Coding Models at a Third of Western Pricing</h3>
+      <p>Z.ai's GLM-5.1, MiniMax M2.7, Moonshot's Kimi K2.6, and DeepSeek V4 all hit roughly the same agentic engineering capability ceiling — at a fraction of frontier model costs. The inference cost gap is narrowing fast.</p>
+      <a href="https://llm-stats.com/ai-news" target="_blank">Read more →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <strong>Morning Edition</strong> — Auto-generated competitor intelligence<br>
+  Sources verified May 15, 2026 · Powered by Claude
+</footer>
+
+</body>
+</html>
